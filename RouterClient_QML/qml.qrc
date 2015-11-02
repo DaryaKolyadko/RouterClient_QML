@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>mainform.qml</file>
+        <file>socket.io.js</file>
     </qresource>
 </RCC>
-

@@ -3,6 +3,8 @@ import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls.Styles 1.4
+import QtWebSockets 1.0
+//import "socket.io.js" as Socket
 
 ApplicationWindow {
     id: appWindow
@@ -10,6 +12,50 @@ ApplicationWindow {
     width: 520
     height: 250
     title: qsTr("Авторизация")
+
+    WebSocketServer {
+        id: server
+        listen: true
+    //    port: "8080"
+        onClientConnected: {
+            webSocket.onTextMessageReceived.connect(
+                        function(message) {
+                            MessageDialog.show(qsTr("Server received message: %1").arg(message));
+                            webSocket.sendTextMessage(qsTr("Hello Client!"));
+                        });
+        }
+        onErrorStringChanged: {
+             MessageDialog.show(qsTr("Server error: %1").arg(errorString));
+        }
+    }
+
+    WebSocket {
+            id: appSocket
+            onTextMessageReceived: {
+                MessageDialog.show(message)
+//                var data = message;
+//                var messages = root.messages;
+//                if(data.message) {
+//                    messages.push(data);
+//                    var html = '';
+//                    for(var i = 0; i < messages.length; i++) {
+//                        html += '<b>' + (messages[i].username ? messages[i].username : 'Server') + ': </b>';
+//                        html += messages[i].message + '<br />';
+//                    }
+//                    messageBox.append(html);
+//                } else {
+//                    messageBox.append("There is a problem:", data);
+//                }
+                if (socket.status == WebSocket.Error) {
+                    messageDialog.show(qsTr("Ошибка: ") + socket.errorString)
+                } else if (socket.status == WebSocket.Open) {
+                    socket.sendTextMessage(qsTr("Hello World"))
+                } else if (socket.status == WebSocket.Closed) {
+                    messageDialog.show(qsTr("Соединение закрыто"))
+                        }
+            active: false
+        }
+    }
 
 //    menuBar: MenuBar {
 //        Menu {
@@ -69,7 +115,6 @@ ApplicationWindow {
             Layout.fillWidth: true
             Layout.fillHeight: true
             style: textFieldStyle
-
             echoMode: TextInput.Password
         }
 
@@ -103,7 +148,39 @@ ApplicationWindow {
             Layout.fillWidth: true
 
             onClicked: {
+//                var login = loginTextInput.getText();
+//                var password = passwordTextInput.getText()
+//                var host = hostAddressTextInput.getText();
+//                var port = 8080;
+//                var socket = new jSocket()
+
                 //TODO open new form
+               // var socket = io();
+            //                // Tell the server your username
+            //                socket.emit('add user', loginTextInput.getText());
+            //                // tell server to execute 'new message' and send along one parameter
+            //                socket.emit('new message', message);
+
+
+
+//                var socket = Socket.require('socket.io-client')('http://localhost');//io('http://localhost');
+//                socket.on('connect', function(){});
+//                socket.on('event', function(data){});
+//                socket.on('disconnect', function(){});
+//                socket.emit('auth', loginTextInput.getText() + ' ' + passwordTextInput.getText() + ' ' +
+//                            hostAddressTextInput.getText());
+
+
+
+//                var login = loginTextInput.getText();
+//                var password = passwordTextInput.getText()
+//                appSocket.url = hostAddressTextInput.getText()
+//                appSocket.sendTextMessage(login + qsTr(" ") + password)
+
+                var component = Qt.createComponent("mainform.qml")
+                var window = component.createObject(appWindow)
+                window.show()
+                appWindow.hide()
             }
         }
     }
@@ -132,4 +209,5 @@ ApplicationWindow {
                 }
             }
         }
-}
+    }
+
