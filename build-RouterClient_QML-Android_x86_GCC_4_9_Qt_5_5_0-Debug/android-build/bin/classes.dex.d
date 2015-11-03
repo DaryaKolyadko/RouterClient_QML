@@ -1,0 +1,27 @@
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes.dex : \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\kde\necessitas\ministro\IMinistro$Stub$Proxy.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\kde\necessitas\ministro\IMinistro$Stub.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\kde\necessitas\ministro\IMinistro.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\kde\necessitas\ministro\IMinistroCallback$Stub$Proxy.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\kde\necessitas\ministro\IMinistroCallback$Stub.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\kde\necessitas\ministro\IMinistroCallback.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\example\RouterClient_QML\BuildConfig.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\example\RouterClient_QML\R$array.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\example\RouterClient_QML\R$attr.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\example\RouterClient_QML\R$layout.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\example\RouterClient_QML\R$string.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\example\RouterClient_QML\R.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\qt5\android\bindings\QtActivity$1.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\qt5\android\bindings\QtActivity$2.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\qt5\android\bindings\QtActivity$3$1$1.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\qt5\android\bindings\QtActivity$3$1.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\qt5\android\bindings\QtActivity$3.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\qt5\android\bindings\QtActivity$4.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\qt5\android\bindings\QtActivity$5.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\qt5\android\bindings\QtActivity$6.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\qt5\android\bindings\QtActivity.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\qt5\android\bindings\QtApplication$InvokeResult.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\classes\org\qtproject\qt5\android\bindings\QtApplication.class \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\dexedLibs\QtAndroid-bundled-e1df55ef2d9a39509c97c4c288f82b67.jar \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\dexedLibs\QtAndroidBearer-bundled-770e4d008dedbaffb8520d6ec7124bd5.jar \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\dexedLibs\QtAndroidAccessibility-bundled-a012c32a58585719c23857378b8b016a.jar \

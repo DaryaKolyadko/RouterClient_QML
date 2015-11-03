@@ -1,0 +1,24 @@
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\gen\org\qtproject\example\RouterClient_QML\R.java \
+ : D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\layout\splash.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values\libs.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-de\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-el\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-es\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-et\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-fa\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-fr\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-id\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-it\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-ja\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-ms\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-nb\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-nl\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-pl\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-pt-rBR\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-ro\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-rs\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-ru\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-zh-rCN\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\res\values-zh-rTW\strings.xml \
+D:\qtCreator_projects\RouterClient_QML\build-RouterClient_QML-Android_x86_GCC_4_9_Qt_5_5_0-Debug\android-build\bin\AndroidManifest.xml \
