@@ -57,43 +57,47 @@ ApplicationWindow {
         }
     }
 
-//    menuBar: MenuBar {
-//        Menu {
-//            title: qsTr("File")
-//            MenuItem {
-//                text: qsTr("&Open")
-//                onTriggered: console.log("Open action triggered");
-//            }
-//            MenuItem {
-//                text: qsTr("Exit")
-//                onTriggered: Qt.quit();
-//            }
-//        }
-//    }
+   /* menuBar: MenuBar {
+        Menu {
+            title: qsTr("File")
+            MenuItem {
+                text: qsTr("&Open")
+                onTriggered: console.log("Open action triggered");
+            }
+            MenuItem {
+                text: qsTr("Exit")
+                onTriggered: Qt.quit();
+            }
+        }
+    }*/
+
+    property int bottomMargin: 10
+    property int fontСoefficient: 70
 
     GridLayout {
         id: gridLayoutStopWatch
         columns: 3
         anchors.centerIn: parent
-        width: appWindow.width*8/9
 
         Text{
             id: loginText
             font.bold: true
             font.letterSpacing: 1
-            font.pointSize: (appWindow.height + appWindow.width)/70
+            font.pointSize: (appWindow.height + appWindow.width)/fontСoefficient
             Layout.fillWidth: true
             Layout.fillHeight: true
+            anchors.bottomMargin: bottomMargin
             text: qsTr("Логин:")
         }
 
         TextField {
             id: loginTextInput
             font.letterSpacing: 1
-            font.pointSize: (appWindow.height + appWindow.width)/70
+            font.pointSize: (appWindow.height + appWindow.width)/fontСoefficient
             Layout.columnSpan: 2
             Layout.fillWidth: true
             Layout.fillHeight: true
+            anchors.bottomMargin: bottomMargin
             style: textFieldStyle
         }
 
@@ -101,20 +105,22 @@ ApplicationWindow {
             id: passwordText
             font.bold: true
             font.letterSpacing: 1
-            font.pointSize: (appWindow.height + appWindow.width)/70
+            font.pointSize: (appWindow.height + appWindow.width)/fontСoefficient
             Layout.fillWidth: true
             Layout.fillHeight: true
+            anchors.bottomMargin: bottomMargin
             text: qsTr("Пароль:")
         }
 
         TextField {
             id: passwordTextInput
             font.letterSpacing: 1
-            font.pointSize: (appWindow.height + appWindow.width)/70
+            font.pointSize: (appWindow.height + appWindow.width)/fontСoefficient
             Layout.columnSpan: 2
             Layout.fillWidth: true
             Layout.fillHeight: true
             style: textFieldStyle
+            anchors.bottomMargin: bottomMargin
             echoMode: TextInput.Password
         }
 
@@ -122,20 +128,22 @@ ApplicationWindow {
             id: hostAddressText
             font.bold: true
             font.letterSpacing: 1
-            font.pointSize: (appWindow.height + appWindow.width)/70
+            font.pointSize: (appWindow.height + appWindow.width)/fontСoefficient
             Layout.fillWidth: true
             Layout.fillHeight: true
+            anchors.bottomMargin: bottomMargin
             text: qsTr("Адрес хоста:")
         }
 
         TextField {
             id: hostAddressTextInput
             font.letterSpacing: 1
-            font.pointSize: (appWindow.height + appWindow.width)/70
+            font.pointSize: (appWindow.height + appWindow.width)/fontСoefficient
             Layout.columnSpan: 2
             Layout.fillWidth: true
             Layout.fillHeight: true
             style: textFieldStyle
+            anchors.bottomMargin: bottomMargin
             validator: RegExpValidator{
                 regExp: /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/
             }
@@ -148,36 +156,34 @@ ApplicationWindow {
             Layout.fillWidth: true
 
             onClicked: {
-//                var login = loginTextInput.getText();
-//                var password = passwordTextInput.getText()
-//                var host = hostAddressTextInput.getText();
-//                var port = 8080;
-//                var socket = new jSocket()
+   /*             var login = loginTextInput.getText();
+                var password = passwordTextInput.getText()
+                var host = hostAddressTextInput.getText();
+                var port = 8080;
+                var socket = new jSocket()
 
-                //TODO open new form
-               // var socket = io();
-            //                // Tell the server your username
-            //                socket.emit('add user', loginTextInput.getText());
-            //                // tell server to execute 'new message' and send along one parameter
-            //                socket.emit('new message', message);
-
-
-
-//                var socket = Socket.require('socket.io-client')('http://localhost');//io('http://localhost');
-//                socket.on('connect', function(){});
-//                socket.on('event', function(data){});
-//                socket.on('disconnect', function(){});
-//                socket.emit('auth', loginTextInput.getText() + ' ' + passwordTextInput.getText() + ' ' +
-//                            hostAddressTextInput.getText());
+                TODO open new form
+                var socket = io();
+                            // Tell the server your username
+                            socket.emit('add user', loginTextInput.getText());
+                            // tell server to execute 'new message' and send along one parameter
+                            socket.emit('new message', message);*/
 
 
+           /*     var socket = Socket.require('socket.io-client')('http://localhost');//io('http://localhost');
+                socket.on('connect', function(){});
+                socket.on('event', function(data){});
+                socket.on('disconnect', function(){});
+                socket.emit('auth', loginTextInput.getText() + ' ' + passwordTextInput.getText() + ' ' +
+                            hostAddressTextInput.getText());*/
 
-//                var login = loginTextInput.getText();
-//                var password = passwordTextInput.getText()
-//                appSocket.url = hostAddressTextInput.getText()
-//                appSocket.sendTextMessage(login + qsTr(" ") + password)
 
-                var component = Qt.createComponent("mainform.qml")
+             /*   var login = loginTextInput.getText();
+                var password = passwordTextInput.getText()
+                appSocket.url = hostAddressTextInput.getText()
+                appSocket.sendTextMessage(login + qsTr(" ") + password)*/
+
+                var component = Qt.createComponent("configurationform.qml")
                 var window = component.createObject(appWindow)
                 window.show()
                 appWindow.hide()
