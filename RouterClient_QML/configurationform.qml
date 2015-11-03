@@ -13,9 +13,10 @@ ApplicationWindow {
     title: qsTr("Настройка ")
 
     Component.onCompleted: {
-        frequencyRangeListModel.append({hz: 2.4})
-        frequencyRangeListModel.append({hz: 5.0})
-        console.debug("lalka")
+        frequencyRangeListModel.append({text: "2.4 Hz"})
+        frequencyRangeListModel.append({text: "5.0 Hz"})
+        wifiStatusListModel.append({text: "Выключена"})
+        wifiStatusListModel.append({text: "Включена"})
     }
 
     property int bottomMargin: 15
@@ -33,7 +34,7 @@ ApplicationWindow {
             property bool userEditingConfiguration: false
 
             GridLayout{
-                id: configurationColumnLayout
+                id: mainConfiguration
                 columns: 3
                 anchors.fill: parent
 
@@ -42,20 +43,19 @@ ApplicationWindow {
                     text: userEditingConfiguration ? qsTr("Сохранить настройки") : qsTr("Изменить настройки")
                     Layout.columnSpan: 3
                     Layout.fillWidth: true
-                    //Layout.width: gridLayoutMainConfig.width
                     anchors.bottomMargin: bottomMargin
 
                     onClicked: {
                         if(userEditingConfiguration)
-                            gridLayoutMainConfig.enabled = false
+                            mainConfigurationGridLayout.enabled = false
                         else
-                            gridLayoutMainConfig.enabled = true
+                            mainConfigurationGridLayout.enabled = true
                         userEditingConfiguration = !userEditingConfiguration
                     }
                 }
 
                 GridLayout {
-                    id: gridLayoutMainConfig
+                    id: mainConfigurationGridLayout
                     columns: 3
                     anchors.centerIn: parent
                     enabled: false
@@ -131,77 +131,204 @@ ApplicationWindow {
         }
 
         Tab{
-            id: wifiConfiguration
+            id: wifiConfigurationTab
             title: qsTr("Wi-Fi")
+            anchors.fill: parent
 
-            GridLayout {
-                id: gridLayoutWifiConfig
+            property bool userEditingConfiguration: false
+
+            GridLayout{
+                id: wifiConfiguration
                 columns: 3
-                anchors.centerIn: parent
-               // width: appWindowMain.width*2/3
+                anchors.fill: parent
 
-                Text{
-                    id: ssid
-                    font.letterSpacing: 1
-                    font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
+                Button{
+                    id: changeWifiConfiguration
+                    text: userEditingConfiguration ? qsTr("Сохранить настройки") : qsTr("Изменить настройки")
+                    Layout.columnSpan: 3
                     Layout.fillWidth: true
-                    text: qsTr("Имя беспроводной сети (SSID):")
-                }
+                    anchors.bottomMargin: bottomMargin
 
-                TextField {
-                    id: ssidTextInput
-                    font.letterSpacing: 1
-                    font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
-                    Layout.columnSpan: 2
-                    Layout.fillWidth: true
-                    style: textFieldStyle
-                }
-
-                Text{
-                    id:frequencyRangeText
-                    font.letterSpacing: 1
-                    font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
-                    Layout.fillWidth: true
-                    text: qsTr("Частотный диапазон:")
-                }
-
-                TextField {
-                    id:frequencyRangeTextInput
-                    font.letterSpacing: 1
-                    font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
-                    Layout.columnSpan: 2
-                    Layout.fillWidth: true
-                    style: textFieldStyle
-                    validator: RegExpValidator{
-                        regExp: /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/
+                    onClicked: {
+                        if(userEditingConfiguration)
+                            wifiConfigurationGridLayout.enabled = false
+                        else
+                            wifiConfigurationGridLayout.enabled = true
+                        userEditingConfiguration = !userEditingConfiguration
                     }
                 }
-/*
-                Text{
-                    id: macAddressText
-                    font.bold: true
-                    font.letterSpacing: 1
-                    font.pointSize: (appWindow.height + appWindow.width)/fontCoefficient
-                    Layout.fillWidth: true
-                    text: qsTr("MAC-адрес:")
-                }
 
-                TextField {
-                    id:macAddressTextInput
-                    font.letterSpacing: 1
-                    font.pointSize: (appWindow.height + appWindow.width)/fontCoefficient
-                    Layout.columnSpan: 2
-                    Layout.fillWidth: true
-                    style: textFieldStyle
+                GridLayout {
+                    id: wifiConfigurationGridLayout
+                    columns: 3
+                    anchors.centerIn: parent
                     enabled: false
-                    validator: RegExpValidator{
-                        regExp: /\b(^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$)\b/
+                    Layout.fillWidth: true
+
+                    Text{
+                        id: ssid
+                        font.letterSpacing: 1
+                        font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
+                        Layout.fillWidth: true
+                        text: qsTr("Имя беспроводной сети (SSID):")
                     }
-                }*/
+
+                    TextField {
+                        id: ssidTextInput
+                        font.letterSpacing: 1
+                        font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
+                        Layout.columnSpan: 2
+                        Layout.fillWidth: true
+                        style: textFieldStyle
+                    }
+
+                    Text{
+                        id:frequencyRangeText
+                        font.letterSpacing: 1
+                        font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
+                        Layout.fillWidth: true
+                        text: qsTr("Частотный диапазон:")
+                    }
+
+                    ComboBox {
+                        id:frequencyRangeComboBox
+                        Layout.columnSpan: 2
+                        Layout.fillWidth: true
+                        model: frequencyRangeListModel
+                        }
+
+                    Text{
+                        id:wifiStatusText
+                        font.letterSpacing: 1
+                        font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
+                        Layout.fillWidth: true
+                        text: qsTr("Точка доступа Wi-Fi:")
+                    }
+
+                    ComboBox {
+                        id:wifiStatusComboBox
+                        Layout.columnSpan: 2
+                        Layout.fillWidth: true
+                        model: wifiStatusListModel
+                        }
+                    }
+                }
+        }
+
+        Tab{
+            id: systemInformationTab
+            title: qsTr("Информация о системе")
+            anchors.fill: parent
+
+            property bool userEditingConfiguration: false
+
+            GridLayout{
+                id: systemInformation
+                columns: 3
+                anchors.fill: parent
+
+                Button{
+                    id: changeSystemInformation
+                    text: userEditingConfiguration ? qsTr("Сохранить настройки") : qsTr("Изменить настройки")
+                    Layout.columnSpan: 3
+                    Layout.fillWidth: true
+                    anchors.bottomMargin: bottomMargin
+
+                    onClicked: {
+                        if(userEditingConfiguration)
+                            systemInformationGridLayout.enabled = false
+                        else
+                            systemInformationGridLayout.enabled = true
+                        userEditingConfiguration = !userEditingConfiguration
+                    }
+                }
+
+                GridLayout {
+                    id: systemInformationGridLayout
+                    columns: 3
+                    anchors.centerIn: parent
+                    enabled: false
+                    Layout.fillWidth: true
+
+                    Text{
+                        id: model
+                        font.letterSpacing: 1
+                        font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
+                        Layout.fillWidth: true
+                        text: qsTr("Модель:")
+                    }
+
+                    TextField {
+                        id: modelTextInput
+                        font.letterSpacing: 1
+                        font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
+                        Layout.columnSpan: 2
+                        Layout.fillWidth: true
+                        text: qsTr("Keenetic Ultra")
+                        style: textFieldStyle
+                    }
+
+                    Text{
+                        id:serviceCodeRangeText
+                        font.letterSpacing: 1
+                        font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
+                        Layout.fillWidth: true
+                        text: qsTr("Сервисный код:")
+                    }
+
+                    TextField {
+                        id: serviceCodeTextInput
+                        font.letterSpacing: 1
+                        font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
+                        Layout.columnSpan: 2
+                        Layout.fillWidth: true
+                        text: qsTr("607-066-405-847-030")
+                        style: textFieldStyle
+                        validator: RegExpValidator{
+                            regExp: /\b(?:(?:[0-9][0-9][0-9]?)-){3}(?:[0-9][0-9][0-9]?)\b/
+                        }
+                    }
+
+                    Text{
+                        id:hostNameStatusText
+                        font.letterSpacing: 1
+                        font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
+                        Layout.fillWidth: true
+                        text: qsTr("Имя хоста:")
+                    }
+
+                    TextField {
+                        id: hostNameTextInput
+                        font.letterSpacing: 1
+                        font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
+                        Layout.columnSpan: 2
+                        Layout.fillWidth: true
+                        text: qsTr("Keenetic_Ultra")
+                        style: textFieldStyle
+                    }
+
+                    Text{
+                        id: workGroupStatusText
+                        font.letterSpacing: 1
+                        font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
+                        Layout.fillWidth: true
+                        text: qsTr("Рабочая группа:")
+                    }
+
+                    TextField {
+                        id: workGroupTextInput
+                        font.letterSpacing: 1
+                        font.pointSize: (appWindowMain.height + appWindowMain.width)/fontСoefficient
+                        Layout.columnSpan: 2
+                        Layout.fillWidth: true
+                        text: qsTr("Home_1a-6")
+                        style: textFieldStyle
+                    }
+                }
             }
         }
+    }
     // service elements
-}
         MessageDialog {
             id: messageDialog
             title: qsTr("Важно")
@@ -229,6 +356,10 @@ ApplicationWindow {
             id: frequencyRangeListModel
         }
 
+        ListModel{
+            id: wifiStatusListModel
+        }
+
         statusBar: StatusBar {
             RowLayout {
                 anchors.fill: parent
@@ -245,7 +376,7 @@ ApplicationWindow {
                         window.show()
                         appWindowMain.hide()
                     }
-                    }
                 }
             }
+        }
 }
