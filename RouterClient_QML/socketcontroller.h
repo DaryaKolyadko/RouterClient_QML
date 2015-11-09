@@ -10,6 +10,7 @@ class SocketController : public QObject
     Q_OBJECT
 
 private:
+    QObject *rootObject;
     QObject *loginTextInput;
     QObject *passwordTextInput;
     QObject *hostAddressTextInput;

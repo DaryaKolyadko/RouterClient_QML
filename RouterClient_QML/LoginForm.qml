@@ -33,7 +33,6 @@ Item {
 
        GridLayout {
            id: gridLayoutLoginForm
-           objectName: "gridLayoutLoginForm"
            columns: 3
            anchors.centerIn: parent
 

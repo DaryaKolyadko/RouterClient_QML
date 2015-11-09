@@ -7,8 +7,8 @@ Tab{
     title: qsTr("Информация о системе")
 
     property bool userEditingConfiguration: false
-    property int bottomMargin: -1
-    property int fontCoefficient: -1
+    property int bottomMargin: 15//-1
+    property int fontCoefficient: 100//-1
 
     Connections {
         target: socketworker
@@ -16,7 +16,6 @@ Tab{
 
     GridLayout{
         id: systemInformation
-        objectName: "systemInformation"
         columns: 3
         anchors.fill: parent
 
@@ -38,7 +37,6 @@ Tab{
 
         GridLayout {
             id: systemInformationGridLayout
-            objectName: "systemInformationGridLayout"
             columns: 3
             anchors.centerIn: parent
             enabled: false

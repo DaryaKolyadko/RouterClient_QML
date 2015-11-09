@@ -23,47 +23,42 @@ SocketController::SocketController(QObject *parent) : QObject(parent)
 
 void SocketController::recieveLoginClick()
 {
-    init();
+    rootObject = engine.rootObjects().first();
+    QObject *loginForm = rootObject->findChild<QObject*>("mainLoginForm");
+    loginTextInput = loginForm->findChild<QObject*>("loginTextInput");
+    passwordTextInput = loginForm->findChild<QObject*>("passwordTextInput");
+    hostAddressTextInput = loginForm->findChild<QObject*>("hostAddressTextInput");
+
     if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 8080))//8080))
         sendErrorMessage(socket.getErrorMessage());
+    else {
+        init();
+    }
   //  greetingLabel->setProperty("text", "Hello, " + (enterNameTextField->property("text")).toString() + "!");
 }
 
 void SocketController::init()
 {
-    QObject *rootObject = engine.rootObjects().first();
-
-    QObject *loginForm = rootObject->findChild<QObject*>("mainLoginForm");
-    QObject *gridLayoutLoginForm = loginForm->findChild<QObject*>("gridLayoutLoginForm");
-    loginTextInput = gridLayoutLoginForm->findChild<QObject*>("loginTextInput");
-    passwordTextInput = gridLayoutLoginForm->findChild<QObject*>("passwordTextInput");
-    hostAddressTextInput = gridLayoutLoginForm->findChild<QObject*>("hostAddressTextInput");
-
     QObject *configurationForm = rootObject->findChild<QObject*>("mainConfigurationForm");
     QObject *tabView = configurationForm->findChild<QObject*>("tabView");
-
     QObject *generalConfigTab = tabView->findChild<QObject*>("generalConfigurationTab");
-    QObject *firstGridConfigTab = generalConfigTab->findChild<QObject*>("mainConfiguration");
-//    QObject *gridLayoutConfigTab = firstGridConfigTab->findChild<QObject*>("mainConfigurationGridLayout");
-//    configHostAddressTextInput = gridLayoutConfigTab->findChild<QObject*>("hostAddressTextInput");
-//    networkMaskTextInput = gridLayoutConfigTab->findChild<QObject*>("networkMaskTextInput");
-//    macAddressTextInput = gridLayoutConfigTab->findChild<QObject*>("macAddressTextInput");
+    configHostAddressTextInput = generalConfigTab->findChild<QObject*>("hostAddressTextInput");
+    networkMaskTextInput = generalConfigTab->findChild<QObject*>("networkMaskTextInput");
+    macAddressTextInput = generalConfigTab->findChild<QObject*>("macAddressTextInput");
 
-//    QObject *wifiConfigTab = tabView->findChild<QObject*>("wifiConfigurationTab");
-//    QObject *firstGridWifiTab = wifiConfigTab->findChild<QObject*>("wifiConfiguration");
-//    QObject *first = wifiConfigTab->children().first();
-//    QString res = first->property("id").toString();
-//    QObject *gridLayoutWifiTab = firstGridWifiTab->findChild<QObject*>("wifiConfigurationGridLayout");
-//    ssidTextInput = gridLayoutWifiTab->findChild<QObject*>("ssidTextInput");
-//    //TODO comboboxes
+    QObject *tabHello = tabView->findChild<QObject*>("helloTab");
+    QObject* enterNameTextField = tabHello->findChild<QObject*>("enterNameTextField");
+    QObject* greetingLabel = tabHello->findChild<QObject*>("greetingLabel");
 
-//    QObject *systemInformationTab = tabView->findChild<QObject*>("systemInformationTab");
-//    QObject *firstGridSysInfoTab = systemInformationTab->findChild<QObject*>("systemInformation");
-//    QObject *gridLayoutSysInfoTab = firstGridSysInfoTab->findChild<QObject*>("systemInformationGridLayout");
-//    modelTextInput = gridLayoutSysInfoTab->findChild<QObject*>("modelTextInput");
-//    hostNameTextInput = gridLayoutSysInfoTab->findChild<QObject*>("hostNameTextInput");
-//    serviceCodeTextInput = gridLayoutSysInfoTab->findChild<QObject*>("serviceCodeTextInput");
-//    workGroupTextInput = gridLayoutSysInfoTab->findChild<QObject*>("workGroupTextInput");
+    QObject *wifiConfigTab = tabView->findChild<QObject*>("wifiConfigurationTab");
+    ssidTextInput = wifiConfigTab->findChild<QObject*>("ssidTextInput");
+    //TODO comboboxes
+
+    QObject *systemInformationTab = tabView->findChild<QObject*>("systemInformationTab");
+    modelTextInput = systemInformationTab->findChild<QObject*>("modelTextInput");
+    hostNameTextInput = systemInformationTab->findChild<QObject*>("hostNameTextInput");
+    serviceCodeTextInput = systemInformationTab->findChild<QObject*>("serviceCodeTextInput");
+    workGroupTextInput = systemInformationTab->findChild<QObject*>("workGroupTextInput");
 
 
 //        qDebug() << loginTextInput->property("text").toString();

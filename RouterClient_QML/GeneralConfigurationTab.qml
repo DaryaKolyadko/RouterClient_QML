@@ -5,18 +5,16 @@ import QtQuick.Layouts 1.1
 Tab{
     id: generalConfigurationTabId
     title: qsTr("Основные настройки")
-
     property bool userEditingConfiguration: false
-    property int bottomMargin: -1
-    property int fontCoefficient: -1
+    property int bottomMargin: 15// -1
+    property int fontCoefficient: 100//-1
 
     Connections {
-        target: socketworker
+        target: socketcontroller
     }
 
     GridLayout{
         id: mainConfiguration
-        objectName: "mainConfiguration"
         columns: 3
         anchors.fill: parent
 
@@ -41,7 +39,6 @@ Tab{
 
         GridLayout {
             id: mainConfigurationGridLayout
-            objectName: "mainConfigurationGridLayout"
             columns: 3
             anchors.centerIn: parent
             enabled: false
@@ -53,7 +50,7 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
                 anchors.bottomMargin: bottomMargin
-                text: qsTr("Адрес хоста:")
+                text: qsTr("Адрес хоста:" + bottomMargin.toString())
             }
 
             TextField {

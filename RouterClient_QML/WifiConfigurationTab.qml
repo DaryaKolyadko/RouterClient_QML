@@ -7,8 +7,8 @@ Tab{
     title: qsTr("Wi-Fi")
 
     property bool userEditingConfiguration: false
-    property int bottomMargin: -1
-    property int fontCoefficient: -1
+    property int bottomMargin: 15//-1
+    property int fontCoefficient: 100// -1
 
     Connections {
         target: socketworker
@@ -16,7 +16,6 @@ Tab{
 
     GridLayout{
         id: wifiConfiguration
-        objectName: "wifiConfiguration"
         columns: 3
         anchors.fill: parent
 
@@ -47,7 +46,6 @@ Tab{
 
         GridLayout {
             id: wifiConfigurationGridLayout
-            objectName: "wifiConfigurationGridLayout"
             columns: 3
             anchors.centerIn: parent
             enabled: false
@@ -56,7 +54,7 @@ Tab{
             Text{
                 id: ssid
                 font.letterSpacing: 1
-                font.pointSize: (parent.height + parent.width)/fontCoefficient
+                font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
                 text: qsTr("Имя беспроводной сети (SSID):")
             }
@@ -65,7 +63,7 @@ Tab{
                 id: ssidTextInput
                 objectName: "ssidTextInput"
                 font.letterSpacing: 1
-                font.pointSize: (parent.height + parent.width)/fontCoefficient
+                font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
                 style: MyTextFieldStyle{id: ssidfield}
@@ -74,7 +72,7 @@ Tab{
             Text{
                 id:frequencyRangeText
                 font.letterSpacing: 1
-                font.pointSize: (parent.height + parent.width)/fontCoefficient
+                font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
                 text: qsTr("Частотный диапазон:")
             }
@@ -103,7 +101,7 @@ Tab{
             Text{
                 id:wifiStatusText
                 font.letterSpacing: 1
-                font.pointSize: (parent.height + parent.width)/fontCoefficient
+                font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
                 text: qsTr("Точка доступа Wi-Fi:")
             }
