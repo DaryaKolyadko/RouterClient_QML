@@ -2,7 +2,9 @@ TEMPLATE = app
 
 QT += qml quick widgets
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    mytcpsocket.cpp \
+    socketcontroller.cpp
 
 RESOURCES += qml.qrc
 
@@ -12,5 +14,7 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 include(deployment.pri)
 
-DISTFILES +=
+HEADERS += \
+    mytcpsocket.h \
+    socketcontroller.h
 

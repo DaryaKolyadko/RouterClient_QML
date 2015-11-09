@@ -1,7 +1,13 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>configurationform.qml</file>
-        <file>socket.io.js</file>
+        <file>ConfigurationForm.qml</file>
+        <file>InfoMessageDialog.qml</file>
+        <file>LoginForm.qml</file>
+        <file>MainForm.qml</file>
+        <file>MyTextFieldStyle.qml</file>
+        <file>SystemInformationTab.qml</file>
+        <file>WifiConfigurationTab.qml</file>
+        <file>GeneralConfigurationTab.qml</file>
     </qresource>
 </RCC>
