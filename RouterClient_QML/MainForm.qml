@@ -30,7 +30,7 @@ ApplicationWindow {
         }
     }
 
-    ConfigurationForm{
+    ConfigurationForm {
         id: mainConfigurationForm
         objectName: "mainConfigurationForm"
         property alias mainConfigForm: mainConfigurationForm

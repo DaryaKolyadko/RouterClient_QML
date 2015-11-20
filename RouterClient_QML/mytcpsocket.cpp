@@ -67,6 +67,7 @@ void MyTcpSocket::bytesWritten(qint64 bytes)
 
 QString MyTcpSocket::writeQueryAndReadAnswer(QString message)
 {
+    message = message + "\r\n";
     socket->write(message.toUtf8().constData());
     socket->waitForReadyRead();
     return socket->readAll();

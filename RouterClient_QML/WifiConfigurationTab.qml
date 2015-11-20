@@ -4,14 +4,19 @@ import QtQuick.Layouts 1.1
 
 Tab{
     id: wifiConfogurationTabId
+    active: true
     title: qsTr("Wi-Fi")
 
     property bool userEditingConfiguration: false
-    property int bottomMargin: 15//-1
-    property int fontCoefficient: 100// -1
+    property int bottomMargin: 15
+    property int fontCoefficient: 100
 
     Connections {
-        target: socketworker
+        target: socketcontroller
+    }
+
+    InfoMessageDialog {
+        id: wifiConfigurationMessageDialog
     }
 
     GridLayout{
@@ -33,14 +38,35 @@ Tab{
             Layout.columnSpan: 3
             Layout.fillWidth: true
             anchors.bottomMargin: bottomMargin
-
             onClicked: {
                 if(userEditingConfiguration)
+                {
                     wifiConfigurationGridLayout.enabled = false
+                    if(checkAndSetNewParamValue("Ssid", ssidTextInput.text) &&
+                       checkAndSetNewParamValue("WifiStatus",
+                                wifiStatusListModel.get(wifiStatusComboBox.currentIndex)) &&
+                       checkAndSetNewParamValue("FrequencyRange",
+                                frequencyRangeListModel.get(frequencyRangeComboBox .currentIndex))){
+                       wifiConfigurationMessageDialog.show(qsTr("Все изменения сохранены."));
+                    }
+                    else return;
+                }
                 else
-                    wifiConfigurationGridLayout.enabled = true
-                userEditingConfiguration = !userEditingConfiguration
-                // TODO set params on click
+                    wifiConfigurationGridLayout.enabled = true;
+                userEditingConfiguration = !userEditingConfiguration;
+                //TODO
+                // create backup to compare
+            }
+
+            function checkAndSetNewParamValue(paramName, paramValue)
+            {
+                var res = socketcontroller.setParamInfo(paramName, paramValue);
+                if(res === 1)
+                     return true;
+                wifiConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
+                                                            + paramName + " = " + paramValue +
+                                                            ". Проверьте введенные значения и исправьте ошибки."));
+                return false;
             }
         }
 
@@ -82,13 +108,14 @@ Tab{
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
                 model: frequencyRangeListModel
-                        transitions: Transition {
-                                        NumberAnimation {
-                                            properties: "height";
-                                            easing.type: Easing.OutExpo;
-                                            duration: 1000 }
-                                    }
+                transitions: Transition {
+                    NumberAnimation {
+                        properties: "height";
+                        easing.type: Easing.OutExpo;
+                        duration: 1000
+                    }
                 }
+            }
 
 //                    Combobox{
 //                        id: ff
@@ -131,6 +158,7 @@ Tab{
 }
     ListModel{
         id: wifiStatusListModel
+        objectName: "wifiStatusListModel"
 
         function addWifiStatus(wifiStatus)
         {
@@ -140,6 +168,7 @@ Tab{
 
     ListModel{
         id: frequencyRangeListModel
+        objectName: "frequencyRangeListModel"
 
         function addFrequencyRange(frequencyRange)
         {

@@ -4,20 +4,29 @@ import QtQuick.Layouts 1.1
 
 Tab{
     id: systemInformationTabId
+    active: true
     title: qsTr("Информация о системе")
 
     property bool userEditingConfiguration: false
-    property int bottomMargin: 15//-1
-    property int fontCoefficient: 100//-1
+    property int bottomMargin: 15
+    property int fontCoefficient: 100
 
     Connections {
-        target: socketworker
+        target: socketcontroller
     }
+
+//    InfoMessageDialog {
+//        id: systemConfigurationMessageDialog
+//    }
 
     GridLayout{
         id: systemInformation
         columns: 3
         anchors.fill: parent
+
+        InfoMessageDialog {
+            id: systemConfigurationMessageDialog
+        }
 
         Button{
             id: changeSystemInformation
@@ -28,11 +37,64 @@ Tab{
 
             onClicked: {
                 if(userEditingConfiguration)
-                    systemInformationGridLayout.enabled = false
+                {
+                    systemInformationGridLayout .enabled = false
+                    if(checkAndSetNewParamValue("Model", modelTextInput.text) &&
+                            checkAndSetNewParamValue("ServiceCode", serviceCodeTextInput.text) &&
+                            checkAndSetNewParamValue("HostName", hostNameTextInput.text) &&
+                            checkAndSetNewParamValue("WorkGroup", workGroupTextInput.text)){
+                       systemConfigurationMessageDialog.show(qsTr("Все изменения сохранены."));
+                    }
+                    else return;
+                }
                 else
-                    systemInformationGridLayout.enabled = true
-                userEditingConfiguration = !userEditingConfiguration
+                    systemInformationGridLayout.enabled = true;
+                userEditingConfiguration = !userEditingConfiguration;
+                //TODO
+                // create backup to compare
             }
+
+            function checkAndSetNewParamValue(paramName, paramValue)
+            {
+                var res = socketcontroller.setParamInfo(paramName, paramValue);
+                if(res === 1)
+                     return true;
+                systemConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
+                                                            + paramName + " = " + paramValue +
+                                                            ". Проверьте введенные значения и исправьте ошибки."));
+                return false;
+            }
+//            onClicked: {
+//                if(userEditingConfiguration)
+//                {
+//                    systemInformationGridLayout.enabled = false;
+//                    if(checkNewParamValue("model", modelTextInput.text) &&
+//                            checkNewParamValue("serviceCode", serviceCodeTextInput.text) &&
+//                            checkNewParamValue("hostName", hostNameTextInput.text) &&
+//                            checkNewParamValue("workGroup", workGroupTextInput.text))
+//                    {
+//                        socketcontroller.setParamInfo("model", modelTextInput.text);
+//                        socketcontroller.setParamInfo("serviceCode", serviceCodeTextInput.text);
+//                        socketcontroller.setParamInfo("hostName", hostNameTextInput.text);
+//                        socketcontroller.setParamInfo("workGroup", workGroupTextInput.text);
+//                    }
+//                }
+//                else
+//                    systemInformationGridLayout.enabled = true;
+//                userEditingConfiguration = !userEditingConfiguration;
+//                //TODO
+//                // create backup to compare
+//            }
+
+//            function checkNewParamValue(paramName, paramValue)
+//            {
+//                var res = socketcontroller.permitSetParamInfo(paramName, paramValue);
+//                if(res === 0) // 1)
+//                    return true;
+//                generalConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
+//                                                            + paramName + " = " + paramValue));
+//                return false;
+//            }
         }
 
         GridLayout {
