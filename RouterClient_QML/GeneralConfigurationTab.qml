@@ -15,15 +15,15 @@ Tab{
         target: socketcontroller
     }
 
-    InfoMessageDialog {
-        id: generalConfigurationMessageDialog
-    }
 
     GridLayout{
         id: generalConfigurationGridLayout
         columns: 3
         anchors.fill: parent
-        objectName: "fucking fuck"
+
+        InfoMessageDialog {
+            id: generalConfigurationMessageDialog
+        }
 
         Button{
             id: changeConfiguration
@@ -35,7 +35,7 @@ Tab{
             onClicked: {
                 if(userEditingConfiguration)
                 {
-                    generalConfigurationGridLayout.enabled = false
+                    mainConfigurationGridLayout.enabled = false
                     if(checkAndSetNewParamValue("HostAddress", hostAddressTextInput.text) &&
                             checkAndSetNewParamValue("NetworkMask", networkMaskTextInput.text) &&
                             checkAndSetNewParamValue("MacAddress", macAddressTextInput.text)){
@@ -44,7 +44,7 @@ Tab{
                     else return;
                 }
                 else
-                    generalConfigurationGridLayout.enabled = true;
+                    mainConfigurationGridLayout.enabled = true;
                 userEditingConfiguration = !userEditingConfiguration;
                 //TODO
                 // create backup to compare

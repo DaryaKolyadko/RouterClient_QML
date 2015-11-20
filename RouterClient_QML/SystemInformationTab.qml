@@ -38,7 +38,7 @@ Tab{
             onClicked: {
                 if(userEditingConfiguration)
                 {
-                    systemInformationGridLayout .enabled = false
+                    systemInformationGridLayout.enabled = false
                     if(checkAndSetNewParamValue("Model", modelTextInput.text) &&
                             checkAndSetNewParamValue("ServiceCode", serviceCodeTextInput.text) &&
                             checkAndSetNewParamValue("HostName", hostNameTextInput.text) &&

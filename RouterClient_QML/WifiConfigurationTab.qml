@@ -15,14 +15,14 @@ Tab{
         target: socketcontroller
     }
 
-    InfoMessageDialog {
-        id: wifiConfigurationMessageDialog
-    }
-
     GridLayout{
         id: wifiConfiguration
         columns: 3
         anchors.fill: parent
+
+        InfoMessageDialog {
+            id: wifiConfigurationMessageDialog
+        }
 
         Component.onCompleted: {
             //TODO from server
