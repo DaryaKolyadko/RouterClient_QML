@@ -9,5 +9,6 @@
         <file>SystemInformationTab.qml</file>
         <file>WifiConfigurationTab.qml</file>
         <file>GeneralConfigurationTab.qml</file>
+        <file>LimitedEditingText.qml</file>
     </qresource>
 </RCC>

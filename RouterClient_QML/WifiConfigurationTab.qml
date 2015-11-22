@@ -25,7 +25,6 @@ Tab{
         }
 
         Component.onCompleted: {
-            //TODO from server
             wifiStatusListModel.addWifiStatus("Выключена");
             wifiStatusListModel.addWifiStatus("Включена");
             frequencyRangeListModel.addFrequencyRange("2.4");

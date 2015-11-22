@@ -36,6 +36,7 @@ void SocketController::recieveLoginClick()
     {
         init();
         getValuesFromServer();
+        initBackup();
     }
 }
 
@@ -51,16 +52,18 @@ void SocketController::init()
     configHostAddressTextInput = generalConfigTab->findChild<QObject*>("hostAddressTextInput");
     networkMaskTextInput = generalConfigTab->findChild<QObject*>("networkMaskTextInput");
     macAddressTextInput = generalConfigTab->findChild<QObject*>("macAddressTextInput");
+    generalConfigBackup = generalConfigTab->findChild<QObject*>("localBackup");
 
     QObject *wifiConfigTab = configurationForm->findChild<QObject*>("wifiConfigurationTab");
     ssidTextInput = wifiConfigTab->findChild<QObject*>("ssidTextInput");
-    //TODO comboboxes
+    wifiConfigBackup = wifiConfigTab->findChild<QObject*>("localBackup");
 
     QObject *systemInformationTab = configurationForm->findChild<QObject*>("systemInformationTab");
     modelTextInput = systemInformationTab->findChild<QObject*>("modelTextInput");
     hostNameTextInput = systemInformationTab->findChild<QObject*>("hostNameTextInput");
     serviceCodeTextInput = systemInformationTab->findChild<QObject*>("serviceCodeTextInput");
     workGroupTextInput = systemInformationTab->findChild<QObject*>("workGroupTextInput");
+    systemInfoBackup = systemInformationTab->findChild<QObject*>("localBackup");
 
 //     qDebug() << loginTextInput->property("text").toString();
 //     qDebug() << passwordTextInput->property("text").toString();
@@ -105,7 +108,7 @@ int SocketController::confirmLoginAndPassword(QString login, QString password)
 
 void SocketController::close()
 {
-    //socket.close();
+    socket.close();
 }
 
 void SocketController::getValuesFromServer()
@@ -122,4 +125,10 @@ void SocketController::getValuesFromServer()
     hostNameTextInput->setProperty("text", getParamInfo("HostName"));
     serviceCodeTextInput->setProperty("text", getParamInfo("ServiceCode"));
     workGroupTextInput->setProperty("text", getParamInfo("WorkGroup"));
+}
+
+void SocketController::initBackup()
+{
+    generalConfigBackup->setProperty("hostAddress", hostAddressTextInput->property("text"));
+    generalConfigBackup->setProperty("networkMask", networkMaskTextInput->property("text"));
 }

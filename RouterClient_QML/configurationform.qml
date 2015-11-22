@@ -11,16 +11,6 @@ Item {
     width: 800
     height: 400
 
-    //DELETE THIS IN THE END
-//    Component.onCompleted: {
-//        wifiConfigurationTab.addWifiStatus("Выключена");
-//        wifiConfigurationTab.addWifiStatus("Включена");
-//        frequencyRangeListModel.append({text: "2.4 Hz"})
-//        frequencyRangeListModel.append({text: "5.0 Hz"})
-//        wifiStatusListModel.append({text: "Выключена"})
-//        wifiStatusListModel.append({text: "Включена"})
-//    }
-
     property int bottomMargin: 15
     property int fontCoefficient: 100
 
@@ -34,7 +24,7 @@ Item {
             objectName: "generalConfigurationTab"
             active: true
             anchors.fill: parent
-            fontCoefficient: fontCoefficient
+            fontCoefficient: fontCoefficient         
         }
 
         WifiConfigurationTab{
@@ -51,16 +41,3 @@ Item {
         }
     }
 }
-
-
-//====================================================================
-
-//        ListModel {
-//            id: frequencyRangeListModel
-//        }
-
-//        ListModel{
-//            id: wifiStatusListModel
-//        }
-
-//}

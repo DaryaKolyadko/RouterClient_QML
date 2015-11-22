@@ -22,6 +22,9 @@ private:
     QObject *hostNameTextInput;
     QObject *serviceCodeTextInput;
     QObject *workGroupTextInput;
+    QObject* generalConfigBackup;
+    QObject* systemInfoBackup;
+    QObject* wifiConfigBackup;
     MyTcpSocket socket;
     void init();
     void getValuesFromServer();
@@ -35,6 +38,7 @@ signals:
 
 public slots:
     void recieveLoginClick();
+    void initBackup();
     QString getInfo(QString message);
     QString getParamInfo(QString paramName);
 //    int permitSetInfo(QString message); // 1 - permitted, 0 - not permitted

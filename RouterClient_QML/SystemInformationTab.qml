@@ -15,10 +15,6 @@ Tab{
         target: socketcontroller
     }
 
-//    InfoMessageDialog {
-//        id: systemConfigurationMessageDialog
-//    }
-
     GridLayout{
         id: systemInformation
         columns: 3
@@ -39,8 +35,8 @@ Tab{
                 if(userEditingConfiguration)
                 {
                     systemInformationGridLayout.enabled = false
-                    if(checkAndSetNewParamValue("Model", modelTextInput.text) &&
-                            checkAndSetNewParamValue("ServiceCode", serviceCodeTextInput.text) &&
+                    if(//checkAndSetNewParamValue("Model", modelTextInput.text) &&
+                         //   checkAndSetNewParamValue("ServiceCode", serviceCodeTextInput.text) &&
                             checkAndSetNewParamValue("HostName", hostNameTextInput.text) &&
                             checkAndSetNewParamValue("WorkGroup", workGroupTextInput.text)){
                        systemConfigurationMessageDialog.show(qsTr("Все изменения сохранены."));
@@ -48,7 +44,11 @@ Tab{
                     else return;
                 }
                 else
+                {
                     systemInformationGridLayout.enabled = true;
+                    modelTextInput.enabled = false;
+                    serviceCodeTextInput.enabled = false;
+                }
                 userEditingConfiguration = !userEditingConfiguration;
                 //TODO
                 // create backup to compare
@@ -64,37 +64,6 @@ Tab{
                                                             ". Проверьте введенные значения и исправьте ошибки."));
                 return false;
             }
-//            onClicked: {
-//                if(userEditingConfiguration)
-//                {
-//                    systemInformationGridLayout.enabled = false;
-//                    if(checkNewParamValue("model", modelTextInput.text) &&
-//                            checkNewParamValue("serviceCode", serviceCodeTextInput.text) &&
-//                            checkNewParamValue("hostName", hostNameTextInput.text) &&
-//                            checkNewParamValue("workGroup", workGroupTextInput.text))
-//                    {
-//                        socketcontroller.setParamInfo("model", modelTextInput.text);
-//                        socketcontroller.setParamInfo("serviceCode", serviceCodeTextInput.text);
-//                        socketcontroller.setParamInfo("hostName", hostNameTextInput.text);
-//                        socketcontroller.setParamInfo("workGroup", workGroupTextInput.text);
-//                    }
-//                }
-//                else
-//                    systemInformationGridLayout.enabled = true;
-//                userEditingConfiguration = !userEditingConfiguration;
-//                //TODO
-//                // create backup to compare
-//            }
-
-//            function checkNewParamValue(paramName, paramValue)
-//            {
-//                var res = socketcontroller.permitSetParamInfo(paramName, paramValue);
-//                if(res === 0) // 1)
-//                    return true;
-//                generalConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
-//                                                            + paramName + " = " + paramValue));
-//                return false;
-//            }
         }
 
         GridLayout {
@@ -109,7 +78,7 @@ Tab{
                 font.letterSpacing: 1
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
-                text: qsTr("Модель:")
+                text: qsTr("Модель: *")
             }
 
             TextField {
@@ -128,7 +97,7 @@ Tab{
                 font.letterSpacing: 1
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
-                text: qsTr("Сервисный код:")
+                text: qsTr("Сервисный код: *")
             }
 
             TextField {
@@ -181,6 +150,14 @@ Tab{
                 Layout.fillWidth: true
                 text: qsTr("Home_1a-6")
                 style: MyTextFieldStyle{id: workgroupfield}
+            }
+
+            LimitedEditingText{
+                id: limitedEditing
+                font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient/2
+                Layout.fillWidth: true
+                Layout.columnSpan: 3
+                anchors.bottomMargin: bottomMargin
             }
         }
     }

@@ -9,7 +9,8 @@ Tab{
     property bool userEditingConfiguration: false
     property int bottomMargin: 15
     property int fontCoefficient: 100
-    //property alias networkMask: hostAddressTextInput.text
+    property string networkMaskStr: "NetworkMask"
+    property string hostAddressStr: "HostAddress"
 
     Connections {
         target: socketcontroller
@@ -25,6 +26,29 @@ Tab{
             id: generalConfigurationMessageDialog
         }
 
+        Item{
+            id: localBackup
+            objectName: "localBackup"
+            property string hostAddress: ""
+            property string networkMask: ""
+
+            function updateFieild(fieldName, newFieldValue)
+            {
+                switch (fieldName)
+                {
+                case networkMaskStr:
+                    networkMask = newFieldValue;
+                    console.debug(networkMask);
+                    break;
+                case hostAddressStr:
+                    hostAddress = newFieldValue;
+                    console.debug(hostAddress);
+                    break;
+                default:
+                }
+            }
+        }
+
         Button{
             id: changeConfiguration
             text: userEditingConfiguration ? qsTr("Сохранить настройки") : qsTr("Изменить настройки")
@@ -36,31 +60,39 @@ Tab{
                 if(userEditingConfiguration)
                 {
                     mainConfigurationGridLayout.enabled = false
-                    if(checkAndSetNewParamValue("HostAddress", hostAddressTextInput.text) &&
-                            checkAndSetNewParamValue("NetworkMask", networkMaskTextInput.text) &&
-                            checkAndSetNewParamValue("MacAddress", macAddressTextInput.text)){
+                    if(checkAndSetNewParamValue(hostAddressStr, localBackup.hostAddress, hostAddressTextInput.text) &&
+                            checkAndSetNewParamValue(networkMaskStr, localBackup.networkMask, networkMaskTextInput.text)){//&&
+                            //checkAndSetNewParamValue("MacAddress", macAddressTextInput.text)){
                        generalConfigurationMessageDialog.show(qsTr("Все изменения сохранены."));
                     }
                     else return;
                 }
                 else
+                {
                     mainConfigurationGridLayout.enabled = true;
+                    macAddressTextInput.enabled = false;
+                }
                 userEditingConfiguration = !userEditingConfiguration;
-                //TODO
-                // create backup to compare
             }
 
-            function checkAndSetNewParamValue(paramName, paramValue)
+            function checkAndSetNewParamValue(paramName, paramValue, newParamValue)
             {
-                var res = socketcontroller.setParamInfo(paramName, paramValue);
-                if(res === 1)
-                     return true;
-                generalConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
-                                                            + paramName + " = " + paramValue +
-                                                            ". Проверьте введенные значения и исправьте ошибки."));
-                return false;
+                var hasChanges = paramValue.localeCompare(newParamValue);
+                if (hasChanges !== 0)
+                {
+                    var res = socketcontroller.setParamInfo(paramName, newParamValue);
+                    if(res === 1)
+                    {
+                        return true;
+                    }
+                    generalConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
+                                                                + paramName + " = " + newParamValue +
+                                                                ". Проверьте введенные значения и исправьте ошибки."));
+                    return false;
+                }
+                return true;
             }
-
+        }
 //            onClicked: {
 //                if(userEditingConfiguration)
 //                {
@@ -90,7 +122,8 @@ Tab{
 //                                                            + paramName + " = " + paramValue));
 //                return false;
 //            }
-        }
+     //   }
+     //   property alias general: generalConfigurationGridLayout
 
         GridLayout {
             id: mainConfigurationGridLayout
@@ -104,13 +137,14 @@ Tab{
 //                return networkMaskTextInput.text;
 //            }
 
+
             Text{
                 id: hostAddressText
                 font.letterSpacing: 1
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
                 anchors.bottomMargin: bottomMargin
-                text: qsTr("Адрес хоста:" + bottomMargin.toString())
+                text: qsTr("Адрес хоста:")
             }
 
             TextField {
@@ -122,7 +156,6 @@ Tab{
                 Layout.fillWidth: true
                 style: MyTextFieldStyle{id: hostaddrfield}
                 anchors.bottomMargin: bottomMargin
-                text: "192.168.56.101"
                 validator: RegExpValidator{
                     regExp: /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/
                 }
@@ -157,7 +190,7 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
                 anchors.bottomMargin: bottomMargin
-                text: qsTr("MAC-адрес:")
+                text: qsTr("MAC-адрес: *")
             }
 
             TextField {
@@ -173,9 +206,29 @@ Tab{
                     regExp: /\b(^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$)\b/
                 }
             }
+
+            LimitedEditingText{
+                id: limitedEditing
+                Layout.columnSpan: 3
+                font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient/2
+                Layout.fillWidth: true
+                anchors.bottomMargin: bottomMargin
+            }
         }
+
+//        function initBackupInner(){
+//            localBackupId.networkMask = networkMaskTextInput.text;
+//            localBackupId.hostAddress = hostAddressTextInput.text;
+//            console.debug(localBackup.networkMask);
+//            console.debug(localBackup.hostAddress);
+//            //console.debug("i'm here");
+//            //return networkMaskTextInput.text;
+//        }
     }
 
+//    function initBackup(){
+//        general.initBackupInner();
+//    }
 //    function getNetworkMask(){
 //        console.debug(networkMask);
 //        return "lol";
