@@ -38,11 +38,9 @@ Tab{
                 {
                 case networkMaskStr:
                     networkMask = newFieldValue;
-                    console.debug(networkMask);
                     break;
                 case hostAddressStr:
                     hostAddress = newFieldValue;
-                    console.debug(hostAddress);
                     break;
                 default:
                 }
@@ -60,10 +58,12 @@ Tab{
                 if(userEditingConfiguration)
                 {
                     mainConfigurationGridLayout.enabled = false
-                    if(checkAndSetNewParamValue(hostAddressStr, localBackup.hostAddress, hostAddressTextInput.text) &&
-                            checkAndSetNewParamValue(networkMaskStr, localBackup.networkMask, networkMaskTextInput.text)){//&&
-                            //checkAndSetNewParamValue("MacAddress", macAddressTextInput.text)){
-                       generalConfigurationMessageDialog.show(qsTr("Все изменения сохранены."));
+                    if(checkNewParamValue(hostAddressStr, localBackup.hostAddress, hostAddressTextInput.text) &&
+                            checkNewParamValue(networkMaskStr, localBackup.networkMask, networkMaskTextInput.text))
+                    {
+                        setNewParamValue(hostAddressStr, localBackup.hostAddress, hostAddressTextInput.text);
+                        setNewParamValue(networkMaskStr, localBackup.networkMask, networkMaskTextInput.text);
+                        generalConfigurationMessageDialog.show(qsTr("Все изменения сохранены."));
                     }
                     else return;
                 }
@@ -75,7 +75,23 @@ Tab{
                 userEditingConfiguration = !userEditingConfiguration;
             }
 
-            function checkAndSetNewParamValue(paramName, paramValue, newParamValue)
+            function checkNewParamValue(paramName, paramValue, newParamValue)
+            {
+                var hasChanges = paramValue.localeCompare(newParamValue);
+                if (hasChanges !== 0)
+                {
+                    var res = socketcontroller.permitSetParamInfo(paramName, newParamValue);
+                    if(res === 1)                     
+                        return true;
+                    generalConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
+                                                                + paramName + " = " + newParamValue +
+                                                                ". Проверьте введенные значения и исправьте ошибки."));
+                    return false;
+                }
+                return true;
+            }
+
+            function setNewParamValue(paramName, paramValue, newParamValue)
             {
                 var hasChanges = paramValue.localeCompare(newParamValue);
                 if (hasChanges !== 0)
@@ -83,11 +99,9 @@ Tab{
                     var res = socketcontroller.setParamInfo(paramName, newParamValue);
                     if(res === 1)
                     {
+                        localBackup.updateFieild(paramName, newParamValue);
                         return true;
                     }
-                    generalConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
-                                                                + paramName + " = " + newParamValue +
-                                                                ". Проверьте введенные значения и исправьте ошибки."));
                     return false;
                 }
                 return true;

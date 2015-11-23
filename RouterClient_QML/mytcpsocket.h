@@ -9,11 +9,15 @@
 class MyTcpSocket : public QObject
 {
     Q_OBJECT
+private:
+    QString host;
+    int port;
 public:
     explicit MyTcpSocket(QObject *parent = 0);
     QString getErrorMessage();
     QString writeQueryAndReadAnswer(QString message);
     bool doConnect(QString host, int port);
+    bool doConnectToExistingSocket();
     void close();
 
 signals:

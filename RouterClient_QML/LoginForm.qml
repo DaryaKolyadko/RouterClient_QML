@@ -123,15 +123,16 @@ Item {
 
                onClicked: {
                    setLogin(loginTextInput.text);
+                   socketcontroller.initConnection();
+
                    if(!errorOccurred)
                    {
-                       socketcontroller.recieveLoginClick();
                        var result = socketcontroller.confirmLoginAndPassword(loginTextInput.text,
                                                                              passwordTextInput.text);
                        console.debug(result);
                        if(result == 1)
                        {
-                           //socketcontroller.recieveLoginClick();
+                           socketcontroller.recieveLoginClick();
                            loginForm.visible = false;
                            console.debug("vse ok");
                            //console.debug("FUCK" + socketcontroller.getInfo("HEAD / HTTP/1.0\r\n\r\n\r\n\r\n"));

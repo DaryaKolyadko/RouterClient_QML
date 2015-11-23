@@ -24,20 +24,31 @@ SocketController::SocketController(QObject *parent) : QObject(parent)
 
 void SocketController::recieveLoginClick()
 {
+//    rootObject = engine.rootObjects().first();
+//    QObject *loginForm = rootObject->findChild<QObject*>("mainLoginForm");
+//    loginTextInput = loginForm->findChild<QObject*>("loginTextInput");
+//    passwordTextInput = loginForm->findChild<QObject*>("passwordTextInput");
+//    hostAddressTextInput = loginForm->findChild<QObject*>("hostAddressTextInput");
+
+//    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 8080))
+//        sendErrorMessage(socket.getErrorMessage());
+//    else
+//    {
+        init();
+        getValuesFromServer();
+        initBackup();
+   // }
+}
+
+void SocketController::initConnection()
+{
     rootObject = engine.rootObjects().first();
     QObject *loginForm = rootObject->findChild<QObject*>("mainLoginForm");
     loginTextInput = loginForm->findChild<QObject*>("loginTextInput");
     passwordTextInput = loginForm->findChild<QObject*>("passwordTextInput");
     hostAddressTextInput = loginForm->findChild<QObject*>("hostAddressTextInput");
-
     if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 8080))
         sendErrorMessage(socket.getErrorMessage());
-    else
-    {
-        init();
-        getValuesFromServer();
-        initBackup();
-    }
 }
 
 void SocketController::init()
@@ -56,6 +67,8 @@ void SocketController::init()
 
     QObject *wifiConfigTab = configurationForm->findChild<QObject*>("wifiConfigurationTab");
     ssidTextInput = wifiConfigTab->findChild<QObject*>("ssidTextInput");
+    frequencyRangeComboBox = wifiConfigTab->findChild<QObject*>("frequencyRangeComboBox");
+    wifiStatusComboBox = wifiConfigTab->findChild<QObject*>("wifiStatusComboBox");
     wifiConfigBackup = wifiConfigTab->findChild<QObject*>("localBackup");
 
     QObject *systemInformationTab = configurationForm->findChild<QObject*>("systemInformationTab");
@@ -91,15 +104,15 @@ int SocketController::setParamInfo(QString paramName, QString paramValue)
     return socket.writeQueryAndReadAnswer("set"  + paramName + " " + paramValue).toInt();
 }
 
-//int SocketController::permitSetInfo(QString message)
-//{
-//    return socket.writeQueryAndReadAnswer(message).toInt();
-//}
+int SocketController::permitSetInfo(QString message)
+{
+    return socket.writeQueryAndReadAnswer(message).toInt();
+}
 
-//int SocketController::permitSetParamInfo(QString paramName, QString paramValue)
-//{
-//    return socket.writeQueryAndReadAnswer("permit set "  + paramName + " " + paramValue).toInt();
-//}
+int SocketController::permitSetParamInfo(QString paramName, QString paramValue)
+{
+    return socket.writeQueryAndReadAnswer("permitSet"  + paramName + " " + paramValue).toInt();
+}
 
 int SocketController::confirmLoginAndPassword(QString login, QString password)
 {
@@ -131,4 +144,9 @@ void SocketController::initBackup()
 {
     generalConfigBackup->setProperty("hostAddress", hostAddressTextInput->property("text"));
     generalConfigBackup->setProperty("networkMask", networkMaskTextInput->property("text"));
+    systemInfoBackup->setProperty("hostName", hostNameTextInput->property("text"));
+    systemInfoBackup->setProperty("workGroup", workGroupTextInput->property("text"));
+    wifiConfigBackup->setProperty("ssid", ssidTextInput->property("text"));
+    //wifiConfigBackup->setProperty("frequencyRange", frequencyRangeComboBox->property())
+    //wifiConfigBackup->setProperty("wifiStatus", )
 }

@@ -10,6 +10,8 @@ Tab{
     property bool userEditingConfiguration: false
     property int bottomMargin: 15
     property int fontCoefficient: 100
+    property string hostNameStr: "HostName"
+    property string workGroupStr: "WorkGroup"
 
     Connections {
         target: socketcontroller
@@ -24,6 +26,27 @@ Tab{
             id: systemConfigurationMessageDialog
         }
 
+        Item{
+            id: localBackup
+            objectName: "localBackup"
+            property string hostName: ""
+            property string workGroup: ""
+
+            function updateFieild(fieldName, newFieldValue)
+            {
+                switch (fieldName)
+                {
+                case hostNameStr:
+                    hostName = newFieldValue;
+                    break;
+                case workGroupStr:
+                    workGroup = newFieldValue;
+                    break;
+                default:
+                }
+            }
+        }
+
         Button{
             id: changeSystemInformation
             text: userEditingConfiguration ? qsTr("Сохранить настройки") : qsTr("Изменить настройки")
@@ -35,11 +58,12 @@ Tab{
                 if(userEditingConfiguration)
                 {
                     systemInformationGridLayout.enabled = false
-                    if(//checkAndSetNewParamValue("Model", modelTextInput.text) &&
-                         //   checkAndSetNewParamValue("ServiceCode", serviceCodeTextInput.text) &&
-                            checkAndSetNewParamValue("HostName", hostNameTextInput.text) &&
-                            checkAndSetNewParamValue("WorkGroup", workGroupTextInput.text)){
-                       systemConfigurationMessageDialog.show(qsTr("Все изменения сохранены."));
+                    if(checkNewParamValue(hostNameStr, localBackup.hostName, hostNameTextInput.text) &&
+                            checkNewParamValue(workGroupStr, localBackup.workGroup, workGroupTextInput.text))
+                    {
+                        setNewParamValue(hostNameStr, localBackup.hostName, hostNameTextInput.text);
+                        setNewParamValue(workGroupStr, localBackup.workGroup, workGroupTextInput.text);
+                        systemConfigurationMessageDialog.show(qsTr("Все изменения сохранены."));
                     }
                     else return;
                 }
@@ -50,19 +74,38 @@ Tab{
                     serviceCodeTextInput.enabled = false;
                 }
                 userEditingConfiguration = !userEditingConfiguration;
-                //TODO
-                // create backup to compare
             }
 
-            function checkAndSetNewParamValue(paramName, paramValue)
+            function checkNewParamValue(paramName, paramValue, newParamValue)
             {
-                var res = socketcontroller.setParamInfo(paramName, paramValue);
-                if(res === 1)
-                     return true;
-                systemConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
-                                                            + paramName + " = " + paramValue +
-                                                            ". Проверьте введенные значения и исправьте ошибки."));
-                return false;
+                var hasChanges = paramValue.localeCompare(newParamValue);
+                if (hasChanges !== 0)
+                {
+                    var res = socketcontroller.permitSetParamInfo(paramName, newParamValue);
+                    if(res === 1)
+                        return true;
+                    systemConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
+                                                                + paramName + " = " + newParamValue +
+                                                                ". Проверьте введенные значения и исправьте ошибки."));
+                    return false;
+                }
+                return true;
+            }
+
+            function setNewParamValue(paramName, paramValue, newParamValue)
+            {
+                var hasChanges = paramValue.localeCompare(newParamValue);
+                if (hasChanges !== 0)
+                {
+                    var res = socketcontroller.setParamInfo(paramName, newParamValue);
+                    if(res === 1)
+                    {
+                        localBackup.updateFieild(paramName, newParamValue);
+                        return true;
+                    }
+                    return false;
+                }
+                return true;
             }
         }
 
@@ -74,7 +117,7 @@ Tab{
             Layout.fillWidth: true
 
             Text{
-                id: model
+                id: modelText
                 font.letterSpacing: 1
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
@@ -93,7 +136,7 @@ Tab{
             }
 
             Text{
-                id:serviceCodeRangeText
+                id:serviceCodeText
                 font.letterSpacing: 1
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
@@ -107,7 +150,7 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
-                text: qsTr("607-066-405-847-030")
+               // text: qsTr("607-066-405-847-030")
                 style: MyTextFieldStyle{id: servicecodefield}
                 validator: RegExpValidator{
                     regExp: /\b(?:(?:[0-9][0-9][0-9]?)-){3}(?:[0-9][0-9][0-9]?)\b/
@@ -129,7 +172,7 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
-                text: qsTr("Keenetic_Ultra")
+                //text: qsTr("Keenetic_Ultra")
                 style: MyTextFieldStyle{id: hostnamefield}
             }
 
@@ -148,7 +191,7 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
-                text: qsTr("Home_1a-6")
+                //text: qsTr("Home_1a-6")
                 style: MyTextFieldStyle{id: workgroupfield}
             }
 

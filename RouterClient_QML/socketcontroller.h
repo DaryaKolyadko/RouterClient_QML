@@ -18,6 +18,8 @@ private:
     QObject *networkMaskTextInput;
     QObject *macAddressTextInput;
     QObject *ssidTextInput;
+    QObject *frequencyRangeComboBox;
+    QObject *wifiStatusComboBox;
     QObject *modelTextInput;
     QObject *hostNameTextInput;
     QObject *serviceCodeTextInput;
@@ -37,12 +39,13 @@ signals:
     void sendErrorMessage(QString message);
 
 public slots:
+    void initConnection();
     void recieveLoginClick();
     void initBackup();
     QString getInfo(QString message);
     QString getParamInfo(QString paramName);
-//    int permitSetInfo(QString message); // 1 - permitted, 0 - not permitted
-//    int permitSetParamInfo(QString param, QString info); // 1 - permitted, 0 - not permitted
+    int permitSetInfo(QString message); // 1 - permitted, 0 - not permitted
+    int permitSetParamInfo(QString param, QString info); // 1 - permitted, 0 - not permitted
     int setInfo(QString message); // 1 - ok, 0 - not ok
     int setParamInfo(QString param, QString info); // 1 - ok, 0 - not ok
     int confirmLoginAndPassword(QString login, QString password); // 1 - ok, 0 - not ok

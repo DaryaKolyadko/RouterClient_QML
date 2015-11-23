@@ -10,6 +10,9 @@ Tab{
     property bool userEditingConfiguration: false
     property int bottomMargin: 15
     property int fontCoefficient: 100
+    property string ssidStr: "Ssid"
+    property string wifiStatusStr: "WifiStatus"
+    property string frequencyRangeStr: "FrequencyRange"
 
     Connections {
         target: socketcontroller
@@ -25,10 +28,35 @@ Tab{
         }
 
         Component.onCompleted: {
-            wifiStatusListModel.addWifiStatus("Выключена");
-            wifiStatusListModel.addWifiStatus("Включена");
+            wifiStatusListModel.addWifiStatus("Off");
+            wifiStatusListModel.addWifiStatus("On");
             frequencyRangeListModel.addFrequencyRange("2.4");
             frequencyRangeListModel.addFrequencyRange("5.0");
+        }
+
+        Item{
+            id: localBackup
+            objectName: "localBackup"
+            property string ssid: ""
+            property string frequencyRange: ""
+            property string wifiStatus: ""
+
+            function updateFieild(fieldName, newFieldValue)
+            {
+                switch (fieldName)
+                {
+                case ssidStr:
+                    ssid = newFieldValue;
+                    break;
+                case frequencyRangeStr:
+                    frequencyRange = newFieldValue;
+                    break;
+                case wifiStatusStr:
+                    wifiStatus = newFieldValue;
+                    break;
+                default:
+                }
+            }
         }
 
         Button{
@@ -41,31 +69,56 @@ Tab{
                 if(userEditingConfiguration)
                 {
                     wifiConfigurationGridLayout.enabled = false
-                    if(checkAndSetNewParamValue("Ssid", ssidTextInput.text) &&
-                       checkAndSetNewParamValue("WifiStatus",
+                    if(checkNewParamValue(ssidStr, localBackup.ssid, ssidTextInput.text) //&&
+                       /*checkNewParamValue(wifiStatusStr, localBackup.wifiStatus,
                                 wifiStatusListModel.get(wifiStatusComboBox.currentIndex)) &&
-                       checkAndSetNewParamValue("FrequencyRange",
-                                frequencyRangeListModel.get(frequencyRangeComboBox .currentIndex))){
-                       wifiConfigurationMessageDialog.show(qsTr("Все изменения сохранены."));
+                       checkNewParamValue(frequencyRangeStr, localBackup.frequencyRange,
+                                frequencyRangeListModel.get(frequencyRangeComboBox.currentIndex))*/)
+                    {
+                        setNewParamValue(ssidStr, localBackup.ssid, ssidTextInput.text);
+//                        setNewParamValue(wifiStatusStr, localBackup.wifiStatus,
+//                                         wifiStatusListModel.get(wifiStatusComboBox.currentIndex));
+//                        setNewParamValue(frequencyRangeStr, localBackup.frequencyRange,
+//                                         frequencyRangeListModel.get(frequencyRangeComboBox .currentIndex));
+                        wifiConfigurationMessageDialog.show(qsTr("Все изменения сохранены."));
                     }
                     else return;
                 }
                 else
                     wifiConfigurationGridLayout.enabled = true;
                 userEditingConfiguration = !userEditingConfiguration;
-                //TODO
-                // create backup to compare
             }
 
-            function checkAndSetNewParamValue(paramName, paramValue)
+            function checkNewParamValue(paramName, paramValue, newParamValue)
             {
-                var res = socketcontroller.setParamInfo(paramName, paramValue);
-                if(res === 1)
-                     return true;
-                wifiConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
-                                                            + paramName + " = " + paramValue +
-                                                            ". Проверьте введенные значения и исправьте ошибки."));
-                return false;
+                var hasChanges = paramValue.localeCompare(newParamValue);
+                if (hasChanges !== 0)
+                {
+                    var res = socketcontroller.permitSetParamInfo(paramName, newParamValue);
+                    if(res === 1)
+                        return true;
+                    wifiConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
+                                                                + paramName + " = " + newParamValue +
+                                                                ". Проверьте введенные значения и исправьте ошибки."));
+                    return false;
+                }
+                return true;
+            }
+
+            function setNewParamValue(paramName, paramValue, newParamValue)
+            {
+                var hasChanges = paramValue.localeCompare(newParamValue);
+                if (hasChanges !== 0)
+                {
+                    var res = socketcontroller.setParamInfo(paramName, newParamValue);
+                    if(res === 1)
+                    {
+                        localBackup.updateFieild(paramName, newParamValue);
+                        return true;
+                    }
+                    return false;
+                }
+                return true;
             }
         }
 
@@ -77,7 +130,7 @@ Tab{
             Layout.fillWidth: true
 
             Text{
-                id: ssid
+                id: ssidText
                 font.letterSpacing: 1
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
@@ -104,6 +157,7 @@ Tab{
 
             ComboBox {
                 id:frequencyRangeComboBox
+                objectName: "frequencyRangeComboBox"
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
                 model: frequencyRangeListModel
@@ -134,6 +188,7 @@ Tab{
 
             ComboBox {
                 id:wifiStatusComboBox
+                objectName: "wifiStatusComboBox"
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
                 model: wifiStatusListModel

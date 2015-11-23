@@ -4,6 +4,7 @@
 
 MyTcpSocket::MyTcpSocket(QObject *parent) :  QObject(parent)
 {
+    socket = NULL;
 }
 
 QString MyTcpSocket::getErrorMessage()
@@ -14,7 +15,8 @@ QString MyTcpSocket::getErrorMessage()
 bool MyTcpSocket::doConnect(QString host, int port)
 {
     socket = new QTcpSocket(this);
-
+    this->host = host;
+    this->port = port;
     connect(socket, SIGNAL(connected()),this, SLOT(connected()));
     connect(socket, SIGNAL(disconnected()),this, SLOT(disconnected()));
     connect(socket, SIGNAL(bytesWritten(qint64)),this, SLOT(bytesWritten(qint64)));
@@ -23,7 +25,24 @@ bool MyTcpSocket::doConnect(QString host, int port)
     qDebug() << "connecting...";
 
     // this is not blocking call
-    socket->connectToHost(host, port);//("google.com", 80); 173.194.112.104
+    socket->connectToHost(host, port);
+
+    // we need to wait...
+    if(!socket->waitForConnected(5000))
+    {
+        errorMessage = "Ошибка при подключении к хосту: " + socket->errorString();
+        qDebug() << "Error: " << errorMessage;
+        return false;
+    }
+    return true;
+}
+
+bool MyTcpSocket::doConnectToExistingSocket()
+{
+    qDebug() << "connecting...";
+
+    // this is not blocking call
+    socket->connectToHost(host, port);
 
     // we need to wait...
     if(!socket->waitForConnected(5000))
@@ -38,12 +57,6 @@ bool MyTcpSocket::doConnect(QString host, int port)
 void MyTcpSocket::connected()
 {
     qDebug() << "connected...";
-
-    // отправка логина, пароля, адреса хоста
-    // получение ответа
-    //socket->write("HEAD / HTTP/1.0\r\n\r\n\r\n\r\n");
-    //qDebug() << "lalka" + writeQueryAndReadAnswer("HEAD / HTTP/1.0\r\n\r\n\r\n\r\n");
-    // if(
 }
 
 void MyTcpSocket::disconnected()
@@ -67,6 +80,11 @@ void MyTcpSocket::bytesWritten(qint64 bytes)
 
 QString MyTcpSocket::writeQueryAndReadAnswer(QString message)
 {
+    qDebug() << message;
+    if(socket == NULL)
+        doConnect(host, port);
+    else
+        doConnectToExistingSocket();
     message = message + "\r\n";
     socket->write(message.toUtf8().constData());
     socket->waitForReadyRead();
