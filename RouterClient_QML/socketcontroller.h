@@ -2,6 +2,8 @@
 #define SOCKETCONTROLLER_H
 
 #include <QObject>
+#include <QVariant>
+#include <QString>
 #include <QQmlApplicationEngine>
 #include "mytcpsocket.h"
 
@@ -10,6 +12,8 @@ class SocketController : public QObject
     Q_OBJECT
 
 private:
+    int wifiStatusCount;
+    int frequencyRangeCount;
     QObject *rootObject;
     QObject *loginTextInput;
     QObject *passwordTextInput;
@@ -27,9 +31,12 @@ private:
     QObject* generalConfigBackup;
     QObject* systemInfoBackup;
     QObject* wifiConfigBackup;
+    QObject* wifiStatusModel;
+    QObject* frequencyRangeModel;
     MyTcpSocket socket;
     void init();
     void getValuesFromServer();
+    int findIndexByValue(QObject* model, int count, QString value);
 
 public:
     explicit SocketController(QObject *parent = 0);
@@ -37,6 +44,7 @@ public:
 
 signals:
     void sendErrorMessage(QString message);
+    void wifiComboBoxSetText(QString text);
 
 public slots:
     void initConnection();

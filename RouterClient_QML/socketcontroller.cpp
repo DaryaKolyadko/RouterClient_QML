@@ -1,5 +1,6 @@
 #include "socketcontroller.h"
 #include <QVariant>
+#include <QQuickView>
 #include <QQmlComponent>
 #include <QMetaObject>
 #include <QQmlEngine>
@@ -24,20 +25,9 @@ SocketController::SocketController(QObject *parent) : QObject(parent)
 
 void SocketController::recieveLoginClick()
 {
-//    rootObject = engine.rootObjects().first();
-//    QObject *loginForm = rootObject->findChild<QObject*>("mainLoginForm");
-//    loginTextInput = loginForm->findChild<QObject*>("loginTextInput");
-//    passwordTextInput = loginForm->findChild<QObject*>("passwordTextInput");
-//    hostAddressTextInput = loginForm->findChild<QObject*>("hostAddressTextInput");
-
-//    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 8080))
-//        sendErrorMessage(socket.getErrorMessage());
-//    else
-//    {
-        init();
-        getValuesFromServer();
-        initBackup();
-   // }
+    init();
+    getValuesFromServer();
+    initBackup();
 }
 
 void SocketController::initConnection()
@@ -69,6 +59,10 @@ void SocketController::init()
     ssidTextInput = wifiConfigTab->findChild<QObject*>("ssidTextInput");
     frequencyRangeComboBox = wifiConfigTab->findChild<QObject*>("frequencyRangeComboBox");
     wifiStatusComboBox = wifiConfigTab->findChild<QObject*>("wifiStatusComboBox");
+    frequencyRangeModel = wifiConfigTab->findChild<QObject*>("frequencyRangeListModel");
+    frequencyRangeCount = frequencyRangeModel->property("count" ).toInt();
+    wifiStatusModel = wifiConfigTab->findChild<QObject*>("wifiStatusListModel");
+    wifiStatusCount = wifiStatusModel->property("count" ).toInt();
     wifiConfigBackup = wifiConfigTab->findChild<QObject*>("localBackup");
 
     QObject *systemInformationTab = configurationForm->findChild<QObject*>("systemInformationTab");
@@ -77,11 +71,6 @@ void SocketController::init()
     serviceCodeTextInput = systemInformationTab->findChild<QObject*>("serviceCodeTextInput");
     workGroupTextInput = systemInformationTab->findChild<QObject*>("workGroupTextInput");
     systemInfoBackup = systemInformationTab->findChild<QObject*>("localBackup");
-
-//     qDebug() << loginTextInput->property("text").toString();
-//     qDebug() << passwordTextInput->property("text").toString();
-//     qDebug() << hostAddressTextInput->property("text").toString();
-//     qDebug() << workGroupTextInput->property("text").toString();
 }
 
 QString SocketController::getInfo(QString message)
@@ -131,9 +120,12 @@ void SocketController::getValuesFromServer()
     macAddressTextInput->setProperty("text", getParamInfo("MacAddress"));
 
     ssidTextInput->setProperty("text", getParamInfo("Ssid"));
-    //frequencyRange
-    //wifiStatus
-
+    frequencyRangeComboBox->setProperty("currentIndex",
+                     findIndexByValue(frequencyRangeModel, frequencyRangeCount, "2.4"));
+                                   //getParamInfo("FrequencyRange")));
+    wifiStatusComboBox->setProperty("currentIndex",
+                     findIndexByValue(wifiStatusModel, wifiStatusCount, "On"));
+                                  // getParamInfo("WifiStatus")));
     modelTextInput->setProperty("text", getParamInfo("Model"));
     hostNameTextInput->setProperty("text", getParamInfo("HostName"));
     serviceCodeTextInput->setProperty("text", getParamInfo("ServiceCode"));
@@ -147,6 +139,28 @@ void SocketController::initBackup()
     systemInfoBackup->setProperty("hostName", hostNameTextInput->property("text"));
     systemInfoBackup->setProperty("workGroup", workGroupTextInput->property("text"));
     wifiConfigBackup->setProperty("ssid", ssidTextInput->property("text"));
-    //wifiConfigBackup->setProperty("frequencyRange", frequencyRangeComboBox->property())
-    //wifiConfigBackup->setProperty("wifiStatus", )
+    wifiConfigBackup->setProperty("frequencyRange", frequencyRangeComboBox->property("currentText"));
+    wifiConfigBackup->setProperty("wifiStatus", wifiStatusComboBox->property("currentText"));
+}
+
+int SocketController::findIndexByValue(QObject* model, int countInt, QString value)
+{
+    QVariant retValue;
+    QVariant count = countInt;
+    int counter = 0;
+    for(QVariant index = 0; index < count; index = counter)
+    {
+        bool succeeded = QMetaObject::invokeMethod(
+            model, "getChild", Q_RETURN_ARG(QVariant, retValue), Q_ARG( QVariant, index ) );
+        if (succeeded)
+        {
+            const QObject *child = qvariant_cast<QObject *>( retValue );
+            QString val = child->property("text").toString();
+            qDebug() << val;
+            if (value.compare(val) == 0)
+                return index.toInt();
+        }
+        counter++;
+    }
+    return -1;
 }

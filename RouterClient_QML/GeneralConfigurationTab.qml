@@ -137,7 +137,6 @@ Tab{
 //                return false;
 //            }
      //   }
-     //   property alias general: generalConfigurationGridLayout
 
         GridLayout {
             id: mainConfigurationGridLayout
@@ -229,22 +228,5 @@ Tab{
                 anchors.bottomMargin: bottomMargin
             }
         }
-
-//        function initBackupInner(){
-//            localBackupId.networkMask = networkMaskTextInput.text;
-//            localBackupId.hostAddress = hostAddressTextInput.text;
-//            console.debug(localBackup.networkMask);
-//            console.debug(localBackup.hostAddress);
-//            //console.debug("i'm here");
-//            //return networkMaskTextInput.text;
-//        }
     }
-
-//    function initBackup(){
-//        general.initBackupInner();
-//    }
-//    function getNetworkMask(){
-//        console.debug(networkMask);
-//        return "lol";
-//    }
 }

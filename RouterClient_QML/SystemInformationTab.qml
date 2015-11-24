@@ -131,7 +131,6 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
-                text: qsTr("Keenetic Ultra")
                 style: MyTextFieldStyle{id: modelfield}
             }
 
@@ -150,7 +149,6 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
-               // text: qsTr("607-066-405-847-030")
                 style: MyTextFieldStyle{id: servicecodefield}
                 validator: RegExpValidator{
                     regExp: /\b(?:(?:[0-9][0-9][0-9]?)-){3}(?:[0-9][0-9][0-9]?)\b/
@@ -172,7 +170,6 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
-                //text: qsTr("Keenetic_Ultra")
                 style: MyTextFieldStyle{id: hostnamefield}
             }
 
@@ -191,7 +188,6 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
-                //text: qsTr("Home_1a-6")
                 style: MyTextFieldStyle{id: workgroupfield}
             }
 

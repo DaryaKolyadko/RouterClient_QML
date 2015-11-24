@@ -14,6 +14,15 @@ Item {
     property int bottomMargin: 15
     property int fontCoefficient: 100
 
+    Connections {
+        target: socketcontroller
+        onWifiComboBoxSetText:{
+            console.debug('=.(');
+            wifiConfigurationTab.wifiStatusComboVal = text;
+            console.debug(wifiConfigurationTab.wifiStatusComboVal);
+        }
+    }
+
     TabView{
         id: tabView
         objectName: "tabView"

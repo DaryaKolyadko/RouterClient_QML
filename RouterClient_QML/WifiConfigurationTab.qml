@@ -69,17 +69,17 @@ Tab{
                 if(userEditingConfiguration)
                 {
                     wifiConfigurationGridLayout.enabled = false
-                    if(checkNewParamValue(ssidStr, localBackup.ssid, ssidTextInput.text) //&&
-                       /*checkNewParamValue(wifiStatusStr, localBackup.wifiStatus,
-                                wifiStatusListModel.get(wifiStatusComboBox.currentIndex)) &&
+                    if(checkNewParamValue(ssidStr, localBackup.ssid, ssidTextInput.text) &&
+                       checkNewParamValue(wifiStatusStr, localBackup.wifiStatus,
+                                wifiStatusListModel.get(wifiStatusComboBox.currentIndex).text) &&
                        checkNewParamValue(frequencyRangeStr, localBackup.frequencyRange,
-                                frequencyRangeListModel.get(frequencyRangeComboBox.currentIndex))*/)
+                                frequencyRangeListModel.get(frequencyRangeComboBox.currentIndex).text))
                     {
                         setNewParamValue(ssidStr, localBackup.ssid, ssidTextInput.text);
-//                        setNewParamValue(wifiStatusStr, localBackup.wifiStatus,
-//                                         wifiStatusListModel.get(wifiStatusComboBox.currentIndex));
-//                        setNewParamValue(frequencyRangeStr, localBackup.frequencyRange,
-//                                         frequencyRangeListModel.get(frequencyRangeComboBox .currentIndex));
+                        setNewParamValue(wifiStatusStr, localBackup.wifiStatus,
+                                         wifiStatusListModel.get(wifiStatusComboBox.currentIndex).text);
+                        setNewParamValue(frequencyRangeStr, localBackup.frequencyRange,
+                                         frequencyRangeListModel.get(frequencyRangeComboBox.currentIndex).text);
                         wifiConfigurationMessageDialog.show(qsTr("Все изменения сохранены."));
                     }
                     else return;
@@ -170,14 +170,6 @@ Tab{
                 }
             }
 
-//                    Combobox{
-//                        id: ff
-//                        Layout.columnSpan: 2
-//                        Layout.fillWidth: true
-//                        anchors.bottomMargin: 20
-//                        anchors.topMargin: 0
-//                    }
-
             Text{
                 id:wifiStatusText
                 font.letterSpacing: 1
@@ -193,23 +185,15 @@ Tab{
                 Layout.fillWidth: true
                 model: wifiStatusListModel
                 transitions: Transition {
-                                        NumberAnimation {
-                                            properties: "height";
-                                            easing.type: Easing.OutExpo;
-                                            duration: 1000 }
-                                    }
+                            NumberAnimation {
+                                properties: "height";
+                                easing.type: Easing.OutExpo;
+                                duration: 1000
+                            }
                 }
-//                    Combobox{
-//                        id: wf
-//                        Layout.columnSpan: 2
-//                        Layout.fillWidth: true
-//                        anchors.topMargin: 0
-//                        z: 900
-//                    }
-//        }
-//        }
-
+            }
 }
+
     ListModel{
         id: wifiStatusListModel
         objectName: "wifiStatusListModel"
@@ -217,6 +201,11 @@ Tab{
         function addWifiStatus(wifiStatus)
         {
             append({text: wifiStatus})
+        }
+
+        function getChild(index)
+        {
+            return get(index)
         }
     }
 
@@ -226,7 +215,12 @@ Tab{
 
         function addFrequencyRange(frequencyRange)
         {
-            append({text: frequencyRange + " Hz"})
+            append({text: frequencyRange})// + " Hz"})
+        }
+
+        function getChild(index)
+        {
+            return get(index)
         }
     }
 }
