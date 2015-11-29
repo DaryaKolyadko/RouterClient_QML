@@ -8,8 +8,8 @@ ApplicationWindow {
     id: appWindow
     objectName: "appWindow"
     visible: true
-    minimumWidth: 635
-    minimumHeight: 295
+    minimumWidth: resolution.dp(635) //635
+    minimumHeight: resolution.dp(295)//295
     width: minimumWidth
     height: minimumHeight
     title: qsTr("Авторизация")
@@ -75,7 +75,9 @@ ApplicationWindow {
         }
     }
 
-
+    ResolutionController{
+        id: resolution
+    }
 //    Item
 //    {
 //        anchors.fill: parent

@@ -8,8 +8,8 @@ Tab{
     title: qsTr("Информация о системе")
 
     property bool userEditingConfiguration: false
-    property int bottomMargin: 15
-    property int fontCoefficient: 100
+    property int bottomMargin: 15//resolution.dp(15) //15
+    property int fontCoefficient: 100//resolution.dp(100) // 100
     property string hostNameStr: "HostName"
     property string workGroupStr: "WorkGroup"
 
@@ -200,4 +200,8 @@ Tab{
             }
         }
     }
+
+//    ResolutionController{
+//        id: resolution
+//    }
 }

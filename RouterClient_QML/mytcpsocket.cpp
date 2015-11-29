@@ -5,6 +5,7 @@
 MyTcpSocket::MyTcpSocket(QObject *parent) :  QObject(parent)
 {
     socket = NULL;
+    wasDisconnected = false;
 }
 
 QString MyTcpSocket::getErrorMessage()
@@ -54,6 +55,22 @@ bool MyTcpSocket::doConnectToExistingSocket()
     return true;
 }
 
+//qDebug() << message;
+//if(socket == NULL)
+//    doConnect(host, port);
+//else if (!wasDisconnected)
+//{
+//    disconnect(socket, NULL, this, NULL);
+//    wasDisconnected = true;
+//}
+
+//if(wasDisconnected)
+//    doConnectToExistingSocket();
+//message = message + "\r\n";
+//socket->write(message.toUtf8().constData());
+//socket->waitForReadyRead();
+//return socket->readAll();
+
 void MyTcpSocket::connected()
 {
     qDebug() << "connected...";
@@ -62,6 +79,7 @@ void MyTcpSocket::connected()
 void MyTcpSocket::disconnected()
 {
     qDebug() << "disconnected...";
+    //wasDisconnected = true;
 }
 
 void MyTcpSocket::bytesWritten(qint64 bytes)
@@ -81,14 +99,16 @@ void MyTcpSocket::bytesWritten(qint64 bytes)
 QString MyTcpSocket::writeQueryAndReadAnswer(QString message)
 {
     qDebug() << message;
-    if(socket == NULL)
+//    if(socket == NULL)
         doConnect(host, port);
-    else
-        doConnectToExistingSocket();
+//    else
+//        doConnectToExistingSocket();
     message = message + "\r\n";
     socket->write(message.toUtf8().constData());
     socket->waitForReadyRead();
-    return socket->readAll();
+    QString res = socket->readAll();
+    socket->close();
+    return res;
 }
 
 void MyTcpSocket::close()

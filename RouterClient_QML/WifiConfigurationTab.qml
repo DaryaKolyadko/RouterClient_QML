@@ -8,8 +8,8 @@ Tab{
     title: qsTr("Wi-Fi")
 
     property bool userEditingConfiguration: false
-    property int bottomMargin: 15
-    property int fontCoefficient: 100
+    property int bottomMargin: 15//resolution.dp(15)//15
+    property int fontCoefficient: 100//resolution.dp(100)//100
     property string ssidStr: "Ssid"
     property string wifiStatusStr: "WifiStatus"
     property string frequencyRangeStr: "FrequencyRange"
@@ -224,4 +224,7 @@ Tab{
         }
     }
 }
+//    ResolutionController{
+//        id: resolution
+//    }
 }

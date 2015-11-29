@@ -37,7 +37,7 @@ void SocketController::initConnection()
     loginTextInput = loginForm->findChild<QObject*>("loginTextInput");
     passwordTextInput = loginForm->findChild<QObject*>("passwordTextInput");
     hostAddressTextInput = loginForm->findChild<QObject*>("hostAddressTextInput");
-    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 8080))
+    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 8081))
         sendErrorMessage(socket.getErrorMessage());
 }
 
@@ -121,11 +121,11 @@ void SocketController::getValuesFromServer()
 
     ssidTextInput->setProperty("text", getParamInfo("Ssid"));
     frequencyRangeComboBox->setProperty("currentIndex",
-                     findIndexByValue(frequencyRangeModel, frequencyRangeCount, "2.4"));
-                                   //getParamInfo("FrequencyRange")));
+                     findIndexByValue(frequencyRangeModel, frequencyRangeCount, //"2.4"));
+                                   getParamInfo("FrequencyRange")));
     wifiStatusComboBox->setProperty("currentIndex",
-                     findIndexByValue(wifiStatusModel, wifiStatusCount, "On"));
-                                  // getParamInfo("WifiStatus")));
+                     findIndexByValue(wifiStatusModel, wifiStatusCount,// "On"));
+                                   getParamInfo("WifiStatus")));
     modelTextInput->setProperty("text", getParamInfo("Model"));
     hostNameTextInput->setProperty("text", getParamInfo("HostName"));
     serviceCodeTextInput->setProperty("text", getParamInfo("ServiceCode"));

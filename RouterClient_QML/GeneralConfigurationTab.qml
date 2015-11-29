@@ -7,8 +7,8 @@ Tab{
     active: true
     title: qsTr("Основные настройки")
     property bool userEditingConfiguration: false
-    property int bottomMargin: 15
-    property int fontCoefficient: 100
+    property int bottomMargin: 15//resolution.dp(15) // 15
+    property int fontCoefficient: 100//resolution.dp(100)//100
     property string networkMaskStr: "NetworkMask"
     property string hostAddressStr: "HostAddress"
 
@@ -229,4 +229,8 @@ Tab{
             }
         }
     }
+
+//    ResolutionController{
+//        id: resolution
+//    }
 }

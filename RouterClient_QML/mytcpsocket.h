@@ -11,6 +11,7 @@ class MyTcpSocket : public QObject
     Q_OBJECT
 private:
     QString host;
+    bool wasDisconnected;
     int port;
 public:
     explicit MyTcpSocket(QObject *parent = 0);

@@ -8,8 +8,8 @@ Item {
     id: loginForm
     property string login: ""
     property bool errorOccurred: false
-    property int bottomMargin: 10
-    property int fontCoefficient: 70
+    property int bottomMargin: resolution.dp(10) //10
+    property int fontCoefficient: resolution.dp(60)//70
     property var regexLogin: /\b(?:(?:[a-zA-Z0-9_.]?)){3,15}\b/
     property var regexPassword: /\b(?:(?:[a-zA-Z0-9_.]?)){3,15}\b/
     property var regexHostAddress: /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/
@@ -146,5 +146,9 @@ Item {
                        errorOccurred = !errorOccurred;
                }
            }
+       }
+
+       ResolutionController{
+           id: resolution
        }
 }

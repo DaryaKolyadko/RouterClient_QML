@@ -8,11 +8,11 @@ import QtQuick.Controls.Styles 1.4
 Item {
     id: configurationForm
     visible: true
-    width: 800
-    height: 400
+    width: 800//resolution.dp(800) //800
+    height: 400// resolution.dp(400)//400
 
-    property int bottomMargin: 15
-    property int fontCoefficient: 100
+    property int bottomMargin: 15//resolution.dp(15)//15
+    property int fontCoefficient: 100// resolution.dp(100)//100
 
     Connections {
         target: socketcontroller
@@ -49,4 +49,8 @@ Item {
             anchors.fill: parent
         }
     }
+
+//    ResolutionController{
+//        id: resolution
+//    }
 }

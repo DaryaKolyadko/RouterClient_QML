@@ -2,5 +2,6 @@
     <qresource prefix="/images">
         <file>router.ico</file>
         <file>access_point.png</file>
+        <file>images.icns</file>
     </qresource>
 </RCC>
