@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.1
 Tab{
     id: wifiConfogurationTabId
     active: true
-    title: qsTr("Wi-Fi")
+    title: qsTr("wifi")
 
     property bool userEditingConfiguration: false
     property int bottomMargin: 15//resolution.dp(15)//15
@@ -28,8 +28,8 @@ Tab{
         }
 
         Component.onCompleted: {
-            wifiStatusListModel.addWifiStatus("Off");
-            wifiStatusListModel.addWifiStatus("On");
+            wifiStatusListModel.addWifiStatus(qsTr("off"));
+            wifiStatusListModel.addWifiStatus(qsTr("on"));
             frequencyRangeListModel.addFrequencyRange("2.4");
             frequencyRangeListModel.addFrequencyRange("5.0");
         }
@@ -61,7 +61,7 @@ Tab{
 
         Button{
             id: changeWifiConfiguration
-            text: userEditingConfiguration ? qsTr("Сохранить настройки") : qsTr("Изменить настройки")
+            text: userEditingConfiguration ? qsTr("save_settings") : qsTr("change_settings")
             Layout.columnSpan: 3
             Layout.fillWidth: true
             anchors.bottomMargin: bottomMargin
@@ -80,7 +80,7 @@ Tab{
                                          wifiStatusListModel.get(wifiStatusComboBox.currentIndex).text);
                         setNewParamValue(frequencyRangeStr, localBackup.frequencyRange,
                                          frequencyRangeListModel.get(frequencyRangeComboBox.currentIndex).text);
-                        wifiConfigurationMessageDialog.show(qsTr("Все изменения сохранены."));
+                        wifiConfigurationMessageDialog.show(qsTr("changes_saved"));
                     }
                     else return;
                 }
@@ -97,9 +97,7 @@ Tab{
                     var res = socketcontroller.permitSetParamInfo(paramName, newParamValue);
                     if(res === 1)
                         return true;
-                    wifiConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
-                                                                + paramName + " = " + newParamValue +
-                                                                ". Проверьте введенные значения и исправьте ошибки."));
+                    wifiConfigurationMessageDialog.show(qsTr("error_setting").arg(paramName).arg(newParamValue));
                     return false;
                 }
                 return true;
@@ -134,7 +132,7 @@ Tab{
                 font.letterSpacing: 1
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
-                text: qsTr("Имя беспроводной сети (SSID):")
+                text: qsTr("ssid")
             }
 
             TextField {
@@ -152,7 +150,7 @@ Tab{
                 font.letterSpacing: 1
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
-                text: qsTr("Частотный диапазон:")
+                text: qsTr("frequency_range")
             }
 
             ComboBox {
@@ -175,7 +173,7 @@ Tab{
                 font.letterSpacing: 1
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
-                text: qsTr("Точка доступа Wi-Fi:")
+                text: qsTr("wap")
             }
 
             ComboBox {

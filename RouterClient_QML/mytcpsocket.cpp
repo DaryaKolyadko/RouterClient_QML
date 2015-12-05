@@ -79,7 +79,6 @@ void MyTcpSocket::connected()
 void MyTcpSocket::disconnected()
 {
     qDebug() << "disconnected...";
-    //wasDisconnected = true;
 }
 
 void MyTcpSocket::bytesWritten(qint64 bytes)
@@ -99,10 +98,7 @@ void MyTcpSocket::bytesWritten(qint64 bytes)
 QString MyTcpSocket::writeQueryAndReadAnswer(QString message)
 {
     qDebug() << message;
-//    if(socket == NULL)
-        doConnect(host, port);
-//    else
-//        doConnectToExistingSocket();
+    doConnect(host, port);
     message = message + "\r\n";
     socket->write(message.toUtf8().constData());
     socket->waitForReadyRead();

@@ -44,7 +44,7 @@ Item {
                Layout.fillWidth: true
                Layout.fillHeight: true
                anchors.bottomMargin: bottomMargin
-               text: qsTr("Логин:")
+               text: qsTr("login")
            }
 
            TextField {
@@ -70,7 +70,7 @@ Item {
                Layout.fillWidth: true
                Layout.fillHeight: true
                anchors.bottomMargin: bottomMargin
-               text: qsTr("Пароль:")
+               text: qsTr("password")
            }
 
            TextField {
@@ -97,7 +97,7 @@ Item {
                Layout.fillWidth: true
                Layout.fillHeight: true
                anchors.bottomMargin: bottomMargin
-               text: qsTr("Адрес хоста:")
+               text: qsTr("host_address")
            }
 
            TextField {
@@ -117,7 +117,7 @@ Item {
 
            Button {
                id: loginInButton
-               text: qsTr("Войти")
+               text: qsTr("log_in")
                Layout.columnSpan: 3
                Layout.fillWidth: true
 
@@ -135,7 +135,6 @@ Item {
                            socketcontroller.recieveLoginClick();
                            loginForm.visible = false;
                            console.debug("vse ok");
-                           //console.debug("FUCK" + socketcontroller.getInfo("HEAD / HTTP/1.0\r\n\r\n\r\n\r\n"));
                        }
                        else
                        {

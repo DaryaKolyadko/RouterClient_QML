@@ -5,6 +5,8 @@
 #include "socketcontroller.h"
 #include <QIcon>
 #include <QtGui>
+#include <QTranslator>
+#include <QLocale>
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +19,14 @@ int main(int argc, char *argv[])
     SocketController socketController;
 
     //sc.engine = engine;
+
+    QTranslator* qtTranslator = new QTranslator();
+ //   qtTranslator.load("router_" + QLocale::system().name().split('_').at(0), ":/translations/");
+//    qtTranslator->load("router_ru", "D:\\RouterClient\\RouterClient_QML\\RouterClient_QML");
+ //   qApp->installTranslator(qtTranslator);
+    //qtTranslator->load("router_en", "D:\\RouterClient\\RouterClient_QML\\RouterClient_QML");
+    qtTranslator->load("router_" + QLocale::system().name().split('_').at(0), "D:\\RouterClient\\RouterClient_QML\\RouterClient_QML");
+    app.installTranslator(qtTranslator);
 
     QQmlContext* ctx = socketController.engine.rootContext();
     ctx->setContextProperty("socketcontroller", &socketController);

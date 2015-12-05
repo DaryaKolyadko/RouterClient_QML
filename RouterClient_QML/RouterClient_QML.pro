@@ -4,10 +4,12 @@ QT += qml quick widgets
 
 SOURCES += main.cpp \
     mytcpsocket.cpp \
-    socketcontroller.cpp
+    socketcontroller.cpp \
+    *.qml
 
 RESOURCES += qml.qrc \
-    icons.qrc
+    icons.qrc \
+    translations.qrc
 
 #ICON = access_point.png
 
@@ -34,3 +36,6 @@ DISTFILES += \
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 RC_FILE = windows_icon.rc
+
+TRANSLATIONS = router_en.ts \
+               router_ru.ts

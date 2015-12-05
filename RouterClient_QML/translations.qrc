@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>router_en.qm</file>
+        <file>router_ru.qm</file>
+    </qresource>
+</RCC>

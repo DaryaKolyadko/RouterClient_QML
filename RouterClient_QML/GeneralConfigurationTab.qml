@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.1
 Tab{
     id: generalConfigurationTabId
     active: true
-    title: qsTr("Основные настройки")
+    title: qsTr("general_settings")
     property bool userEditingConfiguration: false
     property int bottomMargin: 15//resolution.dp(15) // 15
     property int fontCoefficient: 100//resolution.dp(100)//100
@@ -49,7 +49,7 @@ Tab{
 
         Button{
             id: changeConfiguration
-            text: userEditingConfiguration ? qsTr("Сохранить настройки") : qsTr("Изменить настройки")
+            text: userEditingConfiguration ? qsTr("save_settings") : qsTr("change_settings")
             Layout.columnSpan: 3
             Layout.fillWidth: true
             anchors.bottomMargin: bottomMargin
@@ -63,7 +63,7 @@ Tab{
                     {
                         setNewParamValue(hostAddressStr, localBackup.hostAddress, hostAddressTextInput.text);
                         setNewParamValue(networkMaskStr, localBackup.networkMask, networkMaskTextInput.text);
-                        generalConfigurationMessageDialog.show(qsTr("Все изменения сохранены."));
+                        generalConfigurationMessageDialog.show(qsTr("changes_saved"));
                     }
                     else return;
                 }
@@ -83,9 +83,7 @@ Tab{
                     var res = socketcontroller.permitSetParamInfo(paramName, newParamValue);
                     if(res === 1)                     
                         return true;
-                    generalConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
-                                                                + paramName + " = " + newParamValue +
-                                                                ". Проверьте введенные значения и исправьте ошибки."));
+                    generalConfigurationMessageDialog.show(qsTr("error_setting").arg(paramName).arg(newParamValue));
                     return false;
                 }
                 return true;
@@ -157,7 +155,7 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
                 anchors.bottomMargin: bottomMargin
-                text: qsTr("Адрес хоста:")
+                text: qsTr("host_address")
             }
 
             TextField {
@@ -180,7 +178,7 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
                 anchors.bottomMargin: bottomMargin
-                text: qsTr("Маска подсети:")
+                text: qsTr("network_mask")
             }
 
             TextField {
@@ -203,7 +201,7 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
                 anchors.bottomMargin: bottomMargin
-                text: qsTr("MAC-адрес: *")
+                text: qsTr("mac_adddress")
             }
 
             TextField {

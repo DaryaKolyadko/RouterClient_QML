@@ -6,6 +6,7 @@
 #include <QQmlEngine>
 #include <QDebug>
 #include <cstdio>
+#include <QObject>
 #include <QUrl>
 
 SocketController::SocketController(QObject *parent) : QObject(parent)
@@ -37,7 +38,7 @@ void SocketController::initConnection()
     loginTextInput = loginForm->findChild<QObject*>("loginTextInput");
     passwordTextInput = loginForm->findChild<QObject*>("passwordTextInput");
     hostAddressTextInput = loginForm->findChild<QObject*>("hostAddressTextInput");
-    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 8081))
+    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 8080))
         sendErrorMessage(socket.getErrorMessage());
 }
 
@@ -156,7 +157,6 @@ int SocketController::findIndexByValue(QObject* model, int countInt, QString val
         {
             const QObject *child = qvariant_cast<QObject *>( retValue );
             QString val = child->property("text").toString();
-            qDebug() << val;
             if (value.compare(val) == 0)
                 return index.toInt();
         }

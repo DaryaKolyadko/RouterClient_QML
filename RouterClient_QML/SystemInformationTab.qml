@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.1
 Tab{
     id: systemInformationTabId
     active: true
-    title: qsTr("Информация о системе")
+    title: qsTr("system_information")
 
     property bool userEditingConfiguration: false
     property int bottomMargin: 15//resolution.dp(15) //15
@@ -49,7 +49,7 @@ Tab{
 
         Button{
             id: changeSystemInformation
-            text: userEditingConfiguration ? qsTr("Сохранить настройки") : qsTr("Изменить настройки")
+            text: userEditingConfiguration ? qsTr("save_settings") : qsTr("change_settings")
             Layout.columnSpan: 3
             Layout.fillWidth: true
             anchors.bottomMargin: bottomMargin
@@ -63,7 +63,7 @@ Tab{
                     {
                         setNewParamValue(hostNameStr, localBackup.hostName, hostNameTextInput.text);
                         setNewParamValue(workGroupStr, localBackup.workGroup, workGroupTextInput.text);
-                        systemConfigurationMessageDialog.show(qsTr("Все изменения сохранены."));
+                        systemConfigurationMessageDialog.show(qsTr("changes_saved"));
                     }
                     else return;
                 }
@@ -84,9 +84,7 @@ Tab{
                     var res = socketcontroller.permitSetParamInfo(paramName, newParamValue);
                     if(res === 1)
                         return true;
-                    systemConfigurationMessageDialog.show(qsTr("Проблема с установкой значения: "
-                                                                + paramName + " = " + newParamValue +
-                                                                ". Проверьте введенные значения и исправьте ошибки."));
+                    systemConfigurationMessageDialog.show(qsTr("error_setting").arg(paramName).arg(newParamValue));
                     return false;
                 }
                 return true;
@@ -121,7 +119,7 @@ Tab{
                 font.letterSpacing: 1
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
-                text: qsTr("Модель: *")
+                text: qsTr("model")
             }
 
             TextField {
@@ -139,7 +137,7 @@ Tab{
                 font.letterSpacing: 1
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
-                text: qsTr("Сервисный код: *")
+                text: qsTr("service_code")
             }
 
             TextField {
@@ -160,7 +158,7 @@ Tab{
                 font.letterSpacing: 1
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
-                text: qsTr("Имя хоста:")
+                text: qsTr("host_name")
             }
 
             TextField {
@@ -178,7 +176,7 @@ Tab{
                 font.letterSpacing: 1
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.fillWidth: true
-                text: qsTr("Рабочая группа:")
+                text: qsTr("work_group")
             }
 
             TextField {

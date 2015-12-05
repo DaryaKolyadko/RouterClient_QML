@@ -4,7 +4,7 @@ import QtQuick.Dialogs 1.2
 Item {
     MessageDialog {
         id: messageDialog
-        title: qsTr("Важно")
+        title: qsTr("important")
     }
 
     function show(caption) {

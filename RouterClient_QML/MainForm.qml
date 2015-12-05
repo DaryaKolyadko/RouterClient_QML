@@ -12,7 +12,7 @@ ApplicationWindow {
     minimumHeight: resolution.dp(295)//295
     width: minimumWidth
     height: minimumHeight
-    title: qsTr("Авторизация")
+    title: qsTr("authorization")
 
     Connections{
         target: socketcontroller
@@ -40,13 +40,13 @@ ApplicationWindow {
     function pageChanged () {
         if (mainLoginForm.visible)
         {
-            title = qsTr("Авторизация");
+            title = qsTr("authorization");
             mainConfigurationForm.visible = false;
             statusBar.visible = false;
         }
         else
         {
-            title = qsTr("Настройка ");
+            title = qsTr("configuration");
             mainConfigurationForm.visible = true;
 
             statusBar.visible = true;
@@ -65,7 +65,7 @@ ApplicationWindow {
             }
 
             Button{
-                text: qsTr("Выйти")
+                text: qsTr("log_out")
                 Layout.alignment: Qt.AlignRight
                 onClicked: {
                     mainLoginForm.visible = true
