@@ -1,11 +1,14 @@
 TEMPLATE = app
 
-QT += qml quick widgets
+QT += qml quick widgets network
+
+CONFIG += openssl-linked
+
+LIBS += -L"C:\Program Files (x86)\GnuWin32\lib"
 
 SOURCES += main.cpp \
     mytcpsocket.cpp \
-    socketcontroller.cpp \
-    *.qml
+    socketcontroller.cpp
 
 RESOURCES += qml.qrc \
     icons.qrc \

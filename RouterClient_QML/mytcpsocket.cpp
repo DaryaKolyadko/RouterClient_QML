@@ -15,7 +15,8 @@ QString MyTcpSocket::getErrorMessage()
 
 bool MyTcpSocket::doConnect(QString host, int port)
 {
-    socket = new QTcpSocket(this);
+    //socket = new QTcpSocket(this);
+    socket = new QSslSocket(this);
     this->host = host;
     this->port = port;
     connect(socket, SIGNAL(connected()),this, SLOT(connected()));
@@ -26,11 +27,11 @@ bool MyTcpSocket::doConnect(QString host, int port)
     qDebug() << "connecting...";
 
     // this is not blocking call
-    socket->connectToHost(host, port);
-
+    //socket->connectToHost(host, port);
+    socket->connectToHostEncrypted(host, port);
     // we need to wait...
-    if(!socket->waitForConnected(5000))
-    {
+    //if(!socket->waitForConnected(5000))
+    if(!socket->waitForEncrypted(5000)){
         errorMessage = "Ошибка при подключении к хосту: " + socket->errorString();
         qDebug() << "Error: " << errorMessage;
         return false;
@@ -43,11 +44,12 @@ bool MyTcpSocket::doConnectToExistingSocket()
     qDebug() << "connecting...";
 
     // this is not blocking call
-    socket->connectToHost(host, port);
+    //socket->connectToHost(host, port);
+    socket->connectToHostEncrypted(host, port);
 
     // we need to wait...
-    if(!socket->waitForConnected(5000))
-    {
+    //if(!socket->waitForConnected(5000)){
+    if(!socket->waitForEncrypted(5000)){
         errorMessage = "Ошибка при подключении к хосту: " + socket->errorString();
         qDebug() << "Error: " << errorMessage;
         return false;
@@ -98,12 +100,12 @@ void MyTcpSocket::bytesWritten(qint64 bytes)
 QString MyTcpSocket::writeQueryAndReadAnswer(QString message)
 {
     qDebug() << message;
-    doConnect(host, port);
+   // doConnect(host, port);
     message = message + "\r\n";
     socket->write(message.toUtf8().constData());
     socket->waitForReadyRead();
     QString res = socket->readAll();
-    socket->close();
+  //  socket->close();
     return res;
 }
 

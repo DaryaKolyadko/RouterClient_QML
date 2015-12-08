@@ -149,12 +149,10 @@ int SocketController::findIndexByValue(QObject* model, int countInt, QString val
     QVariant retValue;
     QVariant count = countInt;
     int counter = 0;
-    for(QVariant index = 0; index < count; index = counter)
-    {
+    for(QVariant index = 0; index < count; index = counter) {
         bool succeeded = QMetaObject::invokeMethod(
             model, "getChild", Q_RETURN_ARG(QVariant, retValue), Q_ARG( QVariant, index ) );
-        if (succeeded)
-        {
+        if (succeeded) {
             const QObject *child = qvariant_cast<QObject *>( retValue );
             QString val = child->property("text").toString();
             if (value.compare(val) == 0)

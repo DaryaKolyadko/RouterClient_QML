@@ -7,7 +7,8 @@ Item {
         title: qsTr("important")
     }
 
-    function show(caption) {
+    function show(caption)
+    {
         messageDialog.text = caption;
         messageDialog.open();
     }

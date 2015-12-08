@@ -14,7 +14,8 @@ Item {
     property var regexPassword: /\b(?:(?:[a-zA-Z0-9_.]?)){3,15}\b/
     property var regexHostAddress: /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/
 
-    function setLogin(loginName){
+    function setLogin(loginName)
+    {
         login = loginName;
     }
 
@@ -125,19 +126,16 @@ Item {
                    setLogin(loginTextInput.text);
                    socketcontroller.initConnection();
 
-                   if(!errorOccurred)
-                   {
+                   if(!errorOccurred) {
                        var result = socketcontroller.confirmLoginAndPassword(loginTextInput.text,
                                                                              passwordTextInput.text);
                        console.debug(result);
-                       if(result == 1)
-                       {
+                       if(result == 1) {
                            socketcontroller.recieveLoginClick();
                            loginForm.visible = false;
                            console.debug("vse ok");
                        }
-                       else
-                       {
+                       else {
                            console.debug("vse ploho, ti dodik");
                        }
                    }

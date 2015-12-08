@@ -43,8 +43,7 @@ Tab{
 
             function updateFieild(fieldName, newFieldValue)
             {
-                switch (fieldName)
-                {
+                switch (fieldName) {
                 case ssidStr:
                     ssid = newFieldValue;
                     break;
@@ -66,8 +65,7 @@ Tab{
             Layout.fillWidth: true
             anchors.bottomMargin: bottomMargin
             onClicked: {
-                if(userEditingConfiguration)
-                {
+                if(userEditingConfiguration) {
                     wifiConfigurationGridLayout.enabled = false
                     if(checkNewParamValue(ssidStr, localBackup.ssid, ssidTextInput.text) &&
                        checkNewParamValue(wifiStatusStr, localBackup.wifiStatus,
@@ -106,8 +104,7 @@ Tab{
             function setNewParamValue(paramName, paramValue, newParamValue)
             {
                 var hasChanges = paramValue.localeCompare(newParamValue);
-                if (hasChanges !== 0)
-                {
+                if (hasChanges !== 0) {
                     var res = socketcontroller.setParamInfo(paramName, newParamValue);
                     if(res === 1)
                     {

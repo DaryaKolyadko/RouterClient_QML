@@ -37,15 +37,14 @@ ApplicationWindow {
         visible: false
     }
 
-    function pageChanged () {
-        if (mainLoginForm.visible)
-        {
+    function pageChanged ()
+    {
+        if (mainLoginForm.visible) {
             title = qsTr("authorization");
             mainConfigurationForm.visible = false;
             statusBar.visible = false;
         }
-        else
-        {
+        else {
             title = qsTr("configuration");
             mainConfigurationForm.visible = true;
 

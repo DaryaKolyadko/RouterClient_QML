@@ -55,8 +55,7 @@ Tab{
             anchors.bottomMargin: bottomMargin
 
             onClicked: {
-                if(userEditingConfiguration)
-                {
+                if(userEditingConfiguration) {
                     systemInformationGridLayout.enabled = false
                     if(checkNewParamValue(hostNameStr, localBackup.hostName, hostNameTextInput.text) &&
                             checkNewParamValue(workGroupStr, localBackup.workGroup, workGroupTextInput.text))
@@ -67,8 +66,7 @@ Tab{
                     }
                     else return;
                 }
-                else
-                {
+                else {
                     systemInformationGridLayout.enabled = true;
                     modelTextInput.enabled = false;
                     serviceCodeTextInput.enabled = false;
@@ -79,8 +77,7 @@ Tab{
             function checkNewParamValue(paramName, paramValue, newParamValue)
             {
                 var hasChanges = paramValue.localeCompare(newParamValue);
-                if (hasChanges !== 0)
-                {
+                if (hasChanges !== 0) {
                     var res = socketcontroller.permitSetParamInfo(paramName, newParamValue);
                     if(res === 1)
                         return true;
@@ -93,11 +90,9 @@ Tab{
             function setNewParamValue(paramName, paramValue, newParamValue)
             {
                 var hasChanges = paramValue.localeCompare(newParamValue);
-                if (hasChanges !== 0)
-                {
+                if (hasChanges !== 0) {
                     var res = socketcontroller.setParamInfo(paramName, newParamValue);
-                    if(res === 1)
-                    {
+                    if(res === 1) {
                         localBackup.updateFieild(paramName, newParamValue);
                         return true;
                     }

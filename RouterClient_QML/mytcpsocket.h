@@ -2,7 +2,7 @@
 #define MYTCPSOCKET_H
 
 #include <QObject>
-#include <QTcpSocket>
+#include <QSslSocket>
 #include <QAbstractSocket>
 #include <QDebug>
 
@@ -30,7 +30,7 @@ public slots:
   //  void readyRead();
 
 private:
-    QTcpSocket *socket;
+    QSslSocket *socket;
     QString errorMessage;
 };
 

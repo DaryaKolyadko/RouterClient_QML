@@ -34,8 +34,7 @@ Tab{
 
             function updateFieild(fieldName, newFieldValue)
             {
-                switch (fieldName)
-                {
+                switch (fieldName) {
                 case networkMaskStr:
                     networkMask = newFieldValue;
                     break;
@@ -55,8 +54,7 @@ Tab{
             anchors.bottomMargin: bottomMargin
 
             onClicked: {
-                if(userEditingConfiguration)
-                {
+                if(userEditingConfiguration) {
                     mainConfigurationGridLayout.enabled = false
                     if(checkNewParamValue(hostAddressStr, localBackup.hostAddress, hostAddressTextInput.text) &&
                             checkNewParamValue(networkMaskStr, localBackup.networkMask, networkMaskTextInput.text))
@@ -67,8 +65,7 @@ Tab{
                     }
                     else return;
                 }
-                else
-                {
+                else {
                     mainConfigurationGridLayout.enabled = true;
                     macAddressTextInput.enabled = false;
                 }
@@ -78,8 +75,7 @@ Tab{
             function checkNewParamValue(paramName, paramValue, newParamValue)
             {
                 var hasChanges = paramValue.localeCompare(newParamValue);
-                if (hasChanges !== 0)
-                {
+                if (hasChanges !== 0) {
                     var res = socketcontroller.permitSetParamInfo(paramName, newParamValue);
                     if(res === 1)                     
                         return true;
@@ -92,11 +88,9 @@ Tab{
             function setNewParamValue(paramName, paramValue, newParamValue)
             {
                 var hasChanges = paramValue.localeCompare(newParamValue);
-                if (hasChanges !== 0)
-                {
+                if (hasChanges !== 0) {
                     var res = socketcontroller.setParamInfo(paramName, newParamValue);
-                    if(res === 1)
-                    {
+                    if(res === 1) {
                         localBackup.updateFieild(paramName, newParamValue);
                         return true;
                     }
