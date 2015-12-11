@@ -1,7 +1,7 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include "mytcpsocket.h"
+#include "mysslsocket.h"
 #include "socketcontroller.h"
 #include <QIcon>
 #include <QtGui>

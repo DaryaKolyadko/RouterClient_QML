@@ -7,8 +7,8 @@ CONFIG += openssl-linked
 LIBS += -L"C:\Program Files (x86)\GnuWin32\lib"
 
 SOURCES += main.cpp \
-    mytcpsocket.cpp \
-    socketcontroller.cpp
+    socketcontroller.cpp \
+    mysslsocket.cpp
 
 RESOURCES += qml.qrc \
     icons.qrc \
@@ -23,8 +23,8 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    mytcpsocket.h \
-    socketcontroller.h
+    socketcontroller.h \
+    mysslsocket.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

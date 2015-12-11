@@ -5,7 +5,7 @@
 #include <QVariant>
 #include <QString>
 #include <QQmlApplicationEngine>
-#include "mytcpsocket.h"
+#include "mysslsocket.h"
 
 class SocketController : public QObject
 {
@@ -33,7 +33,7 @@ private:
     QObject* wifiConfigBackup;
     QObject* wifiStatusModel;
     QObject* frequencyRangeModel;
-    MyTcpSocket socket;
+    MySslSocket socket;
     void init();
     void getValuesFromServer();
     int findIndexByValue(QObject* model, int count, QString value);

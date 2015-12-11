@@ -1,24 +1,33 @@
-#include "mytcpsocket.h"
+#include "mysslsocket.h"
 #include <string>
 #include <cstdio>
 
-MyTcpSocket::MyTcpSocket(QObject *parent) :  QObject(parent)
+MySslSocket::MySslSocket(QObject *parent) :  QObject(parent)
 {
     socket = NULL;
     wasDisconnected = false;
 }
 
-QString MyTcpSocket::getErrorMessage()
+QString MySslSocket::getErrorMessage()
 {
     return errorMessage;
 }
 
-bool MyTcpSocket::doConnect(QString host, int port)
+bool MySslSocket::doConnect(QString host, int port)
 {
     //socket = new QTcpSocket(this);
     socket = new QSslSocket(this);
     this->host = host;
     this->port = port;
+
+    QList<QSslCertificate> cert = QSslCertificate::fromPath(QLatin1String("D:\\RouterClient\\RouterClient_QML\\RouterClient_QML\\mycertificate.crt"));
+    QSslError error(QSslError::SelfSignedCertificate, cert.at(0));
+    QList<QSslError> expectedSslErrors;
+    expectedSslErrors.append(error);
+    socket->ignoreSslErrors(expectedSslErrors);
+
+    socket->setPrivateKey("D:\\RouterClient\\RouterClient_QML\\RouterClient_QML\\mykey.key", QSsl::Rsa);
+    //socket->setLocalCertificate("D:\\RouterClient\\RouterClient_QML\\RouterClient_QML\\mycertificate.crt");
     connect(socket, SIGNAL(connected()),this, SLOT(connected()));
     connect(socket, SIGNAL(disconnected()),this, SLOT(disconnected()));
     connect(socket, SIGNAL(bytesWritten(qint64)),this, SLOT(bytesWritten(qint64)));
@@ -39,7 +48,7 @@ bool MyTcpSocket::doConnect(QString host, int port)
     return true;
 }
 
-bool MyTcpSocket::doConnectToExistingSocket()
+bool MySslSocket::doConnectToExistingSocket()
 {
     qDebug() << "connecting...";
 
@@ -73,23 +82,23 @@ bool MyTcpSocket::doConnectToExistingSocket()
 //socket->waitForReadyRead();
 //return socket->readAll();
 
-void MyTcpSocket::connected()
+void MySslSocket::connected()
 {
     qDebug() << "connected...";
 }
 
-void MyTcpSocket::disconnected()
+void MySslSocket::disconnected()
 {
     qDebug() << "disconnected...";
 }
 
-void MyTcpSocket::bytesWritten(qint64 bytes)
+void MySslSocket::bytesWritten(qint64 bytes)
 {
     qDebug() << bytes << " bytes written...";
 }
 
 // возможно, придется убрать
-//void MyTcpSocket::readyRead()
+//void MySslSocket::readyRead()
 //{
   //  qDebug() << "reading...";
 
@@ -97,7 +106,7 @@ void MyTcpSocket::bytesWritten(qint64 bytes)
    // qDebug() << socket->readAll();
 //}
 
-QString MyTcpSocket::writeQueryAndReadAnswer(QString message)
+QString MySslSocket::writeQueryAndReadAnswer(QString message)
 {
     qDebug() << message;
    // doConnect(host, port);
@@ -109,7 +118,7 @@ QString MyTcpSocket::writeQueryAndReadAnswer(QString message)
     return res;
 }
 
-void MyTcpSocket::close()
+void MySslSocket::close()
 {
     socket->close();
     qDebug() << "close socket...";

@@ -1,12 +1,13 @@
-#ifndef MYTCPSOCKET_H
-#define MYTCPSOCKET_H
+#ifndef MYSSLSOCKET_H
+#define MYSSLSOCKET_H
 
 #include <QObject>
 #include <QSslSocket>
+#include <QSslCertificate>
 #include <QAbstractSocket>
 #include <QDebug>
 
-class MyTcpSocket : public QObject
+class MySslSocket : public QObject
 {
     Q_OBJECT
 private:
@@ -14,7 +15,7 @@ private:
     bool wasDisconnected;
     int port;
 public:
-    explicit MyTcpSocket(QObject *parent = 0);
+    explicit MySslSocket(QObject *parent = 0);
     QString getErrorMessage();
     QString writeQueryAndReadAnswer(QString message);
     bool doConnect(QString host, int port);
@@ -34,4 +35,4 @@ private:
     QString errorMessage;
 };
 
-#endif // MYTCPSOCKET_H
+#endif // MYSSLSOCKET_H

@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
         <file>ConfigurationForm.qml</file>
         <file>InfoMessageDialog.qml</file>
         <file>LoginForm.qml</file>
