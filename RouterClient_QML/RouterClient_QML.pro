@@ -4,7 +4,9 @@ QT += qml quick widgets network
 
 CONFIG += openssl-linked
 
-LIBS += -L"C:\Program Files (x86)\GnuWin32\lib"
+#LIBS += -L"C:\Program Files (x86)\GnuWin32\lib"
+#LIBS += D:/OpenSSL-Win32/lib
+INCLUDEPATH += D:/OpenSSL-Win32/include
 
 SOURCES += main.cpp \
     socketcontroller.cpp \

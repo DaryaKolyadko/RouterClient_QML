@@ -52,6 +52,7 @@ Item {
                id: loginTextInput
                objectName: "loginTextInput"
                font.letterSpacing: 1
+               text: "admin" //delete
                font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                Layout.columnSpan: 2
                Layout.fillWidth: true
@@ -88,6 +89,7 @@ Item {
                    regExp: regexPassword
                }
                echoMode: TextInput.Password
+               text: "123abc" // delete
            }
 
            Text{
@@ -111,6 +113,7 @@ Item {
                Layout.fillHeight: true
                style: MyTextFieldStyle{id: hostfield}
                anchors.bottomMargin: bottomMargin
+               text: "10.54.11.130" // delete
                validator: RegExpValidator{
                    regExp: regexHostAddress
                }

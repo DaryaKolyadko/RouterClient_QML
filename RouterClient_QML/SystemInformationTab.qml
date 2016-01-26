@@ -32,7 +32,7 @@ Tab{
             property string hostName: ""
             property string workGroup: ""
 
-            function updateFieild(fieldName, newFieldValue)
+            function updateField(fieldName, newFieldValue)
             {
                 switch (fieldName)
                 {
@@ -56,7 +56,7 @@ Tab{
 
             onClicked: {
                 if(userEditingConfiguration) {
-                    systemInformationGridLayout.enabled = false
+                    systemInformationGridLayout.enabled = false;
                     if(checkNewParamValue(hostNameStr, localBackup.hostName, hostNameTextInput.text) &&
                             checkNewParamValue(workGroupStr, localBackup.workGroup, workGroupTextInput.text))
                     {
@@ -64,7 +64,10 @@ Tab{
                         setNewParamValue(workGroupStr, localBackup.workGroup, workGroupTextInput.text);
                         systemConfigurationMessageDialog.show(qsTr("changes_saved"));
                     }
-                    else return;
+                    else {
+                        systemInformationGridLayout.enabled = true;
+                        return;
+                    }
                 }
                 else {
                     systemInformationGridLayout.enabled = true;
@@ -93,7 +96,7 @@ Tab{
                 if (hasChanges !== 0) {
                     var res = socketcontroller.setParamInfo(paramName, newParamValue);
                     if(res === 1) {
-                        localBackup.updateFieild(paramName, newParamValue);
+                        localBackup.updateField(paramName, newParamValue);
                         return true;
                     }
                     return false;

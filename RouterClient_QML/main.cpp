@@ -21,7 +21,12 @@ int main(int argc, char *argv[])
 
     SocketController socketController;
     QTranslator* qtTranslator = new QTranslator();
-    qtTranslator->load("router_" + QLocale::system().name().split('_').at(0), ":/");
+
+    bool result  = qtTranslator->load("router_" + QLocale::system().name().split('_').at(0), ":/");
+
+    if (!result)
+        qtTranslator->load("router_en", ":/");
+
     app.installTranslator(qtTranslator);
 
     QQmlContext* ctx = socketController.engine.rootContext();

@@ -38,7 +38,7 @@ void SocketController::initConnection()
     loginTextInput = loginForm->findChild<QObject*>("loginTextInput");
     passwordTextInput = loginForm->findChild<QObject*>("passwordTextInput");
     hostAddressTextInput = loginForm->findChild<QObject*>("hostAddressTextInput");
-    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 8080))
+    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 10004))
         sendErrorMessage(socket.getErrorMessage());
 }
 
@@ -63,6 +63,7 @@ void SocketController::init()
     frequencyRangeModel = wifiConfigTab->findChild<QObject*>("frequencyRangeListModel");
     frequencyRangeCount = frequencyRangeModel->property("count" ).toInt();
     wifiStatusModel = wifiConfigTab->findChild<QObject*>("wifiStatusListModel");
+    wifiStatusNameList = wifiConfigTab->findChild<QObject*>("wifiStatusList");
     wifiStatusCount = wifiStatusModel->property("count" ).toInt();
     wifiConfigBackup = wifiConfigTab->findChild<QObject*>("localBackup");
 
@@ -124,9 +125,10 @@ void SocketController::getValuesFromServer()
     frequencyRangeComboBox->setProperty("currentIndex",
                      findIndexByValue(frequencyRangeModel, frequencyRangeCount, //"2.4"));
                                    getParamInfo("FrequencyRange")));
+    wifiStatusServerValue = getParamInfo("WifiStatus");
     wifiStatusComboBox->setProperty("currentIndex",
-                     findIndexByValue(wifiStatusModel, wifiStatusCount,// "On"));
-                                   getParamInfo("WifiStatus")));
+                     findIndexByValue(wifiStatusNameList, wifiStatusCount,
+                                   wifiStatusServerValue));
     modelTextInput->setProperty("text", getParamInfo("Model"));
     hostNameTextInput->setProperty("text", getParamInfo("HostName"));
     serviceCodeTextInput->setProperty("text", getParamInfo("ServiceCode"));
@@ -141,7 +143,7 @@ void SocketController::initBackup()
     systemInfoBackup->setProperty("workGroup", workGroupTextInput->property("text"));
     wifiConfigBackup->setProperty("ssid", ssidTextInput->property("text"));
     wifiConfigBackup->setProperty("frequencyRange", frequencyRangeComboBox->property("currentText"));
-    wifiConfigBackup->setProperty("wifiStatus", wifiStatusComboBox->property("currentText"));
+    wifiConfigBackup->setProperty("wifiStatus", wifiStatusServerValue);
 }
 
 int SocketController::findIndexByValue(QObject* model, int countInt, QString value)

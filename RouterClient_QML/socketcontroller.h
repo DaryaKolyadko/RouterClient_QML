@@ -32,7 +32,9 @@ private:
     QObject* systemInfoBackup;
     QObject* wifiConfigBackup;
     QObject* wifiStatusModel;
+    QObject* wifiStatusNameList;
     QObject* frequencyRangeModel;
+    QString wifiStatusServerValue;
     MySslSocket socket;
     void init();
     void getValuesFromServer();

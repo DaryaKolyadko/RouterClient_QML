@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QSslSocket>
+#include <QTcpSocket>
 #include <QSslCertificate>
 #include <QAbstractSocket>
 #include <QDebug>
@@ -28,10 +29,13 @@ public slots:
     void connected();
     void disconnected();
     void bytesWritten(qint64 bytes);
+    void socketError(QAbstractSocket::SocketError);
+    void sslErrors(const QList<QSslError> &errors);
   //  void readyRead();
 
 private:
     QSslSocket *socket;
+   // QTcpSocket *socket;
     QString errorMessage;
 };
 

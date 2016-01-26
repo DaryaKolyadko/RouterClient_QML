@@ -28,8 +28,10 @@ Tab{
         }
 
         Component.onCompleted: {
-            wifiStatusListModel.addWifiStatus(qsTr("off"));
             wifiStatusListModel.addWifiStatus(qsTr("on"));
+            wifiStatusListModel.addWifiStatus(qsTr("off"));
+            wifiStatusList.addWifiStatus("On");
+            wifiStatusList.addWifiStatus("Off");
             frequencyRangeListModel.addFrequencyRange("2.4");
             frequencyRangeListModel.addFrequencyRange("5.0");
         }
@@ -41,7 +43,7 @@ Tab{
             property string frequencyRange: ""
             property string wifiStatus: ""
 
-            function updateFieild(fieldName, newFieldValue)
+            function updateField(fieldName, newFieldValue)
             {
                 switch (fieldName) {
                 case ssidStr:
@@ -66,21 +68,24 @@ Tab{
             anchors.bottomMargin: bottomMargin
             onClicked: {
                 if(userEditingConfiguration) {
-                    wifiConfigurationGridLayout.enabled = false
+                    wifiConfigurationGridLayout.enabled = false;
                     if(checkNewParamValue(ssidStr, localBackup.ssid, ssidTextInput.text) &&
                        checkNewParamValue(wifiStatusStr, localBackup.wifiStatus,
-                                wifiStatusListModel.get(wifiStatusComboBox.currentIndex).text) &&
+                                wifiStatusList.get(wifiStatusComboBox.currentIndex).text) &&
                        checkNewParamValue(frequencyRangeStr, localBackup.frequencyRange,
                                 frequencyRangeListModel.get(frequencyRangeComboBox.currentIndex).text))
                     {
                         setNewParamValue(ssidStr, localBackup.ssid, ssidTextInput.text);
                         setNewParamValue(wifiStatusStr, localBackup.wifiStatus,
-                                         wifiStatusListModel.get(wifiStatusComboBox.currentIndex).text);
+                                         wifiStatusList.get(wifiStatusComboBox.currentIndex).text);
                         setNewParamValue(frequencyRangeStr, localBackup.frequencyRange,
                                          frequencyRangeListModel.get(frequencyRangeComboBox.currentIndex).text);
                         wifiConfigurationMessageDialog.show(qsTr("changes_saved"));
                     }
-                    else return;
+                    else {
+                        wifiConfigurationGridLayout.enabled = true;
+                        return;
+                    }
                 }
                 else
                     wifiConfigurationGridLayout.enabled = true;
@@ -108,7 +113,7 @@ Tab{
                     var res = socketcontroller.setParamInfo(paramName, newParamValue);
                     if(res === 1)
                     {
-                        localBackup.updateFieild(paramName, newParamValue);
+                        localBackup.updateField(paramName, newParamValue);
                         return true;
                     }
                     return false;
@@ -205,12 +210,27 @@ Tab{
     }
 
     ListModel{
+        id: wifiStatusList
+        objectName: "wifiStatusList"
+
+        function addWifiStatus(wifiStatus)
+        {
+            append({text: wifiStatus})
+        }
+
+        function getChild(index)
+        {
+            return get(index)
+        }
+    }
+
+    ListModel{
         id: frequencyRangeListModel
         objectName: "frequencyRangeListModel"
 
         function addFrequencyRange(frequencyRange)
         {
-            append({text: frequencyRange})// + " Hz"})
+            append({text: frequencyRange})
         }
 
         function getChild(index)

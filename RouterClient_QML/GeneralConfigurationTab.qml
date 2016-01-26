@@ -32,7 +32,7 @@ Tab{
             property string hostAddress: ""
             property string networkMask: ""
 
-            function updateFieild(fieldName, newFieldValue)
+            function updateField(fieldName, newFieldValue)
             {
                 switch (fieldName) {
                 case networkMaskStr:
@@ -55,7 +55,7 @@ Tab{
 
             onClicked: {
                 if(userEditingConfiguration) {
-                    mainConfigurationGridLayout.enabled = false
+                    mainConfigurationGridLayout.enabled = false;
                     if(checkNewParamValue(hostAddressStr, localBackup.hostAddress, hostAddressTextInput.text) &&
                             checkNewParamValue(networkMaskStr, localBackup.networkMask, networkMaskTextInput.text))
                     {
@@ -63,7 +63,10 @@ Tab{
                         setNewParamValue(networkMaskStr, localBackup.networkMask, networkMaskTextInput.text);
                         generalConfigurationMessageDialog.show(qsTr("changes_saved"));
                     }
-                    else return;
+                    else {
+                        mainConfigurationGridLayout.enabled = true;
+                        return;
+                    }
                 }
                 else {
                     mainConfigurationGridLayout.enabled = true;
@@ -91,7 +94,7 @@ Tab{
                 if (hasChanges !== 0) {
                     var res = socketcontroller.setParamInfo(paramName, newParamValue);
                     if(res === 1) {
-                        localBackup.updateFieild(paramName, newParamValue);
+                        localBackup.updateField(paramName, newParamValue);
                         return true;
                     }
                     return false;
