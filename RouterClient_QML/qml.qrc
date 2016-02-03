@@ -10,5 +10,6 @@
         <file>GeneralConfigurationTab.qml</file>
         <file>LimitedEditingText.qml</file>
         <file>ResolutionController.qml</file>
+        <file>AvailableWifiTab.qml</file>
     </qresource>
 </RCC>

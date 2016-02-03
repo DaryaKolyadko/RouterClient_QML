@@ -47,6 +47,12 @@ Item {
             objectName: "systemInformationTab"
             anchors.fill: parent
         }
+
+        AvailableWifiTab {
+            id: availableWifiTab
+            objectName: "availableWifiTab"
+            anchors.fill: parent
+        }
     }
 
 //    ResolutionController{
