@@ -6,11 +6,12 @@ CONFIG += openssl-linked
 
 #LIBS += -L"C:\Program Files (x86)\GnuWin32\lib"
 #LIBS += D:/OpenSSL-Win32/lib
-INCLUDEPATH += D:/OpenSSL-Win32/include
+#INCLUDEPATH += D:/OpenSSL-Win32/include
 
 SOURCES += main.cpp \
     socketcontroller.cpp \
-    mysslsocket.cpp
+    mysslsocket.cpp \
+    dataparser.cpp
 
 RESOURCES += qml.qrc \
     icons.qrc \
@@ -26,7 +27,8 @@ include(deployment.pri)
 
 HEADERS += \
     socketcontroller.h \
-    mysslsocket.h
+    mysslsocket.h \
+    dataparser.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

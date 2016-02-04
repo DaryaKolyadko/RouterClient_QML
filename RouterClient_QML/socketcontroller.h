@@ -34,8 +34,9 @@ private:
     QObject* wifiStatusModel;
     QObject* wifiStatusNameList;
     QObject* frequencyRangeModel;
-    QObject* availableWifiModel;
+    QObject* wifiConnectionsModel;
     QString wifiStatusServerValue;
+    QObject* availableWifiTab;
     MySslSocket socket;
     void init();
     void getValuesFromServer();
@@ -53,6 +54,7 @@ public slots:
     void initConnection();
     void recieveLoginClick();
     void initBackup();
+    void getInfoAboutWifiConnections();
     QString getInfo(QString message);
     QString getParamInfo(QString paramName);
     int permitSetInfo(QString message); // 1 - permitted, 0 - not permitted

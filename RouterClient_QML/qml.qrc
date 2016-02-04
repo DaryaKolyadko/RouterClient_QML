@@ -11,5 +11,6 @@
         <file>LimitedEditingText.qml</file>
         <file>ResolutionController.qml</file>
         <file>AvailableWifiTab.qml</file>
+        <file>WarningDialog.qml</file>
     </qresource>
 </RCC>

@@ -7,16 +7,25 @@ Tab {
     id: availableWifiTabId
     active: true
     title: qsTr("available_wifi")
+    property int wifiConnectedIndex: -1
+
+    Connections {
+        target: socketcontroller
+    }
 
     ColumnLayout{
 
         RowLayout{
+            WarningDialog{
+                id: wifiConnectWarningDialog
+            }
+
             Button{
                 id: updateAvailableWifiButton
                 text: qsTr("update_wifi_list")
                 Layout.fillWidth: true
                 onClicked: {
-                    //TODO
+                    socketcontroller.getInfoAboutWifiConnections();
                 }
             }
 
@@ -24,7 +33,9 @@ Tab {
                 id: connectToWifiButton
                 text: qsTr("connect_to_wifi")
                 Layout.fillWidth: true
+                enabled: false
                 onClicked: {
+                    wifiConnectWarningDialog.show("connect_warning")
                     //TODO
                 }
             }
@@ -33,9 +44,24 @@ Tab {
         TableView{
             id: wifiTableView
             Layout.fillWidth: true
-            property int count: 4
-            property int colWidth: wifiTableView.viewport.width / count
+            model: wifiConnectionsModel
+            property int colCount: 4
+            property int colWidth: wifiTableView.viewport.width / colCount
 
+            Connections{
+                target: wifiTableView.selection
+                onSelectionChanged: wifiTableView.checkConnectionButtonStatus()
+            }
+
+            function checkConnectionButtonStatus()
+            {
+                var connectionIndex = wifiTableView.currentRow;
+
+                if (connectionIndex == availableWifiTab.wifiConnectedIndex)
+                    connectToWifiButton.enabled = false;
+                else
+                    connectToWifiButton.enabled = true;
+            }
 
             TableViewColumn{
                 id: deviceColumn
@@ -71,7 +97,23 @@ Tab {
                 movable: false
                 resizable: true
                 width: wifiTableView.viewport.width -
-                       wifiTableView.colWidth*(wifiTableView.count - 1)
+                       wifiTableView.colWidth*(wifiTableView.colCount - 1)
+            }
+        }
+
+        ListModel{
+            id: wifiConnectionsModel
+            objectName: "wifiConnectionsModel"
+
+            function addWifiConnection(device_, type_, state_, connection_)
+            {
+                append({device: device_, type:type_, state: state_,
+                           connection: connection_})
+            }
+
+            function getChild(index)
+            {
+                return get(index)
             }
         }
     }

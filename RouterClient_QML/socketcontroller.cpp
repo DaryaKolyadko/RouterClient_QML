@@ -8,6 +8,7 @@
 #include <cstdio>
 #include <QObject>
 #include <QUrl>
+#include "dataparser.h"
 
 SocketController::SocketController(QObject *parent) : QObject(parent)
 {
@@ -28,6 +29,7 @@ void SocketController::recieveLoginClick()
 {
     init();
     getValuesFromServer();
+    getInfoAboutWifiConnections();
     initBackup();
 }
 
@@ -73,6 +75,9 @@ void SocketController::init()
     serviceCodeTextInput = systemInformationTab->findChild<QObject*>("serviceCodeTextInput");
     workGroupTextInput = systemInformationTab->findChild<QObject*>("workGroupTextInput");
     systemInfoBackup = systemInformationTab->findChild<QObject*>("localBackup");
+
+    availableWifiTab = configurationForm->findChild<QObject*>("availableWifiTab");
+    wifiConnectionsModel = availableWifiTab->findChild<QObject*>("wifiConnectionsModel");
 }
 
 QString SocketController::getInfo(QString message)
@@ -133,6 +138,7 @@ void SocketController::getValuesFromServer()
     hostNameTextInput->setProperty("text", getParamInfo("HostName"));
     serviceCodeTextInput->setProperty("text", getParamInfo("ServiceCode"));
     workGroupTextInput->setProperty("text", getParamInfo("WorkGroup"));
+    getInfoAboutWifiConnections();
 }
 
 void SocketController::initBackup()
@@ -144,6 +150,41 @@ void SocketController::initBackup()
     wifiConfigBackup->setProperty("ssid", ssidTextInput->property("text"));
     wifiConfigBackup->setProperty("frequencyRange", frequencyRangeComboBox->property("currentText"));
     wifiConfigBackup->setProperty("wifiStatus", wifiStatusServerValue);
+}
+
+void SocketController::getInfoAboutWifiConnections()
+{
+    QMetaObject::invokeMethod(wifiConnectionsModel, "clear");
+    QVariant retValue;
+   // QString data = getParamInfo("WifiConnections");
+
+    //parse info about wifiConnections
+    //TODO
+    DataParser* parser = new DataParser();
+    parser->parseWifiConnectionsInfo("some data");
+
+    //add them to wifiConnectionsModel and find connected one
+    //TODO
+
+    availableWifiTab->setProperty("wifiConnectedIndex", 0);
+
+    //experiment
+    QVariant device = "eth0";
+    QVariant type = "ethernet";
+    QVariant state = "connected";
+    QVariant connection = "Wired Connection 1";
+    QMetaObject::invokeMethod(wifiConnectionsModel, "addWifiConnection",
+                Q_RETURN_ARG(QVariant, retValue),
+                Q_ARG(QVariant, device),
+                Q_ARG(QVariant, type),
+                Q_ARG(QVariant, state),
+                Q_ARG(QVariant, connection));
+    QMetaObject::invokeMethod(wifiConnectionsModel, "addWifiConnection",
+                Q_RETURN_ARG(QVariant, retValue),
+                Q_ARG(QVariant, device),
+                Q_ARG(QVariant, type),
+                Q_ARG(QVariant, state),
+                Q_ARG(QVariant, connection));
 }
 
 int SocketController::findIndexByValue(QObject* model, int countInt, QString value)
