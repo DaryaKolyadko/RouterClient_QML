@@ -5,6 +5,7 @@ Item {
     MessageDialog {
         id: messageDialog
         title: qsTr("important")
+        icon: StandardIcon.Information
     }
 
     function show(caption)
