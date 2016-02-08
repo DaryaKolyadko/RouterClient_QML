@@ -49,6 +49,7 @@ public:
 signals:
     void sendErrorMessage(QString message);
     void wifiComboBoxSetText(QString text);
+    void logOut();
 
 public slots:
     void initConnection();
@@ -64,6 +65,7 @@ public slots:
     int confirmLoginAndPassword(QString login, QString password); // 1 - ok, 0 - not ok
     void close();
     int connectToWifi(int indexOfNetwork);
+    void logOutSignal();
 };
 
 #endif // SOCKETCONTROLLER_H

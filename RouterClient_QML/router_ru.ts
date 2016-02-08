@@ -2,168 +2,225 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ru_RU">
 <context>
+    <name>AvailableWifiTab</name>
+    <message>
+        <source>available_wifi</source>
+        <translation>Доступные сети</translation>
+    </message>
+    <message>
+        <source>update_wifi_list</source>
+        <translation>Обновить список</translation>
+    </message>
+    <message>
+        <source>connect_to_wifi</source>
+        <translation>Подключиться</translation>
+    </message>
+    <message>
+        <source>device</source>
+        <translation>Устройство</translation>
+    </message>
+    <message>
+        <source>type</source>
+        <translation>Тип</translation>
+    </message>
+    <message>
+        <source>state</source>
+        <translation>Статус</translation>
+    </message>
+    <message>
+        <source>connection</source>
+        <translation>Название сети</translation>
+    </message>
+    <message>
+        <source>wifi_connect_ok</source>
+        <translation>Вы были подключены к другой сети. Но, как и было сказано, соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
+    </message>
+    <message>
+        <source>wifi_connect_error</source>
+        <translation>Во время попытки подключения к другой сети произошла ошибка</translation>
+    </message>
+    <message>
+        <source>connect_warning</source>
+        <translation>При успешном подключении к другой сети соединение с маршрутизатором будет потеряно. Хотите продолжить?</translation>
+    </message>
+</context>
+<context>
+    <name>ErrorInfoDialog</name>
+    <message>
+        <source>error</source>
+        <translation>Ошибка</translation>
+    </message>
+</context>
+<context>
     <name>GeneralConfigurationTab</name>
     <message>
         <source>general_settings</source>
-        <translation type="unfinished">Основные настройки</translation>
+        <translation>Основные настройки</translation>
     </message>
     <message>
         <source>save_settings</source>
-        <translation type="unfinished">Сохранить настройки</translation>
+        <translation>Сохранить настройки</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation type="unfinished">Изменить настройки</translation>
+        <translation>Изменить настройки</translation>
     </message>
     <message>
         <source>changes_saved</source>
-        <translation type="unfinished">Все изменения сохранены</translation>
+        <translation>Все изменения сохранены</translation>
     </message>
     <message>
         <source>error_setting</source>
-        <translation type="unfinished">Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
+        <translation>Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
     </message>
     <message>
         <source>host_address</source>
-        <translation type="unfinished">Адрес хоста:</translation>
+        <translation>Адрес хоста:</translation>
     </message>
     <message>
         <source>network_mask</source>
-        <translation type="unfinished">Маска подсети:</translation>
+        <translation>Маска подсети:</translation>
     </message>
     <message>
         <source>mac_adddress</source>
-        <translation type="unfinished">MAC-адрес: *</translation>
+        <translation>MAC-адрес: *</translation>
     </message>
 </context>
 <context>
     <name>InfoMessageDialog</name>
     <message>
         <source>important</source>
-        <translation type="unfinished">Важно</translation>
+        <translation>Важно</translation>
     </message>
 </context>
 <context>
     <name>LimitedEditingText</name>
     <message>
         <source>cannot_be_editted</source>
-        <translation type="unfinished">Поля, обозначенные *, не подлежат редактированию</translation>
+        <translation>Поля, обозначенные *, не подлежат редактированию</translation>
     </message>
 </context>
 <context>
     <name>LoginForm</name>
     <message>
         <source>login</source>
-        <translation type="unfinished">Логин:</translation>
+        <translation>Логин:</translation>
     </message>
     <message>
         <source>password</source>
-        <translation type="unfinished">Пароль:</translation>
+        <translation>Пароль:</translation>
     </message>
     <message>
         <source>host_address</source>
-        <translation type="unfinished">Адрес хоста:</translation>
+        <translation>Адрес хоста:</translation>
     </message>
     <message>
         <source>log_in</source>
-        <translation type="unfinished">Войти</translation>
+        <translation>Войти</translation>
     </message>
 </context>
 <context>
     <name>MainForm</name>
     <message>
         <source>authorization</source>
-        <translation type="unfinished">Авторизация</translation>
+        <translation>Авторизация</translation>
     </message>
     <message>
         <source>configuration</source>
-        <translation type="unfinished">Настройка</translation>
+        <translation>Настройка</translation>
     </message>
     <message>
         <source>log_out</source>
-        <translation type="unfinished">Выйти</translation>
+        <translation>Выйти</translation>
     </message>
 </context>
 <context>
     <name>SystemInformationTab</name>
     <message>
         <source>system_information</source>
-        <translation type="unfinished">Информация о системе</translation>
+        <translation>Информация о системе</translation>
     </message>
     <message>
         <source>save_settings</source>
-        <translation type="unfinished">Сохранить настройки</translation>
+        <translation>Сохранить настройки</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation type="unfinished">Изменить настройки</translation>
+        <translation>Изменить настройки</translation>
     </message>
     <message>
         <source>error_setting</source>
-        <translation type="unfinished">Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
+        <translation>Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
     </message>
     <message>
         <source>model</source>
-        <translation type="unfinished">Модель: *</translation>
+        <translation>Модель: *</translation>
     </message>
     <message>
         <source>service_code</source>
-        <translation type="unfinished">Сервисный код: *</translation>
+        <translation>Сервисный код: *</translation>
     </message>
     <message>
         <source>host_name</source>
-        <translation type="unfinished">Имя хоста:</translation>
+        <translation>Имя хоста:</translation>
     </message>
     <message>
         <source>work_group</source>
-        <translation type="unfinished">Рабочая группа:</translation>
+        <translation>Рабочая группа:</translation>
     </message>
     <message>
         <source>changes_saved</source>
-        <translation type="unfinished">Все изменения сохранены</translation>
+        <translation>Все изменения сохранены</translation>
+    </message>
+</context>
+<context>
+    <name>WarningDialog</name>
+    <message>
+        <source>warning</source>
+        <translation>Предупреждение</translation>
     </message>
 </context>
 <context>
     <name>WifiConfigurationTab</name>
     <message>
         <source>wifi</source>
-        <translation type="unfinished">Wi-Fi</translation>
+        <translation>Wi-Fi</translation>
     </message>
     <message>
         <source>off</source>
-        <translation type="unfinished">Выключена</translation>
+        <translation>Выключена</translation>
     </message>
     <message>
         <source>on</source>
-        <translation type="unfinished">Включена</translation>
+        <translation>Включена</translation>
     </message>
     <message>
         <source>save_settings</source>
-        <translation type="unfinished">Сохранить настройки</translation>
+        <translation>Сохранить настройки</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation type="unfinished">Изменить настройки</translation>
+        <translation>Изменить настройки</translation>
     </message>
     <message>
         <source>error_setting</source>
-        <translation type="unfinished">Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
+        <translation>Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
     </message>
     <message>
         <source>ssid</source>
-        <translation type="unfinished">Имя беспроводной сети (SSID):</translation>
+        <translation>Имя беспроводной сети (SSID):</translation>
     </message>
     <message>
         <source>frequency_range</source>
-        <translation type="unfinished">Частотный диапазон:</translation>
+        <translation>Частотный диапазон:</translation>
     </message>
     <message>
         <source>wap</source>
-        <translation type="unfinished">Точка доступа Wi-Fi:</translation>
+        <translation>Точка доступа Wi-Fi:</translation>
     </message>
     <message>
         <source>changes_saved</source>
-        <translation type="unfinished">Все изменения сохранены</translation>
+        <translation>Все изменения сохранены</translation>
     </message>
 </context>
 </TS>

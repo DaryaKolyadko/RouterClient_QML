@@ -27,11 +27,11 @@ Tab {
 
                     if (result == 1)
                     {
-                        infoMessageDialog.show("wifi_connect_ok");
+                        infoMessageDialog.show(qsTr("wifi_connect_ok"));
                     }
                     else
                     {
-                        errorMessageDialog.show("wifi_connect_error");
+                        errorMessageDialog.show(qsTr("wifi_connect_error"));
                         socketcontroller.getInfoAboutWifiConnections();
                     }
                 }
@@ -42,7 +42,7 @@ Tab {
 
                 function doAction()
                 {
-                    socketcontroller.close();
+                    socketcontroller.logOut();
                 }
             }
 
@@ -65,7 +65,7 @@ Tab {
                 Layout.fillWidth: true
                 enabled: false
                 onClicked: {
-                    wifiConnectWarningDialog.show("connect_warning")
+                    wifiConnectWarningDialog.show(qsTr("connect_warning"))
                 }
             }
         }

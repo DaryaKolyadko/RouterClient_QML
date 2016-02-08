@@ -16,6 +16,9 @@ ApplicationWindow {
 
     Connections{
         target: socketcontroller
+        onLogOut: {
+            logOut();
+        }
     }
 
     LoginForm{
@@ -64,14 +67,20 @@ ApplicationWindow {
             }
 
             Button{
+                id: logOutButton
                 text: qsTr("log_out")
                 Layout.alignment: Qt.AlignRight
                 onClicked: {
-                    mainLoginForm.visible = true
-                    socketcontroller.close();
+                    logOut();
                 }
             }
         }
+    }
+
+    function logOut()
+    {
+        mainLoginForm.visible = true
+        socketcontroller.close();
     }
 
     ResolutionController{

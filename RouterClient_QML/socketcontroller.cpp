@@ -199,10 +199,15 @@ void SocketController::getInfoAboutWifiConnections()
 int SocketController::connectToWifi(int indexOfNetwork)
 {
     //TODO
-    QString result = "0";// getInfo("connectToWifi network(in array after parsing by indexOfNetwork)");
+    QString result = "1";// getInfo("connectToWifi network(in array after parsing by indexOfNetwork)");
     qDebug() << indexOfNetwork;
     return result.toInt();
     // check command on linux (what param should be sent)
+}
+
+void SocketController::logOutSignal()
+{
+    logOut();
 }
 
 int SocketController::findIndexByValue(QObject* model, int countInt, QString value)

@@ -2,168 +2,225 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
+    <name>AvailableWifiTab</name>
+    <message>
+        <source>available_wifi</source>
+        <translation>WiFi connections</translation>
+    </message>
+    <message>
+        <source>update_wifi_list</source>
+        <translation>Update list</translation>
+    </message>
+    <message>
+        <source>connect_to_wifi</source>
+        <translation>Connect</translation>
+    </message>
+    <message>
+        <source>device</source>
+        <translation>Device</translation>
+    </message>
+    <message>
+        <source>type</source>
+        <translation>Type</translation>
+    </message>
+    <message>
+        <source>state</source>
+        <translation>State</translation>
+    </message>
+    <message>
+        <source>connection</source>
+        <translation>Connection</translation>
+    </message>
+    <message>
+        <source>wifi_connect_ok</source>
+        <translation>Connection was established succesfully. But as you was warned the connection with router was lost. You will be logged out.</translation>
+    </message>
+    <message>
+        <source>wifi_connect_error</source>
+        <translation>The error occured while trying to connect to another network</translation>
+    </message>
+    <message>
+        <source>connect_warning</source>
+        <translation>If you were connected to another network you would lost the connection with router. Are you sure?</translation>
+    </message>
+</context>
+<context>
+    <name>ErrorInfoDialog</name>
+    <message>
+        <source>error</source>
+        <translation>Error</translation>
+    </message>
+</context>
+<context>
     <name>GeneralConfigurationTab</name>
     <message>
         <source>general_settings</source>
-        <translation type="unfinished">General settings</translation>
+        <translation>General settings</translation>
     </message>
     <message>
         <source>save_settings</source>
-        <translation type="unfinished">Save settings</translation>
+        <translation>Save settings</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation type="unfinished">Change settings</translation>
+        <translation>Change settings</translation>
     </message>
     <message>
         <source>changes_saved</source>
-        <translation type="unfinished">All changes are saved</translation>
+        <translation>All changes are saved</translation>
     </message>
     <message>
         <source>error_setting</source>
-        <translation type="unfinished">The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
+        <translation>The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
     </message>
     <message>
         <source>host_address</source>
-        <translation type="unfinished">Host address:</translation>
+        <translation>Host address:</translation>
     </message>
     <message>
         <source>network_mask</source>
-        <translation type="unfinished">Network mask:</translation>
+        <translation>Network mask:</translation>
     </message>
     <message>
         <source>mac_adddress</source>
-        <translation type="unfinished">MAC-adddress: *</translation>
+        <translation>MAC-adddress: *</translation>
     </message>
 </context>
 <context>
     <name>InfoMessageDialog</name>
     <message>
         <source>important</source>
-        <translation type="unfinished">Important</translation>
+        <translation>Important</translation>
     </message>
 </context>
 <context>
     <name>LimitedEditingText</name>
     <message>
         <source>cannot_be_editted</source>
-        <translation type="unfinished">Fields marked with * cannot be editted</translation>
+        <translation>Fields marked with * cannot be editted</translation>
     </message>
 </context>
 <context>
     <name>LoginForm</name>
     <message>
         <source>login</source>
-        <translation type="unfinished">Login:</translation>
+        <translation>Login:</translation>
     </message>
     <message>
         <source>password</source>
-        <translation type="unfinished">Password:</translation>
+        <translation>Password:</translation>
     </message>
     <message>
         <source>host_address</source>
-        <translation type="unfinished">Host address:</translation>
+        <translation>Host address:</translation>
     </message>
     <message>
         <source>log_in</source>
-        <translation type="unfinished">Log in</translation>
+        <translation>Log in</translation>
     </message>
 </context>
 <context>
     <name>MainForm</name>
     <message>
         <source>authorization</source>
-        <translation type="unfinished">Authorization</translation>
+        <translation>Authorization</translation>
     </message>
     <message>
         <source>configuration</source>
-        <translation type="unfinished">Configuration</translation>
+        <translation>Configuration</translation>
     </message>
     <message>
         <source>log_out</source>
-        <translation type="unfinished">Log out</translation>
+        <translation>Log out</translation>
     </message>
 </context>
 <context>
     <name>SystemInformationTab</name>
     <message>
         <source>system_information</source>
-        <translation type="unfinished">System information</translation>
+        <translation>System information</translation>
     </message>
     <message>
         <source>save_settings</source>
-        <translation type="unfinished">Save settings</translation>
+        <translation>Save settings</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation type="unfinished">Change settings</translation>
+        <translation>Change settings</translation>
     </message>
     <message>
         <source>changes_saved</source>
-        <translation type="unfinished">All changes are saved</translation>
+        <translation>All changes are saved</translation>
     </message>
     <message>
         <source>error_setting</source>
-        <translation type="unfinished">The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
+        <translation>The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
     </message>
     <message>
         <source>model</source>
-        <translation type="unfinished">Model: *</translation>
+        <translation>Model: *</translation>
     </message>
     <message>
         <source>service_code</source>
-        <translation type="unfinished">Service code: *</translation>
+        <translation>Service code: *</translation>
     </message>
     <message>
         <source>host_name</source>
-        <translation type="unfinished">Host name:</translation>
+        <translation>Host name:</translation>
     </message>
     <message>
         <source>work_group</source>
-        <translation type="unfinished">Work group:</translation>
+        <translation>Work group:</translation>
+    </message>
+</context>
+<context>
+    <name>WarningDialog</name>
+    <message>
+        <source>warning</source>
+        <translation>Warning</translation>
     </message>
 </context>
 <context>
     <name>WifiConfigurationTab</name>
     <message>
         <source>wifi</source>
-        <translation type="unfinished">Wi-Fi</translation>
+        <translation>Wi-Fi</translation>
     </message>
     <message>
         <source>off</source>
-        <translation type="unfinished">Off</translation>
+        <translation>Off</translation>
     </message>
     <message>
         <source>on</source>
-        <translation type="unfinished">On</translation>
+        <translation>On</translation>
     </message>
     <message>
         <source>save_settings</source>
-        <translation type="unfinished">Save settings</translation>
+        <translation>Save settings</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation type="unfinished">Change settings</translation>
+        <translation>Change settings</translation>
     </message>
     <message>
         <source>changes_saved</source>
-        <translation type="unfinished">All changes are saved</translation>
+        <translation>All changes are saved</translation>
     </message>
     <message>
         <source>error_setting</source>
-        <translation type="unfinished">The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
+        <translation>The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
     </message>
     <message>
         <source>ssid</source>
-        <translation type="unfinished">Wireless network name (SSID):</translation>
+        <translation>Wireless network name (SSID):</translation>
     </message>
     <message>
         <source>frequency_range</source>
-        <translation type="unfinished">Frequency range:</translation>
+        <translation>Frequency range:</translation>
     </message>
     <message>
         <source>wap</source>
-        <translation type="unfinished">Wireless access point:</translation>
+        <translation>Wireless access point:</translation>
     </message>
 </context>
 </TS>
