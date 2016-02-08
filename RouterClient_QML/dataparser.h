@@ -2,12 +2,19 @@
 #define DATAPARSER_H
 
 #include <QDebug>
+#include <QString>
+#include "wifiinfoparseresult.h"
 
 class DataParser
 {
+private:
+    QString wifiStateStr = "connected";
+    QString linuxDivider = "\n";
+    QString whitespace = " ";
+
 public:
     DataParser();
-    void parseWifiConnectionsInfo(QString data);
+    WifiInfoParseResult parseWifiConnectionsInfo(QString data);
 
 signals:
 

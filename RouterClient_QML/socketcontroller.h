@@ -63,6 +63,7 @@ public slots:
     int setParamInfo(QString param, QString info); // 1 - ok, 0 - not ok
     int confirmLoginAndPassword(QString login, QString password); // 1 - ok, 0 - not ok
     void close();
+    int connectToWifi(int indexOfNetwork);
 };
 
 #endif // SOCKETCONTROLLER_H

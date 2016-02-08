@@ -9,6 +9,7 @@
 #include <QObject>
 #include <QUrl>
 #include "dataparser.h"
+#include "wifiinfoparseresult.h"
 
 SocketController::SocketController(QObject *parent) : QObject(parent)
 {
@@ -40,7 +41,7 @@ void SocketController::initConnection()
     loginTextInput = loginForm->findChild<QObject*>("loginTextInput");
     passwordTextInput = loginForm->findChild<QObject*>("passwordTextInput");
     hostAddressTextInput = loginForm->findChild<QObject*>("hostAddressTextInput");
-    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 10004))
+    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 10005))
         sendErrorMessage(socket.getErrorMessage());
 }
 
@@ -156,35 +157,52 @@ void SocketController::getInfoAboutWifiConnections()
 {
     QMetaObject::invokeMethod(wifiConnectionsModel, "clear");
     QVariant retValue;
-   // QString data = getParamInfo("WifiConnections");
+    QString data = "DEVICE  TYPE      STATE        CONNECTION \neth0   ethernet      notconnected    Wired Connection 0    \nwlan0   wifi      connected    eduroam    \neth1    ethernet  unavailable  --         \nlo      loopback  unmanaged    --         \n";
+    //QString data = "DEVICE  TYPE      STATE        CONNECTION \nwlan0   wifi      connected    eduroam    \neth0    ethernet  unavailable  --         \nlo      loopback  unmanaged    --         \n";
 
-    //parse info about wifiConnections
-    //TODO
+    // QString data = getParamInfo("WifiConnections");
+    //qDebug() << "WIFI CONNECTIONS\n" << data;
+
     DataParser* parser = new DataParser();
-    parser->parseWifiConnectionsInfo("some data");
+    WifiInfoParseResult result;
+    result = parser->parseWifiConnectionsInfo(data);
+    availableWifiTab->setProperty("wifiConnectedIndex", result.connectedIndex);
 
-    //add them to wifiConnectionsModel and find connected one
-    //TODO
-
-    availableWifiTab->setProperty("wifiConnectedIndex", 0);
-
+    for (int i = 0; i < result.device.length(); i++)
+    {
+        QMetaObject::invokeMethod(wifiConnectionsModel, "addWifiConnection",
+                    Q_RETURN_ARG(QVariant, retValue),
+                    Q_ARG(QVariant, result.device.at(i)),
+                    Q_ARG(QVariant, result.type.at(i)),
+                    Q_ARG(QVariant, result.state.at(i)),
+                    Q_ARG(QVariant, result.connection.at(i)));
+    }
     //experiment
-    QVariant device = "eth0";
-    QVariant type = "ethernet";
-    QVariant state = "connected";
-    QVariant connection = "Wired Connection 1";
-    QMetaObject::invokeMethod(wifiConnectionsModel, "addWifiConnection",
-                Q_RETURN_ARG(QVariant, retValue),
-                Q_ARG(QVariant, device),
-                Q_ARG(QVariant, type),
-                Q_ARG(QVariant, state),
-                Q_ARG(QVariant, connection));
-    QMetaObject::invokeMethod(wifiConnectionsModel, "addWifiConnection",
-                Q_RETURN_ARG(QVariant, retValue),
-                Q_ARG(QVariant, device),
-                Q_ARG(QVariant, type),
-                Q_ARG(QVariant, state),
-                Q_ARG(QVariant, connection));
+//    QVariant device = "eth0";
+//    QVariant type = "ethernet";
+//    QVariant state = "connected";
+//    QVariant connection = "Wired Connection 1";
+//    QMetaObject::invokeMethod(wifiConnectionsModel, "addWifiConnection",
+//                Q_RETURN_ARG(QVariant, retValue),
+//                Q_ARG(QVariant, device),
+//                Q_ARG(QVariant, type),
+//                Q_ARG(QVariant, state),
+//                Q_ARG(QVariant, connection));
+//    QMetaObject::invokeMethod(wifiConnectionsModel, "addWifiConnection",
+//                Q_RETURN_ARG(QVariant, retValue),
+//                Q_ARG(QVariant, device),
+//                Q_ARG(QVariant, type),
+//                Q_ARG(QVariant, state),
+//                Q_ARG(QVariant, connection));
+}
+
+int SocketController::connectToWifi(int indexOfNetwork)
+{
+    //TODO
+    QString result = "0";// getInfo("connectToWifi network(in array after parsing by indexOfNetwork)");
+    qDebug() << indexOfNetwork;
+    return result.toInt();
+    // check command on linux (what param should be sent)
 }
 
 int SocketController::findIndexByValue(QObject* model, int countInt, QString value)

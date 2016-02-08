@@ -113,7 +113,7 @@ Item {
                Layout.fillHeight: true
                style: MyTextFieldStyle{id: hostfield}
                anchors.bottomMargin: bottomMargin
-               text: "10.54.11.130" // delete
+               text: "10.160.14.241" // delete
                validator: RegExpValidator{
                    regExp: regexHostAddress
                }

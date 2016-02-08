@@ -8,8 +8,7 @@ Item {
         icon: StandardIcon.Warning
         standardButtons: StandardButton.Ok | StandardButton.Cancel
         onAccepted: {
-            //TODO
-            console.debug("ohh yes")
+            doAction();
         }
     }
 
@@ -17,5 +16,10 @@ Item {
     {
         messageDialog.text = caption;
         messageDialog.open();
+    }
+
+    function doAction()
+    {
+        // should be overrided
     }
 }

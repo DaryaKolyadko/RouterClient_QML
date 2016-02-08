@@ -18,6 +18,36 @@ Tab {
         RowLayout{
             WarningDialog{
                 id: wifiConnectWarningDialog
+
+                function doAction()
+                {
+                    //could server sent result...?
+                    //TODO
+                    var result = socketcontroller.connectToWifi(availableWifiTab.wifiConnectedIndex);
+
+                    if (result == 1)
+                    {
+                        infoMessageDialog.show("wifi_connect_ok");
+                    }
+                    else
+                    {
+                        errorMessageDialog.show("wifi_connect_error");
+                        socketcontroller.getInfoAboutWifiConnections();
+                    }
+                }
+            }
+
+            InfoMessageDialog{
+                id: infoMessageDialog
+
+                function doAction()
+                {
+                    socketcontroller.close();
+                }
+            }
+
+            ErrorInfoDialog{
+                id: errorMessageDialog
             }
 
             Button{
@@ -36,7 +66,6 @@ Tab {
                 enabled: false
                 onClicked: {
                     wifiConnectWarningDialog.show("connect_warning")
-                    //TODO
                 }
             }
         }

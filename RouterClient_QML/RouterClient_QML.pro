@@ -28,7 +28,8 @@ include(deployment.pri)
 HEADERS += \
     socketcontroller.h \
     mysslsocket.h \
-    dataparser.h
+    dataparser.h \
+    wifiinfoparseresult.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

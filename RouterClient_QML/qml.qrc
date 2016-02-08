@@ -12,5 +12,6 @@
         <file>ResolutionController.qml</file>
         <file>AvailableWifiTab.qml</file>
         <file>WarningDialog.qml</file>
+        <file>ErrorInfoDialog.qml</file>
     </qresource>
 </RCC>
