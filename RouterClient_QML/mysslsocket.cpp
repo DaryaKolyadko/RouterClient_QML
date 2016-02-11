@@ -1,5 +1,5 @@
 #include "mysslsocket.h"
-#include <string>
+#include <QString>
 #include <cstdio>
 #include <QSslConfiguration>
 
@@ -115,7 +115,7 @@ QString MySslSocket::writeQueryAndReadAnswer(QString message)
     message = message + "\r\n";
     socket->write(message.toUtf8().constData());
     socket->waitForReadyRead();
-    QString res = socket->readAll();
+    QString res = QString::fromUtf8(socket->readAll());
     qDebug() << res;
     socket->close();
     return res;

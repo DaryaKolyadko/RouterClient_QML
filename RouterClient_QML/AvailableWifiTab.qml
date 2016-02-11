@@ -7,10 +7,19 @@ Tab {
     id: availableWifiTabId
     active: true
     title: qsTr("available_wifi")
-    property int wifiConnectedIndex: -1
+    property var wifiConnectedIndexes : [-1]
+    property string connectedStr : qsTr("connected")
 
     Connections {
         target: socketcontroller
+    }
+
+    function addWifiConnectedIndexes(indexList)
+    {
+        for (var i = 0; i < indexList.length; i++)
+        {
+            availableWifiTabId.wifiConnectedIndexes.push(indexList[i]);
+        }
     }
 
     ColumnLayout{
@@ -72,10 +81,11 @@ Tab {
 
         TableView{
             id: wifiTableView
+            objectName: "wifiTableView"
             Layout.fillWidth: true
             model: wifiConnectionsModel
-            property int colCount: 4
-            property int colWidth: wifiTableView.viewport.width / colCount
+            property int coefficient: 4
+            property int colWidth: wifiTableView.viewport.width / coefficient
 
             Connections{
                 target: wifiTableView.selection
@@ -86,25 +96,16 @@ Tab {
             {
                 var connectionIndex = wifiTableView.currentRow;
 
-                if (connectionIndex == availableWifiTab.wifiConnectedIndex)
+                if (availableWifiTab.wifiConnectedIndexes.indexOf(connectionIndex) > -1)
                     connectToWifiButton.enabled = false;
                 else
                     connectToWifiButton.enabled = true;
             }
 
             TableViewColumn{
-                id: deviceColumn
-                title: qsTr("device")
-                role: "device"
-                movable: false
-                resizable: true
-                width: wifiTableView.colWidth
-            }
-
-            TableViewColumn {
-                id: typeColumn
-                title: qsTr("type")
-                role: "type"
+                id: ssidColumn
+                title: qsTr("ssid_table_title")
+                role: "ssid"
                 movable: false
                 resizable: true
                 width: wifiTableView.colWidth
@@ -120,13 +121,30 @@ Tab {
             }
 
             TableViewColumn {
-                id: connectionColumn
-                title: qsTr("connection")
-                role: "connection"
+                id: rateColumn
+                title: qsTr("rate")
+                role: "rate"
                 movable: false
                 resizable: true
-                width: wifiTableView.viewport.width -
-                       wifiTableView.colWidth*(wifiTableView.colCount - 1)
+                width: wifiTableView.colWidth / 2
+            }
+
+            TableViewColumn {
+                id: barsColumn
+                title: qsTr("bars")
+                role: "bars"
+                movable: false
+                resizable: true
+                width: wifiTableView.colWidth / 2
+            }
+
+            TableViewColumn {
+                id: securityColumn
+                title: qsTr("security")
+                role: "security"
+                movable: false
+                resizable: true
+                width: wifiTableView.colWidth
             }
         }
 
@@ -134,10 +152,12 @@ Tab {
             id: wifiConnectionsModel
             objectName: "wifiConnectionsModel"
 
-            function addWifiConnection(device_, type_, state_, connection_)
+            function addWifiConnection(ssid_, state_, rate_, bars_,
+                                       security_)
             {
-                append({device: device_, type:type_, state: state_,
-                           connection: connection_})
+                var conn = state_ ? connectedStr : "";
+                append({ssid: ssid_, state: conn, rate: rate_,
+                           bars: bars_, security: security_})
             }
 
             function getChild(index)

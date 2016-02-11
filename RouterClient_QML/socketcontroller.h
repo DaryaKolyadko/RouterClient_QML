@@ -36,6 +36,7 @@ private:
     QObject* frequencyRangeModel;
     QObject* wifiConnectionsModel;
     QString wifiStatusServerValue;
+    QObject* wifiTableView;
     QObject* availableWifiTab;
     MySslSocket socket;
     void init();

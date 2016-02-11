@@ -16,20 +16,8 @@
         <translation>Connect</translation>
     </message>
     <message>
-        <source>device</source>
-        <translation>Device</translation>
-    </message>
-    <message>
-        <source>type</source>
-        <translation>Type</translation>
-    </message>
-    <message>
         <source>state</source>
         <translation>State</translation>
-    </message>
-    <message>
-        <source>connection</source>
-        <translation>Connection</translation>
     </message>
     <message>
         <source>wifi_connect_ok</source>
@@ -42,6 +30,30 @@
     <message>
         <source>connect_warning</source>
         <translation>If you were connected to another network you would lost the connection with router. Are you sure?</translation>
+    </message>
+    <message>
+        <source>ssid</source>
+        <translation type="obsolete">Wireless network name (SSID):</translation>
+    </message>
+    <message>
+        <source>rate</source>
+        <translation>Rate</translation>
+    </message>
+    <message>
+        <source>bars</source>
+        <translation>Bars</translation>
+    </message>
+    <message>
+        <source>security</source>
+        <translation>Security</translation>
+    </message>
+    <message>
+        <source>ssid_table_title</source>
+        <translation>Ssid</translation>
+    </message>
+    <message>
+        <source>connected</source>
+        <translation>connected</translation>
     </message>
 </context>
 <context>

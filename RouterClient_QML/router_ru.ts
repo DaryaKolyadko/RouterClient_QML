@@ -16,20 +16,8 @@
         <translation>Подключиться</translation>
     </message>
     <message>
-        <source>device</source>
-        <translation>Устройство</translation>
-    </message>
-    <message>
-        <source>type</source>
-        <translation>Тип</translation>
-    </message>
-    <message>
         <source>state</source>
         <translation>Статус</translation>
-    </message>
-    <message>
-        <source>connection</source>
-        <translation>Название сети</translation>
     </message>
     <message>
         <source>wifi_connect_ok</source>
@@ -42,6 +30,30 @@
     <message>
         <source>connect_warning</source>
         <translation>При успешном подключении к другой сети соединение с маршрутизатором будет потеряно. Хотите продолжить?</translation>
+    </message>
+    <message>
+        <source>ssid</source>
+        <translation type="obsolete">Имя беспроводной сети (SSID):</translation>
+    </message>
+    <message>
+        <source>rate</source>
+        <translation>Частота</translation>
+    </message>
+    <message>
+        <source>bars</source>
+        <translation>Сигнал</translation>
+    </message>
+    <message>
+        <source>security</source>
+        <translation>Безопасность</translation>
+    </message>
+    <message>
+        <source>ssid_table_title</source>
+        <translation>Название сети</translation>
+    </message>
+    <message>
+        <source>connected</source>
+        <translation>подключен</translation>
     </message>
 </context>
 <context>

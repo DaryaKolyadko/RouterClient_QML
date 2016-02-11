@@ -41,7 +41,7 @@ void SocketController::initConnection()
     loginTextInput = loginForm->findChild<QObject*>("loginTextInput");
     passwordTextInput = loginForm->findChild<QObject*>("passwordTextInput");
     hostAddressTextInput = loginForm->findChild<QObject*>("hostAddressTextInput");
-    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 10005))
+    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 10008))
         sendErrorMessage(socket.getErrorMessage());
 }
 
@@ -79,6 +79,7 @@ void SocketController::init()
 
     availableWifiTab = configurationForm->findChild<QObject*>("availableWifiTab");
     wifiConnectionsModel = availableWifiTab->findChild<QObject*>("wifiConnectionsModel");
+    wifiTableView = availableWifiTab->findChild<QObject*>("wifiTableView");
 }
 
 QString SocketController::getInfo(QString message)
@@ -157,43 +158,43 @@ void SocketController::getInfoAboutWifiConnections()
 {
     QMetaObject::invokeMethod(wifiConnectionsModel, "clear");
     QVariant retValue;
-    QString data = "DEVICE  TYPE      STATE        CONNECTION \neth0   ethernet      notconnected    Wired Connection 0    \nwlan0   wifi      connected    eduroam    \neth1    ethernet  unavailable  --         \nlo      loopback  unmanaged    --         \n";
+    //QString data = "*  SSID             MODE   CHAN  RATE       SIGNAL  BARS  SECURITY \n   Promwad Devices  Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n   Promwad Guest    Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n   Promwad Test     Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n   AP-lo1-10        Infra  1     54 Mbit/s  65      ▂▄▆_  WPA2     \n";
+    //QString data = "DEVICE  TYPE      STATE        CONNECTION \neth0   ethernet      notconnected    Wired Connection 0    \nwlan0   wifi      connected    eduroam    \neth1    ethernet  unavailable  --         \nlo      loopback  unmanaged    --         \n";
     //QString data = "DEVICE  TYPE      STATE        CONNECTION \nwlan0   wifi      connected    eduroam    \neth0    ethernet  unavailable  --         \nlo      loopback  unmanaged    --         \n";
+    //QString data = "  SSID             MODE   CHAN  RATE       SIGNAL  BARS  SECURITY  \n    Promwad  Infra  1     54  100     ▂▄▆█  WPA2     \n   *         Promwad Guest    Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n *  Promwad Test     Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2      \n   AP-lo1-10        Infra  1     54 Mbit/s  65      ▂▄▆_  WPA2";
+    //QString data = "  SSID             MODE   CHAN  RATE       SIGNAL  BARS  SECURITY  \n    Promwad Devices  Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n   *         Promwad Guest    Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n *  Promwad Test     Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2      \n   AP-lo1-10        Infra  1     54 Mbit/s  65      ▂▄▆_  WPA2";
+    QString data = getParamInfo("WifiConnections");
+   // qDebug() << "WIFI CONNECTIONS\n" << data;
 
-    // QString data = getParamInfo("WifiConnections");
-    //qDebug() << "WIFI CONNECTIONS\n" << data;
+   // QString str = QString::fromUtf8("\u2582\u2584\u2586\u2588");
+//    QMetaObject::invokeMethod(wifiConnectionsModel, "addWifiConnection",
+//                        Q_RETURN_ARG(QVariant, retValue),
+//                        Q_ARG(QVariant,"1"),
+//                        Q_ARG(QVariant, "2"),
+//                        Q_ARG(QVariant, "3"),
+//                        Q_ARG(QVariant, "f"));
 
     DataParser* parser = new DataParser();
     WifiInfoParseResult result;
     result = parser->parseWifiConnectionsInfo(data);
-    availableWifiTab->setProperty("wifiConnectedIndex", result.connectedIndex);
+    QVariant varParams;
+    varParams.setValue<QList<int>>(result.connectedIndexes);
+    QMetaObject::invokeMethod(availableWifiTab, "addWifiConnectedIndexes",
+            Q_RETURN_ARG(QVariant, retValue),
+            Q_ARG(QVariant, varParams));
+    int networksCount = result.params[0].length();
 
-    for (int i = 0; i < result.device.length(); i++)
+    for(int i = 0; i < networksCount; i++)
     {
+        bool isConnected = result.connectedIndexes.contains(i);
         QMetaObject::invokeMethod(wifiConnectionsModel, "addWifiConnection",
-                    Q_RETURN_ARG(QVariant, retValue),
-                    Q_ARG(QVariant, result.device.at(i)),
-                    Q_ARG(QVariant, result.type.at(i)),
-                    Q_ARG(QVariant, result.state.at(i)),
-                    Q_ARG(QVariant, result.connection.at(i)));
+                Q_RETURN_ARG(QVariant, retValue),
+                Q_ARG(QVariant, result.params[result.columnIndexes["ssid"]].at(i)),
+                Q_ARG(QVariant, isConnected),
+                Q_ARG(QVariant, result.params[result.columnIndexes["rate"]].at(i)),
+                Q_ARG(QVariant, result.params[result.columnIndexes["bars"]].at(i)),
+                Q_ARG(QVariant, result.params[result.columnIndexes["security"]].at(i)));
     }
-    //experiment
-//    QVariant device = "eth0";
-//    QVariant type = "ethernet";
-//    QVariant state = "connected";
-//    QVariant connection = "Wired Connection 1";
-//    QMetaObject::invokeMethod(wifiConnectionsModel, "addWifiConnection",
-//                Q_RETURN_ARG(QVariant, retValue),
-//                Q_ARG(QVariant, device),
-//                Q_ARG(QVariant, type),
-//                Q_ARG(QVariant, state),
-//                Q_ARG(QVariant, connection));
-//    QMetaObject::invokeMethod(wifiConnectionsModel, "addWifiConnection",
-//                Q_RETURN_ARG(QVariant, retValue),
-//                Q_ARG(QVariant, device),
-//                Q_ARG(QVariant, type),
-//                Q_ARG(QVariant, state),
-//                Q_ARG(QVariant, connection));
 }
 
 int SocketController::connectToWifi(int indexOfNetwork)
