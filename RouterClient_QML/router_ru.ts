@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>wifi_connect_ok</source>
-        <translation>Вы были подключены к другой сети. Но, как и было сказано, соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
+        <translation>Подключение к сети прошло успешно</translation>
     </message>
     <message>
         <source>wifi_connect_error</source>
@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>connect_warning</source>
-        <translation>При успешном подключении к другой сети соединение с маршрутизатором будет потеряно. Хотите продолжить?</translation>
+        <translation>При успешном подключении к другой сети соединение с маршрутизатором, возможно, будет потеряно. Хотите продолжить?</translation>
     </message>
     <message>
         <source>ssid</source>
@@ -54,6 +54,10 @@
     <message>
         <source>connected</source>
         <translation>подключен</translation>
+    </message>
+    <message>
+        <source>connection_lost</source>
+        <translation>Вы были подключены к другой сети. Но, как и было сказано, соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
     </message>
 </context>
 <context>
@@ -233,6 +237,21 @@
     <message>
         <source>changes_saved</source>
         <translation>Все изменения сохранены</translation>
+    </message>
+</context>
+<context>
+    <name>WifiPasswordDialog</name>
+    <message>
+        <source>connect_params</source>
+        <translation>Параметры подключения</translation>
+    </message>
+    <message>
+        <source>network_name</source>
+        <translation>Сеть:</translation>
+    </message>
+    <message>
+        <source>wifi_password</source>
+        <translation>Пароль:</translation>
     </message>
 </context>
 </TS>

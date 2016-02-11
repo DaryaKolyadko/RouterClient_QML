@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>wifi_connect_ok</source>
-        <translation>Connection was established succesfully. But as you was warned the connection with router was lost. You will be logged out.</translation>
+        <translation>Connection was established succesfully</translation>
     </message>
     <message>
         <source>wifi_connect_error</source>
@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>connect_warning</source>
-        <translation>If you were connected to another network you would lost the connection with router. Are you sure?</translation>
+        <translation>If you were connected to another network you may lost the connection with router. Are you sure?</translation>
     </message>
     <message>
         <source>ssid</source>
@@ -54,6 +54,10 @@
     <message>
         <source>connected</source>
         <translation>connected</translation>
+    </message>
+    <message>
+        <source>connection_lost</source>
+        <translation>Connection was established succesfully. But as you was warned the connection with router was lost. You will be logged out</translation>
     </message>
 </context>
 <context>
@@ -233,6 +237,21 @@
     <message>
         <source>wap</source>
         <translation>Wireless access point:</translation>
+    </message>
+</context>
+<context>
+    <name>WifiPasswordDialog</name>
+    <message>
+        <source>connect_params</source>
+        <translation>Connection options</translation>
+    </message>
+    <message>
+        <source>network_name</source>
+        <translation>Network:</translation>
+    </message>
+    <message>
+        <source>wifi_password</source>
+        <translation>Password:</translation>
     </message>
 </context>
 </TS>
