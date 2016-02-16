@@ -46,6 +46,7 @@ private:
 public:
     explicit SocketController(QObject *parent = 0);
     QQmlApplicationEngine engine;
+    bool fl = false;
 
 signals:
     void sendErrorMessage(QString message);
@@ -65,7 +66,7 @@ public slots:
     int setParamInfo(QString param, QString info); // 1 - ok, 0 - not ok
     int confirmLoginAndPassword(QString login, QString password); // 1 - ok, 0 - not ok
     void close();
-    int connectToWifi(int indexOfNetwork);
+    int connectToWifi(QString ssid, QString password);
     void logOutSignal();
 };
 

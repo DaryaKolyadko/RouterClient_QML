@@ -41,7 +41,7 @@ void SocketController::initConnection()
     loginTextInput = loginForm->findChild<QObject*>("loginTextInput");
     passwordTextInput = loginForm->findChild<QObject*>("passwordTextInput");
     hostAddressTextInput = loginForm->findChild<QObject*>("hostAddressTextInput");
-    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 10008))
+    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 10012))
         sendErrorMessage(socket.getErrorMessage());
 }
 
@@ -99,22 +99,37 @@ int SocketController::setInfo(QString message)
 
 int SocketController::setParamInfo(QString paramName, QString paramValue)
 {
-    return socket.writeQueryAndReadAnswer("set"  + paramName + " " + paramValue).toInt();
+    QString resultStr = socket.writeQueryAndReadAnswer("set"  + paramName + " " + paramValue);
+
+    if (resultStr.isEmpty())
+        return -1;
+
+    return resultStr.toInt();
 }
 
 int SocketController::permitSetInfo(QString message)
 {
-    return socket.writeQueryAndReadAnswer(message).toInt();
+    QString resultStr = socket.writeQueryAndReadAnswer(message);
+
+    if (resultStr.isEmpty())
+        return -1;
+
+    return resultStr.toInt();
 }
 
 int SocketController::permitSetParamInfo(QString paramName, QString paramValue)
 {
-    return socket.writeQueryAndReadAnswer("permitSet"  + paramName + " " + paramValue).toInt();
+    QString resultStr = socket.writeQueryAndReadAnswer("permitSet"  + paramName + " " + paramValue);
+
+    if (resultStr.isEmpty())
+        return -1;
+
+    return resultStr.toInt();
 }
 
 int SocketController::confirmLoginAndPassword(QString login, QString password)
 {
-    return socket.writeQueryAndReadAnswer("auth "  + login + " " + password).toInt();
+    return socket.writeQueryAndReadAnswer(QString("auth %1 %2").arg(login, password)).toInt();
 }
 
 void SocketController::close()
@@ -162,18 +177,7 @@ void SocketController::getInfoAboutWifiConnections()
     //QString data = "DEVICE  TYPE      STATE        CONNECTION \neth0   ethernet      notconnected    Wired Connection 0    \nwlan0   wifi      connected    eduroam    \neth1    ethernet  unavailable  --         \nlo      loopback  unmanaged    --         \n";
     //QString data = "DEVICE  TYPE      STATE        CONNECTION \nwlan0   wifi      connected    eduroam    \neth0    ethernet  unavailable  --         \nlo      loopback  unmanaged    --         \n";
     //QString data = "  SSID             MODE   CHAN  RATE       SIGNAL  BARS  SECURITY  \n    Promwad  Infra  1     54  100     ▂▄▆█  WPA2     \n   *         Promwad Guest    Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n *  Promwad Test     Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2      \n   AP-lo1-10        Infra  1     54 Mbit/s  65      ▂▄▆_  WPA2";
-    //QString data = "  SSID             MODE   CHAN  RATE       SIGNAL  BARS  SECURITY  \n    Promwad Devices  Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n   *         Promwad Guest    Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n *  Promwad Test     Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2      \n   AP-lo1-10        Infra  1     54 Mbit/s  65      ▂▄▆_  WPA2";
     QString data = getParamInfo("WifiConnections");
-   // qDebug() << "WIFI CONNECTIONS\n" << data;
-
-   // QString str = QString::fromUtf8("\u2582\u2584\u2586\u2588");
-//    QMetaObject::invokeMethod(wifiConnectionsModel, "addWifiConnection",
-//                        Q_RETURN_ARG(QVariant, retValue),
-//                        Q_ARG(QVariant,"1"),
-//                        Q_ARG(QVariant, "2"),
-//                        Q_ARG(QVariant, "3"),
-//                        Q_ARG(QVariant, "f"));
-
     DataParser* parser = new DataParser();
     WifiInfoParseResult result;
     result = parser->parseWifiConnectionsInfo(data);
@@ -197,13 +201,10 @@ void SocketController::getInfoAboutWifiConnections()
     }
 }
 
-int SocketController::connectToWifi(int indexOfNetwork)
+int SocketController::connectToWifi(QString ssid, QString password)
 {
-    //TODO
-    QString result = "1";// getInfo("connectToWifi network(in array after parsing by indexOfNetwork)");
-    qDebug() << indexOfNetwork;
+    QString result = getInfo(QString("connectToWifi %1 %2").arg(ssid, password));
     return result.toInt();
-    // check command on linux (what param should be sent)
 }
 
 void SocketController::logOutSignal()

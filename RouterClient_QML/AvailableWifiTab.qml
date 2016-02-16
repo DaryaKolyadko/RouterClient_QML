@@ -7,7 +7,7 @@ Tab {
     id: availableWifiTabId
     active: true
     title: qsTr("available_wifi")
-    property var wifiConnectedIndexes : [-1]
+    property var wifiConnectedIndexes : []
     property string connectedStr : qsTr("connected")
 
     Connections {
@@ -16,6 +16,8 @@ Tab {
 
     function addWifiConnectedIndexes(indexList)
     {
+        availableWifiTabId.wifiConnectedIndexes = [];
+
         for (var i = 0; i < indexList.length; i++)
         {
             availableWifiTabId.wifiConnectedIndexes.push(indexList[i]);
@@ -25,29 +27,24 @@ Tab {
     ColumnLayout{
 
         RowLayout{
+            id: rowLayoutId
+
             WarningDialog{
                 id: wifiConnectWarningDialog
 
                 function doAction()
                 {
-                    //could server sent result...?
-                    //TODO
-                    var result = socketcontroller.connectToWifi(availableWifiTab.wifiConnectedIndex);
-
-                    if (result == 1)
-                    {
-                        infoMessageDialog.show(qsTr("wifi_connect_ok"));
-                    }
-                    else
-                    {
-                        errorMessageDialog.show(qsTr("wifi_connect_error"));
-                        socketcontroller.getInfoAboutWifiConnections();
-                    }
+                    wifiPasswordDialog.show(wifiConnectionsModel.getChild(
+                                                wifiTableView.currentRow).ssid);
                 }
             }
 
             InfoMessageDialog{
                 id: infoMessageDialog
+            }
+
+            InfoMessageDialog{
+                id: logoutDialog
 
                 function doAction()
                 {
@@ -57,6 +54,33 @@ Tab {
 
             ErrorInfoDialog{
                 id: errorMessageDialog
+            }
+
+            WifiPasswordDialog{
+                id: wifiPasswordDialog
+
+                function doAction()
+                {
+                    var result = socketcontroller.connectToWifi(
+                                wifiConnectionsModel.getChild(
+                                    wifiTableView.currentRow).ssid,
+                                 getPassword());
+
+                    if (result === 1)
+                    {
+                        infoMessageDialog.show(qsTr("wifi_connect_ok"));
+                        socketcontroller.getInfoAboutWifiConnections();
+                    }
+                    else if (result === 0)
+                    {
+                        errorMessageDialog.show(qsTr("wifi_connect_error"));
+                        socketcontroller.getInfoAboutWifiConnections();
+                    }
+                    else
+                    {
+                        logoutDialog.show(qsTr("connection_lost"));
+                    }
+                }
             }
 
             Button{
@@ -86,6 +110,13 @@ Tab {
             model: wifiConnectionsModel
             property int coefficient: 4
             property int colWidth: wifiTableView.viewport.width / coefficient
+
+            anchors {
+                top: rowLayoutId.bottom
+                bottom: parent.bottom
+                left: parent.left
+                right: parent.right
+            }
 
             Connections{
                 target: wifiTableView.selection

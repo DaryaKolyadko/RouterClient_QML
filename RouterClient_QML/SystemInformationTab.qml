@@ -26,6 +26,10 @@ Tab{
             id: systemConfigurationMessageDialog
         }
 
+        ErrorInfoDialog {
+            id: systemConfigurationErrorDialog
+        }
+
         Item{
             id: localBackup
             objectName: "localBackup"
@@ -84,7 +88,10 @@ Tab{
                     var res = socketcontroller.permitSetParamInfo(paramName, newParamValue);
                     if(res === 1)
                         return true;
-                    systemConfigurationMessageDialog.show(qsTr("error_setting").arg(paramName).arg(newParamValue));
+                    else if (res === 0)
+                        systemConfigurationMessageDialog.show(qsTr("error_setting").arg(paramName).arg(newParamValue));
+                    else //new
+                        systemConfigurationErrorDialog.show(qsTr("connection_lost"));
                     return false;
                 }
                 return true;

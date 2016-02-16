@@ -27,6 +27,10 @@ Tab{
             id: wifiConfigurationMessageDialog
         }
 
+        ErrorInfoDialog {
+            id: wifiConfigurationErrorDialog
+        }
+
         Component.onCompleted: {
             wifiStatusListModel.addWifiStatus(qsTr("on"));
             wifiStatusListModel.addWifiStatus(qsTr("off"));
@@ -100,7 +104,10 @@ Tab{
                     var res = socketcontroller.permitSetParamInfo(paramName, newParamValue);
                     if(res === 1)
                         return true;
-                    wifiConfigurationMessageDialog.show(qsTr("error_setting").arg(paramName).arg(newParamValue));
+                    else if (res === 0)
+                        wifiConfigurationMessageDialog.show(qsTr("error_setting").arg(paramName).arg(newParamValue));
+                    else //new
+                        wifiConfigurationErrorDialog.show(qsTr("connection_lost"));
                     return false;
                 }
                 return true;

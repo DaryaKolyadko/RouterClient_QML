@@ -13,5 +13,6 @@
         <file>AvailableWifiTab.qml</file>
         <file>WarningDialog.qml</file>
         <file>ErrorInfoDialog.qml</file>
+        <file>WifiPasswordDialog.qml</file>
     </qresource>
 </RCC>

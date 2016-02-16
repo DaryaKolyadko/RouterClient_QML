@@ -67,6 +67,11 @@ Item {
         // should be overrided
     }
 
+    function getPassword()
+    {
+        return wifiPasswordInput.text;
+    }
+
     ResolutionController{
         id: resolution
     }

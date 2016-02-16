@@ -2,6 +2,7 @@
 #include <QString>
 #include <cstdio>
 #include <QSslConfiguration>
+#include "socketcontroller.h"
 
 MySslSocket::MySslSocket(QObject *parent) :  QObject(parent)
 {
@@ -112,6 +113,9 @@ QString MySslSocket::writeQueryAndReadAnswer(QString message)
 {
     qDebug() << message;
     doConnect(host, port);
+//    // try
+//    if(!doConnect(host, port))
+//        SocketController::sendErrorMessage(socket->errorString());
     message = message + "\r\n";
     socket->write(message.toUtf8().constData());
     socket->waitForReadyRead();

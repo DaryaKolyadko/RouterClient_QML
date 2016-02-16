@@ -18,7 +18,7 @@ Item {
         target: socketcontroller
         onWifiComboBoxSetText:{
             wifiConfigurationTab.wifiStatusComboVal = text;
-            console.debug(wifiConfigurationTab.wifiStatusComboVal);
+          //  console.debug(wifiConfigurationTab.wifiStatusComboVal);
         }
     }
 

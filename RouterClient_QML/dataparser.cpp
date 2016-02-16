@@ -11,6 +11,7 @@ WifiInfoParseResult DataParser::parseWifiConnectionsInfo(QString data)
     QStringList buffer = data.split(linuxDivider, QString::SkipEmptyParts);
     result.connectedIndexes = findAllConnectedIndexes(buffer);
     result.columnNames = buffer.first().split(whitespace, QString::SkipEmptyParts);
+    deleteConnectMark(result.columnNames);
     int columnsCount = result.columnNames.length();
     QStringList buff;
 
