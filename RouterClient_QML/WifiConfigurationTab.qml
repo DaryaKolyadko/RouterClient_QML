@@ -3,7 +3,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
 Tab{
-    id: wifiConfogurationTabId
+    id: wifiConfigurationTabId
     active: true
     title: qsTr("wifi")
 

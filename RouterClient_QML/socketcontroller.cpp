@@ -8,8 +8,10 @@
 #include <cstdio>
 #include <QObject>
 #include <QUrl>
-#include "dataparser.h"
+#include "wifidataparser.h"
 #include "wifiinfoparseresult.h"
+#include "portstatusdataparser.h"
+#include "portstatusparseresult.h"
 
 SocketController::SocketController(QObject *parent) : QObject(parent)
 {
@@ -30,7 +32,6 @@ void SocketController::recieveLoginClick()
 {
     init();
     getValuesFromServer();
-    getInfoAboutWifiConnections();
     initBackup();
 }
 
@@ -80,6 +81,14 @@ void SocketController::init()
     availableWifiTab = configurationForm->findChild<QObject*>("availableWifiTab");
     wifiConnectionsModel = availableWifiTab->findChild<QObject*>("wifiConnectionsModel");
     wifiTableView = availableWifiTab->findChild<QObject*>("wifiTableView");
+
+    QObject* miscConfigurationTab = configurationForm->findChild<QObject*>("miscConfigurationTab");
+    QObject* accountSettingsSubtab = miscConfigurationTab->findChild<QObject*>("accountSettingsSubtab");
+    accountSettingsLoginTextInput = accountSettingsSubtab->findChild<QObject*>("accountSettingsLoginTextInput");
+
+    QObject* portsTab = configurationForm->findChild<QObject*>("portsTab");
+    QObject* portStatusSubtab = portsTab->findChild<QObject*>("portStatusSubtab");
+    portStatusModel = portStatusSubtab->findChild<QObject*>("portStatusModel");
 }
 
 QString SocketController::getInfo(QString message)
@@ -127,6 +136,26 @@ int SocketController::permitSetParamInfo(QString paramName, QString paramValue)
     return resultStr.toInt();
 }
 
+int SocketController::setNewPassword(QString paramName, QString oldPassword, QString newPassword)
+{
+    QString resultStr = socket.writeQueryAndReadAnswer("set"  + paramName + " " + oldPassword
+                                                       + " " + newPassword);
+    if (resultStr.isEmpty())
+        return -1;
+
+    return resultStr.toInt();
+}
+
+int SocketController::permitSetNewPassword(QString paramName, QString oldPassword, QString newPassword)
+{
+    QString resultStr = socket.writeQueryAndReadAnswer("permitSet"  + paramName + " " + oldPassword
+                                                       + " " + newPassword);
+    if (resultStr.isEmpty())
+        return -1;
+
+    return resultStr.toInt();
+}
+
 int SocketController::confirmLoginAndPassword(QString login, QString password)
 {
     return socket.writeQueryAndReadAnswer(QString("auth %1 %2").arg(login, password)).toInt();
@@ -155,7 +184,9 @@ void SocketController::getValuesFromServer()
     hostNameTextInput->setProperty("text", getParamInfo("HostName"));
     serviceCodeTextInput->setProperty("text", getParamInfo("ServiceCode"));
     workGroupTextInput->setProperty("text", getParamInfo("WorkGroup"));
+    accountSettingsLoginTextInput->setProperty("text", getLogin());
     getInfoAboutWifiConnections();
+    getPortStatusList();
 }
 
 void SocketController::initBackup()
@@ -178,7 +209,7 @@ void SocketController::getInfoAboutWifiConnections()
     //QString data = "DEVICE  TYPE      STATE        CONNECTION \nwlan0   wifi      connected    eduroam    \neth0    ethernet  unavailable  --         \nlo      loopback  unmanaged    --         \n";
     //QString data = "  SSID             MODE   CHAN  RATE       SIGNAL  BARS  SECURITY  \n    Promwad  Infra  1     54  100     ▂▄▆█  WPA2     \n   *         Promwad Guest    Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n *  Promwad Test     Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2      \n   AP-lo1-10        Infra  1     54 Mbit/s  65      ▂▄▆_  WPA2";
     QString data = getParamInfo("WifiConnections");
-    DataParser* parser = new DataParser();
+    WifiDataParser* parser = new WifiDataParser();
     WifiInfoParseResult result;
     result = parser->parseWifiConnectionsInfo(data);
     QVariant varParams;
@@ -198,6 +229,29 @@ void SocketController::getInfoAboutWifiConnections()
                 Q_ARG(QVariant, result.params[result.columnIndexes["rate"]].at(i)),
                 Q_ARG(QVariant, result.params[result.columnIndexes["bars"]].at(i)),
                 Q_ARG(QVariant, result.params[result.columnIndexes["security"]].at(i)));
+    }
+}
+
+void SocketController::getPortStatusList()
+{
+    QMetaObject::invokeMethod(portStatusModel, "clear");
+    QVariant retValue;
+    //QString data = "1         Down              -               -            - \n2         Down              -               -            - \n3         Down              -               -            -   \n4         Up              100M               Full            Off \n";
+    QString data = getParamInfo("PortStatusList");
+    PortStatusDataParser* parser = new PortStatusDataParser();
+    PortStatusParseResult result;
+    result = parser->parsePortStatusData(data);
+    int portsCount = result.params[0].length();
+
+    for(int i = 0; i < portsCount; i++)
+    {
+        QMetaObject::invokeMethod(portStatusModel, "addPortStatus",
+                Q_RETURN_ARG(QVariant, retValue),
+                Q_ARG(QVariant, result.params[result.columnIndexes["port"]].at(i)),
+                Q_ARG(QVariant, result.params[result.columnIndexes["link"]].at(i)),
+                Q_ARG(QVariant, result.params[result.columnIndexes["speed"]].at(i)),
+                Q_ARG(QVariant, result.params[result.columnIndexes["duplex"]].at(i)),
+                Q_ARG(QVariant, result.params[result.columnIndexes["flow_control"]].at(i)));
     }
 }
 
@@ -229,4 +283,9 @@ int SocketController::findIndexByValue(QObject* model, int countInt, QString val
         counter++;
     }
     return -1;
+}
+
+QString SocketController::getLogin()
+{
+    return loginTextInput->property("text").toString();
 }

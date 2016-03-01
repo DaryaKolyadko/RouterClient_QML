@@ -14,5 +14,18 @@
         <file>WarningDialog.qml</file>
         <file>ErrorInfoDialog.qml</file>
         <file>WifiPasswordDialog.qml</file>
+        <file>PortStatusSubtab.qml</file>
+        <file>PortSetupSubtab.qml</file>
+        <file>MiscConfigurationTab.qml</file>
+        <file>AccountSettingsSubtab.qml</file>
+        <file>RebootSystemSubtab.qml</file>
+        <file>RestoreSystemSubtab.qml</file>
+        <file>FirmwareUpgradeSubtab.qml</file>
+        <file>PortStatusCountersSubtab.qml</file>
+        <file>VlanSetupTab.qml</file>
+        <file>PortsTab.qml</file>
+        <file>PortTrunkSetupSubtab.qml</file>
+        <file>PoeTab.qml</file>
+        <file>ChooseFileDialog.qml</file>
     </qresource>
 </RCC>

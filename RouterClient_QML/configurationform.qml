@@ -48,6 +48,30 @@ Item {
             anchors.fill: parent
         }
 
+        MiscConfigurationTab{
+            id: miscConfigurationTab
+            objectName: "miscConfigurationTab"
+            anchors.fill: parent
+        }
+
+       PortsTab{
+           id: portsTab
+           objectName: "portsTab"
+           anchors.fill: parent
+       }
+
+        VlanSetupTab{
+            id: vlanSetupTab
+            objectName: "vlanSetupTab"
+            anchors.fill: parent
+        }
+
+        PoeTab{
+            id: poeTab
+            objectName: "poeTab"
+            anchors.fill: parent
+        }
+
         AvailableWifiTab {
             id: availableWifiTab
             objectName: "availableWifiTab"

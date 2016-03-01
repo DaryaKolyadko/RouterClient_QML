@@ -38,6 +38,8 @@ private:
     QString wifiStatusServerValue;
     QObject* wifiTableView;
     QObject* availableWifiTab;
+    QObject* accountSettingsLoginTextInput;
+    QObject* portStatusModel;
     MySslSocket socket;
     void init();
     void getValuesFromServer();
@@ -58,6 +60,8 @@ public slots:
     void recieveLoginClick();
     void initBackup();
     void getInfoAboutWifiConnections();
+    void getPortStatusList();
+    QString getLogin();
     QString getInfo(QString message);
     QString getParamInfo(QString paramName);
     int permitSetInfo(QString message); // 1 - permitted, 0 - not permitted
@@ -65,6 +69,8 @@ public slots:
     int setInfo(QString message); // 1 - ok, 0 - not ok
     int setParamInfo(QString param, QString info); // 1 - ok, 0 - not ok
     int confirmLoginAndPassword(QString login, QString password); // 1 - ok, 0 - not ok
+    int setNewPassword(QString paramName, QString oldPassword, QString newPassword); // 1 - ok, 0 - not ok
+    int permitSetNewPassword(QString paramName, QString oldPassword, QString newPassword);
     void close();
     int connectToWifi(QString ssid, QString password);
     void logOutSignal();
