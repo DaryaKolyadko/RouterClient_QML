@@ -36,7 +36,8 @@ Tab {
 
                     function doAction()
                     {
-                        // TODO
+                        socketcontroller.restoreSystemDefault();
+                        socketcontroller.logOutSignal();
                     }
                 }
             }

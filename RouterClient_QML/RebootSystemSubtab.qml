@@ -36,7 +36,8 @@ Tab {
 
                 function doAction()
                 {
-                    // TODO
+                    socketcontroller.rebootSystem();
+                    socketcontroller.logOutSignal();
                 }
             }
         }
