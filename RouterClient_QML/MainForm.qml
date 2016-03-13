@@ -14,6 +14,10 @@ ApplicationWindow {
     height: minimumHeight
     title: qsTr("authorization")
 
+    Component.onCompleted: {
+        mainConfigurationForm.generalConfigurationTab.visible = true;
+    }
+
     Connections{
         target: socketcontroller
         onLogOut: {
@@ -40,6 +44,8 @@ ApplicationWindow {
         visible: false
     }
 
+    Loader { id: pageLoader }
+
     function pageChanged ()
     {
         if (mainLoginForm.visible) {
@@ -50,7 +56,6 @@ ApplicationWindow {
         else {
             title = qsTr("configuration");
             mainConfigurationForm.visible = true;
-
             statusBar.visible = true;
         }
     }
@@ -79,73 +84,12 @@ ApplicationWindow {
 
     function logOut()
     {
-        mainLoginForm.visible = true
+        mainLoginForm.visible = true;
+        generalTab.trigger();
         socketcontroller.close();
     }
 
     ResolutionController{
         id: resolution
     }
-//    Item
-//    {
-//        anchors.fill: parent
-//        Rectangle {
-//               id: rectangle
-//               border.color: "green"
-//               anchors.fill: parent
-//           }
-
-//        Combobox{
-//        }
-    }
-
-//    visible: true
-//    width: 520
-//    height: 250
-//    Item {
-//        id: wind1
-//        visible: false
-//        anchors.fill: parent
-//        Text {
-//            id: name
-//            text: qsTr("Window1")
-//            anchors.centerIn: parent
-//        }
-//        MouseArea {
-//            anchors.fill: parent
-//            onPressed: {
-//                wind1.visible = false;
-//                wind2.visible = true;
-
-//            }
-//        }
-//    }
-//    Item {
-//        id: wind2
-//        visible: true
-//        anchors.fill: parent
-//        Text {
-//            text: qsTr("Window2")
-//            anchors.centerIn: parent
-//        }
-//        Combobox{
-
-//        }
-
-//        MouseArea {
-//            anchors.fill: parent
-//            onPressed: {
-////                wind2.visible = false;
-////                wind1.visible = true;
-
-//            }
-//        }
-
-//    }
-
-//        Item{
-//            id: loginFormGlobal
-//            anchors.fill: parent
-//        }
- //}
-
+}
