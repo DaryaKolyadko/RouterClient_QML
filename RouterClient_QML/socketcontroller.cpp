@@ -60,27 +60,28 @@ void SocketController::init()
     macAddressTextInput = generalConfigTab->findChild<QObject*>("macAddressTextInput");
     generalConfigBackup = generalConfigTab->findChild<QObject*>("localBackup");
 
-    QObject *wifiConfigTab = configurationForm->findChild<QObject*>("wifiConfigurationTab");
-    ssidTextInput = wifiConfigTab->findChild<QObject*>("ssidTextInput");
-    frequencyRangeComboBox = wifiConfigTab->findChild<QObject*>("frequencyRangeComboBox");
-    wifiStatusComboBox = wifiConfigTab->findChild<QObject*>("wifiStatusComboBox");
-    frequencyRangeModel = wifiConfigTab->findChild<QObject*>("frequencyRangeListModel");
+    QObject *wifiTab = configurationForm->findChild<QObject*>("wifiTab");
+    QObject *wifiConfigSubtab = wifiTab->findChild<QObject*>("wifiConfigurationSubtab");
+    ssidTextInput = wifiConfigSubtab->findChild<QObject*>("ssidTextInput");
+    frequencyRangeComboBox = wifiConfigSubtab->findChild<QObject*>("frequencyRangeComboBox");
+    wifiStatusComboBox = wifiConfigSubtab->findChild<QObject*>("wifiStatusComboBox");
+    frequencyRangeModel = wifiConfigSubtab->findChild<QObject*>("frequencyRangeListModel");
     frequencyRangeCount = frequencyRangeModel->property("count" ).toInt();
-    wifiStatusModel = wifiConfigTab->findChild<QObject*>("wifiStatusListModel");
-    wifiStatusNameList = wifiConfigTab->findChild<QObject*>("wifiStatusList");
+    wifiStatusModel = wifiConfigSubtab->findChild<QObject*>("wifiStatusListModel");
+    wifiStatusNameList = wifiConfigSubtab->findChild<QObject*>("wifiStatusList");
     wifiStatusCount = wifiStatusModel->property("count" ).toInt();
-    wifiConfigBackup = wifiConfigTab->findChild<QObject*>("localBackup");
+    wifiConfigBackup = wifiConfigSubtab->findChild<QObject*>("localBackup");
 
-    QObject *systemInformationTab = configurationForm->findChild<QObject*>("systemInformationTab");
-    modelTextInput = systemInformationTab->findChild<QObject*>("modelTextInput");
-    hostNameTextInput = systemInformationTab->findChild<QObject*>("hostNameTextInput");
-    serviceCodeTextInput = systemInformationTab->findChild<QObject*>("serviceCodeTextInput");
-    workGroupTextInput = systemInformationTab->findChild<QObject*>("workGroupTextInput");
-    systemInfoBackup = systemInformationTab->findChild<QObject*>("localBackup");
+//    QObject *systemInformationTab = configurationForm->findChild<QObject*>("systemInformationTab");
+//    modelTextInput = systemInformationTab->findChild<QObject*>("modelTextInput");
+//    hostNameTextInput = systemInformationTab->findChild<QObject*>("hostNameTextInput");
+//    serviceCodeTextInput = systemInformationTab->findChild<QObject*>("serviceCodeTextInput");
+//    workGroupTextInput = systemInformationTab->findChild<QObject*>("workGroupTextInput");
+//    systemInfoBackup = systemInformationTab->findChild<QObject*>("localBackup");
 
-    availableWifiTab = configurationForm->findChild<QObject*>("availableWifiTab");
-    wifiConnectionsModel = availableWifiTab->findChild<QObject*>("wifiConnectionsModel");
-    wifiTableView = availableWifiTab->findChild<QObject*>("wifiTableView");
+    availableWifiSubtab = wifiTab->findChild<QObject*>("availableWifiSubtab");
+    wifiConnectionsModel = availableWifiSubtab->findChild<QObject*>("wifiConnectionsModel");
+    wifiTableView = availableWifiSubtab->findChild<QObject*>("wifiTableView");
 
     QObject* miscConfigurationTab = configurationForm->findChild<QObject*>("miscConfigurationTab");
     QObject* accountSettingsSubtab = miscConfigurationTab->findChild<QObject*>("accountSettingsSubtab");
@@ -89,6 +90,19 @@ void SocketController::init()
     QObject* portsTab = configurationForm->findChild<QObject*>("portsTab");
     QObject* portStatusSubtab = portsTab->findChild<QObject*>("portStatusSubtab");
     portStatusModel = portStatusSubtab->findChild<QObject*>("portStatusModel");
+
+    QObject* portStatusCountersSubtab = portsTab->findChild<QObject*>("portStatusCountersSubtab");
+    portStatusCountersModel = portStatusCountersSubtab->findChild<QObject*>("portStatusCountersModel");
+
+    QObject* portTrunkSetupSubtab = portsTab->findChild<QObject*>("portTrunkSetupSubtab");
+    portTrunkStatusComboBox = portTrunkSetupSubtab->findChild<QObject*>("portTrunkStatusComboBox");
+    portTrunkStatusModel = portTrunkSetupSubtab->findChild<QObject*>("portTrunkStatusListModel");
+    portTrunkStatusNameList = portTrunkSetupSubtab->findChild<QObject*>("portTrunkStatusList");
+    portTrunkStatusCount = portTrunkStatusModel->property("count" ).toInt();
+    portTrunkConfigBackup = portTrunkSetupSubtab->findChild<QObject*>("localBackup");
+
+    QObject* corporationInfoTab = configurationForm->findChild<QObject*>("corporationInfoTab");
+    corporationInfoText = corporationInfoTab->findChild<QObject*>("corporationInfoText");
 }
 
 QString SocketController::getInfo(QString message)
@@ -180,11 +194,19 @@ void SocketController::getValuesFromServer()
     wifiStatusComboBox->setProperty("currentIndex",
                      findIndexByValue(wifiStatusNameList, wifiStatusCount,
                                    wifiStatusServerValue));
-    modelTextInput->setProperty("text", getParamInfo("Model"));
-    hostNameTextInput->setProperty("text", getParamInfo("HostName"));
-    serviceCodeTextInput->setProperty("text", getParamInfo("ServiceCode"));
-    workGroupTextInput->setProperty("text", getParamInfo("WorkGroup"));
+//    modelTextInput->setProperty("text", getParamInfo("Model"));
+//    hostNameTextInput->setProperty("text", getParamInfo("HostName"));
+//    serviceCodeTextInput->setProperty("text", getParamInfo("ServiceCode"));
+//    workGroupTextInput->setProperty("text", getParamInfo("WorkGroup"));
     accountSettingsLoginTextInput->setProperty("text", getLogin());
+
+    portTrunkStatusServerValue = getParamInfo("PortTrunkStatus");
+    portTrunkStatusComboBox->setProperty("currentIndex",
+                     findIndexByValue(portTrunkStatusNameList, portTrunkStatusCount,
+                                   portTrunkStatusServerValue));
+
+    corporationInfoText->setProperty("text", getParamInfo("getCorporationInfo"));
+
     getInfoAboutWifiConnections();
     getPortStatusList();
 }
@@ -214,7 +236,7 @@ void SocketController::getInfoAboutWifiConnections()
     result = parser->parseWifiConnectionsInfo(data);
     QVariant varParams;
     varParams.setValue<QList<int>>(result.connectedIndexes);
-    QMetaObject::invokeMethod(availableWifiTab, "addWifiConnectedIndexes",
+    QMetaObject::invokeMethod(availableWifiSubtab, "addWifiConnectedIndexes",
             Q_RETURN_ARG(QVariant, retValue),
             Q_ARG(QVariant, varParams));
     int networksCount = result.params[0].length();
@@ -288,4 +310,15 @@ int SocketController::findIndexByValue(QObject* model, int countInt, QString val
 QString SocketController::getLogin()
 {
     return loginTextInput->property("text").toString();
+}
+
+void SocketController::rebootSystem()
+{
+    socket.write("rebootSystem");
+}
+
+void SocketController::restoreSystemDefault()
+{
+    socket.write("restoreSystemDefault");
+    rebootSystem();
 }

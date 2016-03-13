@@ -1,10 +1,10 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 
-Tab {
+Item {
     id: miscConfigurationTabId
-    active: true
-    title: qsTr("misc_configuration")
+//    active: true
+//    title: qsTr("misc_configuration")
 
     Connections {
         target: socketcontroller

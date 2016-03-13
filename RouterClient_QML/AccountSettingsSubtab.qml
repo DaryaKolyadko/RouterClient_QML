@@ -74,7 +74,7 @@ Tab{
                 if(res === 1)
                     return true;
                 else if (res === 0)
-                    accountSettingsMessageDialog.show(qsTr("error_setting").arg(paramName).arg(newPassword));
+                    accountSettingsMessageDialog.show(qsTr("new_password_wrong"));
                 else //new
                     accountSettingsErrorDialog.show(qsTr("connection_lost"));
                 return false;
@@ -133,6 +133,7 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
+                text: "123abc" //delete
                 style: MyTextFieldStyle{id: oldpasswordield}
                 validator: RegExpValidator{
                     regExp: regexPassword
@@ -155,6 +156,7 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
+                text: "123456" //delete
                 style: MyTextFieldStyle{id: newpasswordfield}
                 validator: RegExpValidator{
                     regExp: regexPassword
@@ -177,6 +179,7 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
+                text: "123456" //delete
                 style: MyTextFieldStyle{id: confirmpasswordfield}
                 validator: RegExpValidator{
                     regExp: regexPassword

@@ -22,6 +22,7 @@ public:
     bool doConnect(QString host, int port);
     bool doConnectToExistingSocket();
     void close();
+    void write(QString message);
 
 signals:
 

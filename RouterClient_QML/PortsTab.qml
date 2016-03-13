@@ -1,16 +1,16 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 
-Tab {
+Item {
     id: portsTabId
-    active: true
-    title: qsTr("ports_tab")
 
     Connections {
         target: socketcontroller
     }
 
     TabView{
+        anchors.fill: parent
+
         PortStatusSubtab{
             id: portStatusSubtab
             objectName: "portStatusSubtab"
@@ -31,7 +31,7 @@ Tab {
 
         PortTrunkSetupSubtab{
             id: portTrunkSetupSubtab
-            objectName: "portStatusCountersSubtab"
+            objectName: "portTrunkSetupSubtab"
             anchors.fill: parent
         }
     }

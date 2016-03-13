@@ -17,7 +17,9 @@ Tab {
             objectName: "portStatusCountersView"
             Layout.fillWidth: true
             model: portStatusCountersModel
-            property int coefficient: 7
+            horizontalScrollBarPolicy: Qt.ScrollBarAsNeeded
+            verticalScrollBarPolicy: Qt.ScrollBarAsNeeded
+            property int coefficient: 5//7
             property int colWidth: portStatusCountersView.viewport.width / coefficient
 
             anchors {
@@ -87,10 +89,11 @@ Tab {
                 role: "collisions"
                 movable: false
                 resizable: true
-                width: portStatusCountersView.width -
-                       portStatusCountersView.colWidth*(portStatusCountersView.coefficient - 1)
+                width: portStatusCountersView.colWidth
+//                    portStatusCountersView.width -
+//                       portStatusCountersView.colWidth*(portStatusCountersView.coefficient - 1)
             }
-        }
+}
 
         ListModel{
             id: portStatusCountersModel

@@ -125,6 +125,18 @@ QString MySslSocket::writeQueryAndReadAnswer(QString message)
     return res;
 }
 
+void MySslSocket::write(QString message)
+{
+    qDebug() << message;
+    doConnect(host, port);
+//    // try
+//    if(!doConnect(host, port))
+//        SocketController::sendErrorMessage(socket->errorString());
+    message = message + "\r\n";
+    socket->write(message.toUtf8().constData());
+    socket->close();
+}
+
 void MySslSocket::close()
 {
     socket->close();

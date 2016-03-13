@@ -14,6 +14,7 @@ class SocketController : public QObject
 private:
     int wifiStatusCount;
     int frequencyRangeCount;
+    int portTrunkStatusCount;
     QObject *rootObject;
     QObject *loginTextInput;
     QObject *passwordTextInput;
@@ -37,9 +38,16 @@ private:
     QObject* wifiConnectionsModel;
     QString wifiStatusServerValue;
     QObject* wifiTableView;
-    QObject* availableWifiTab;
+    QObject* availableWifiSubtab;
     QObject* accountSettingsLoginTextInput;
     QObject* portStatusModel;
+    QObject* portStatusCountersModel;
+    QObject* corporationInfoText;
+    QObject* portTrunkStatusComboBox;
+    QString portTrunkStatusServerValue;
+    QObject* portTrunkStatusModel;
+    QObject* portTrunkStatusNameList;
+    QObject* portTrunkConfigBackup;
     MySslSocket socket;
     void init();
     void getValuesFromServer();
@@ -74,6 +82,8 @@ public slots:
     void close();
     int connectToWifi(QString ssid, QString password);
     void logOutSignal();
+    void rebootSystem();
+    void restoreSystemDefault();
 };
 
 #endif // SOCKETCONTROLLER_H

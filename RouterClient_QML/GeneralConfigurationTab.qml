@@ -2,10 +2,10 @@ import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
-Tab{
+Item{
     id: generalConfigurationTabId
-    active: true
-    title: qsTr("general_settings")
+//    active: true
+//    title: qsTr("general_settings")
     property bool userEditingConfiguration: false
     property int bottomMargin: 15//resolution.dp(15) // 15
     property int fontCoefficient: 100//resolution.dp(100)//100

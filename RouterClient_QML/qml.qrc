@@ -6,11 +6,11 @@
         <file>MainForm.qml</file>
         <file>MyTextFieldStyle.qml</file>
         <file>SystemInformationTab.qml</file>
-        <file>WifiConfigurationTab.qml</file>
+        <file>WifiConfigurationSubtab.qml</file>
         <file>GeneralConfigurationTab.qml</file>
         <file>LimitedEditingText.qml</file>
         <file>ResolutionController.qml</file>
-        <file>AvailableWifiTab.qml</file>
+        <file>AvailableWifiSubtab.qml</file>
         <file>WarningDialog.qml</file>
         <file>ErrorInfoDialog.qml</file>
         <file>WifiPasswordDialog.qml</file>
@@ -27,5 +27,8 @@
         <file>PortTrunkSetupSubtab.qml</file>
         <file>PoeTab.qml</file>
         <file>ChooseFileDialog.qml</file>
+        <file>WifiTab.qml</file>
+        <file>LogOutDialog.qml</file>
+        <file>CorporationInfoTab.qml</file>
     </qresource>
 </RCC>

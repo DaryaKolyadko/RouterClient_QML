@@ -30,8 +30,10 @@ Tab {
             id: portStatusView
             objectName: "portStatusView"
             Layout.fillWidth: true
+            horizontalScrollBarPolicy: Qt.ScrollBarAsNeeded
+            verticalScrollBarPolicy: Qt.ScrollBarAsNeeded
             model: portStatusModel
-            property int coefficient: 4
+            property int coefficient: 5
             property int colWidth: portStatusView.viewport.width / coefficient
 
             anchors {

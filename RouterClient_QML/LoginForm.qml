@@ -24,6 +24,10 @@ Item {
         id: loginFormMessageDialog
     }
 
+    ErrorInfoDialog{
+        id: loginFormErrorInfoDialog
+    }
+
     Connections{
         target: socketcontroller
         onSendErrorMessage:{
@@ -113,7 +117,7 @@ Item {
                Layout.fillHeight: true
                style: MyTextFieldStyle{id: hostfield}
                anchors.bottomMargin: bottomMargin
-               text: "10.150.6.97" // delete
+               text: "10.54.11.123" // delete
                validator: RegExpValidator{
                    regExp: regexHostAddress
                }
@@ -140,6 +144,7 @@ Item {
                        }
                        else {
                            console.debug("vse ploho, ti dodik");
+                           loginFormErrorInfoDialog.show("wrong_password");
                        }
                    }
                    else
