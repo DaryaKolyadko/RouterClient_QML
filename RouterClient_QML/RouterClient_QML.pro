@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     mysslsocket.cpp \
     wifidataparser.cpp \
     parser.cpp \
-    portstatusdataparser.cpp
+    portstatusdataparser.cpp \
+    portstatuscountersparser.cpp
 
 RESOURCES += qml.qrc \
     icons.qrc \
@@ -34,7 +35,9 @@ HEADERS += \
     wifidataparser.h \
     parser.h \
     portstatusdataparser.h \
-    portstatusparseresult.h
+    portstatusparseresult.h \
+    portstatuscountersparser.h \
+    portsatuscountparseresult.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

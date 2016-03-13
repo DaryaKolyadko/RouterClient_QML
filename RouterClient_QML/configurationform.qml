@@ -281,7 +281,7 @@ function onMenu()
         menuListView.currentIndex = configurationForm.previousItemIndex;
     }
 
-    game_translate_.x = configurationForm.menu_shown ? 0 : configurationForm.width * 0.4
+    game_translate_.x = configurationForm.menu_shown ? 0 : configurationForm.width * 0.55
     configurationForm.menu_shown = !configurationForm.menu_shown;
 }
 

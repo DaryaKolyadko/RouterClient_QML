@@ -12,6 +12,19 @@ Tab {
     }
 
     ColumnLayout{
+        RowLayout{
+            id: rowLayoutId
+
+            Button{
+                id: updatePortStatusCountersListButton
+                text: qsTr("update_port_status_counters_list")
+                Layout.fillWidth: true
+                onClicked: {
+                    socketcontroller.getPortStatusCountersList();
+                }
+            }
+        }
+
         TableView{
             id: portStatusCountersView
             objectName: "portStatusCountersView"
@@ -23,7 +36,7 @@ Tab {
             property int colWidth: portStatusCountersView.viewport.width / coefficient
 
             anchors {
-                top: parent.top
+                top: rowLayoutId.bottom
                 bottom: parent.bottom
                 left: parent.left
                 right: parent.right

@@ -12,6 +12,8 @@
 #include "wifiinfoparseresult.h"
 #include "portstatusdataparser.h"
 #include "portstatusparseresult.h"
+#include "portstatuscountersparser.h"
+#include "portsatuscountparseresult.h"
 
 SocketController::SocketController(QObject *parent) : QObject(parent)
 {
@@ -209,6 +211,7 @@ void SocketController::getValuesFromServer()
 
     getInfoAboutWifiConnections();
     getPortStatusList();
+    getPortStatusCountersList();
 }
 
 void SocketController::initBackup()
@@ -274,6 +277,31 @@ void SocketController::getPortStatusList()
                 Q_ARG(QVariant, result.params[result.columnIndexes["speed"]].at(i)),
                 Q_ARG(QVariant, result.params[result.columnIndexes["duplex"]].at(i)),
                 Q_ARG(QVariant, result.params[result.columnIndexes["flow_control"]].at(i)));
+    }
+}
+
+void SocketController::getPortStatusCountersList()
+{
+    QMetaObject::invokeMethod(portStatusCountersModel, "clear");
+    QVariant retValue;
+    QString data = "1        0              0               0            0              0               0 \n2        0              0               0            0              0               0 \n3        0              0               0            0              0               0 \n4         0              0               0            0              0               0  \n5         0              0               0            0              0               0  \n6         0              0               0            0              0               0  \n7         0              0               0            0              0               0  \n8         0              0               0            0              0               0  \n";
+    //QString data = getParamInfo("PortStatusCountersList");
+    PortStatusCountersParser* parser = new PortStatusCountersParser();
+    PortStatusCountParseResult result;
+    result = parser->parsePortStatusCountData(data);
+    int portsCount = result.params[0].length();
+
+    for(int i = 0; i < portsCount; i++)
+    {
+        QMetaObject::invokeMethod(portStatusCountersModel, "addPortStatusCounter",
+                Q_RETURN_ARG(QVariant, retValue),
+                Q_ARG(QVariant, result.params[result.columnIndexes["port"]].at(i)),
+                Q_ARG(QVariant, result.params[result.columnIndexes["rx_packets_count"]].at(i)),
+                Q_ARG(QVariant, result.params[result.columnIndexes["rx_bytes_count"]].at(i)),
+                Q_ARG(QVariant, result.params[result.columnIndexes["error_count"]].at(i)),
+                Q_ARG(QVariant, result.params[result.columnIndexes["tx_packets_count"]].at(i)),
+                Q_ARG(QVariant, result.params[result.columnIndexes["tx_bytes_count"]].at(i)),
+                Q_ARG(QVariant, result.params[result.columnIndexes["collisions"]].at(i)));
     }
 }
 

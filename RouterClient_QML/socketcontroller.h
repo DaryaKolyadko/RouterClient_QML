@@ -69,6 +69,7 @@ public slots:
     void initBackup();
     void getInfoAboutWifiConnections();
     void getPortStatusList();
+    void getPortStatusCountersList();
     QString getLogin();
     QString getInfo(QString message);
     QString getParamInfo(QString paramName);
