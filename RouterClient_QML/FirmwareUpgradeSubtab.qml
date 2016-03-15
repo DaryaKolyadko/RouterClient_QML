@@ -17,9 +17,7 @@ Tab {
         anchors.fill: parent
         ColumnLayout{
 
-//        GridLayout{
             anchors.centerIn: parent
-//            columns: 2
 
             Rectangle{
                 id: rect
@@ -42,40 +40,29 @@ Tab {
                 }
             }
 
-//            Rectangle {
-//                id: rect
-//                width: text.width
-//                height: text.height
-//                color: "red"
-//            RowLayout{
-//                id: firstRowLayout
-//               // Layout.columnSpan: 2
-
-//                Text {
-//                    id: text
-//                    text: qsTr("firmware_upgrade_text")
-//                    wrapMode: Text.Wrap
-//                    //Layout.columnSpan: 2
-////                    color: "red"
-////                    font.bold: true
-//                    width: parent.parent.parent.width*0.8
-//                   // font.pointSize: (parent.parent.parent.height + parent.parent.parent.width)/fontCoefficient
-//                }
-//            }
-//           // }
-
             RowLayout{
                 id: rowLayout
 
-                Text{
-                    text: qsTr("bin_file_choose_text")
-                   // anchors.top: firmwareUpgradeText.bottom
-                    font.pointSize: (parent.parent.parent.height + parent.parent.parent.width)/fontCoefficient
+                Rectangle{
+                    id: rectInner
+                    height: (parent.parent.parent.height + parent.parent.parent.width)/fontCoefficient
+                    width: parent.parent.width*0.7
+                    border.color: "transparent"
+                    color: "transparent"
+                    anchors.bottomMargin: 10
+
+                    Text{
+                        anchors.centerIn: parent
+                        horizontalAlignment: Text.AlignHCenter
+                        wrapMode: Text.Wrap
+                        width: firmwareUpgradeSubtabId.width*0.65
+                        text: qsTr("bin_file_choose_text")
+                        font.pointSize: (parent.parent.parent.parent.height + parent.parent.parent.parent.width)/fontCoefficient
+                    }
                 }
 
                 Button{
                     text: qsTr("choose_file")
-                   // anchors.top: firmwareUpgradeText.bottom
                     onClicked: {
                         fileDialog.open()
                     }

@@ -22,7 +22,8 @@ Tab {
                 id: rect
                 height: parent.parent.height*0.5
                 width: parent.parent.width*0.85
-                border.width: 0
+                border.color: "transparent"
+                color: "transparent"
                 anchors.bottomMargin: 10
 
                 Text{
