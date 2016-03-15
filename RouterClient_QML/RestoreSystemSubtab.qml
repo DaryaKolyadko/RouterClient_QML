@@ -18,8 +18,22 @@ Tab {
             anchors.centerIn: parent
             columns: 1
 
-            Text{
-                text:qsTr("restore_system_text")
+            Rectangle{
+                id: rect
+                height: parent.parent.height*0.5
+                width: parent.parent.width*0.85
+                border.width: 0
+                anchors.bottomMargin: 10
+
+                Text{
+                    id: firmwareUpgradeText
+                    anchors.centerIn: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    text:qsTr("restore_system_text")
+                    wrapMode: Text.Wrap
+                    width: restoreSystemSubtabId.width*0.8
+                    font.pointSize: (parent.parent.parent.height + parent.parent.parent.width)/fontCoefficient
+                }
             }
 
             Button{

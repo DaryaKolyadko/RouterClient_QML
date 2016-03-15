@@ -3,8 +3,6 @@ import QtQuick.Controls 1.2
 
 Item {
     id: miscConfigurationTabId
-//    active: true
-//    title: qsTr("misc_configuration")
 
     Connections {
         target: socketcontroller

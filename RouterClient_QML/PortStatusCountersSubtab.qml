@@ -48,7 +48,7 @@ Tab {
                 role: "port"
                 movable: false
                 resizable: true
-                width: portStatusCountersView.colWidth
+                width: portStatusCountersView.colWidth/2
             }
 
             TableViewColumn {

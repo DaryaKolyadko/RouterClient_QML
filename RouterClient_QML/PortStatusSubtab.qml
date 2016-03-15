@@ -49,7 +49,7 @@ Tab {
                 role: "port"
                 movable: false
                 resizable: true
-                width: portStatusView.colWidth
+                width: portStatusView.colWidth/2
             }
 
             TableViewColumn {
@@ -86,7 +86,7 @@ Tab {
                 movable: false
                 resizable: true
                 width: portStatusView.viewport.width - portStatusView.colWidth*
-                       (portStatusView.coefficient - 1)
+                       (portStatusView.coefficient - 1.5)
             }
         }
 

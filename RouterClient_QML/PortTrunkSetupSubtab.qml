@@ -3,7 +3,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
 Tab {
-    id: portTrankSetupSubtabId
+    id: portTrunkSetupSubtabId
     active: true
     title: qsTr("port_trunk_setup")
 
@@ -21,16 +21,16 @@ Tab {
         anchors.fill: parent
 
         InfoMessageDialog {
-            id: portTrankSetupMessageDialog
+            id: portTrunkSetupMessageDialog
         }
 
         ErrorInfoDialog {
-            id: portTrankSetupErrorDialog
+            id: portTrunkSetupErrorDialog
         }
 
         Component.onCompleted: {
-            portTrunkStatusListModel.addPortTrunkStatus(qsTr("on"));
-            portTrunkStatusListModel.addPortTrunkStatus(qsTr("off"));
+            portTrunkStatusListModel.addPortTrunkStatus(qsTr("enable"));
+            portTrunkStatusListModel.addPortTrunkStatus(qsTr("disable"));
             portTrunkStatusList.addPortTrunkStatus("On");
             portTrunkStatusList.addPortTrunkStatus("Off");
         }
@@ -65,7 +65,7 @@ Tab {
                     {
                         setNewParamValue(portTrunkStatusStr, localBackup.portTrunkStatus,
                                          portTrunkStatusList.get(portTrunkStatusComboBox.currentIndex).text);
-                        wifiConfigurationMessageDialog.show(qsTr("changes_saved"));
+                        portTrunkSetupMessageDialog.show(qsTr("changes_saved"));
                     }
                     else {
                         portTrunkGridLayout.enabled = true;

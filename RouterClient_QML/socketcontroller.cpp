@@ -284,8 +284,8 @@ void SocketController::getPortStatusCountersList()
 {
     QMetaObject::invokeMethod(portStatusCountersModel, "clear");
     QVariant retValue;
-    QString data = "1        0              0               0            0              0               0 \n2        0              0               0            0              0               0 \n3        0              0               0            0              0               0 \n4         0              0               0            0              0               0  \n5         0              0               0            0              0               0  \n6         0              0               0            0              0               0  \n7         0              0               0            0              0               0  \n8         0              0               0            0              0               0  \n";
-    //QString data = getParamInfo("PortStatusCountersList");
+    //QString data = "1        0              0               0            0              0               0 \n2        0              0               0            0              0               0 \n3        0              0               0            0              0               0 \n4         0              0               0            0              0               0  \n5         0              0               0            0              0               0  \n6         0              0               0            0              0               0  \n7         0              0               0            0              0               0  \n8         0              0               0            0              0               0  \n";
+    QString data = getParamInfo("PortStatusCountersList");
     PortStatusCountersParser* parser = new PortStatusCountersParser();
     PortStatusCountParseResult result;
     result = parser->parsePortStatusCountData(data);

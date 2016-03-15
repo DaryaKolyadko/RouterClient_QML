@@ -177,6 +177,7 @@ Rectangle {
                 verticalCenter: parent.verticalCenter;
                 margins: 16
             }
+            anchors.leftMargin: 25
             color: "darkGreen";
             width: (configurationForm.width +
                     configurationForm.height)/
