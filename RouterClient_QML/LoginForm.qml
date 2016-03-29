@@ -36,124 +36,124 @@ Item {
         }
     }
 
-       GridLayout {
-           id: gridLayoutLoginForm
-           columns: 3
-           anchors.centerIn: parent
+    GridLayout {
+        id: gridLayoutLoginForm
+        columns: 3
+        anchors.centerIn: parent
 
-           Text{
-               id: loginText
-               font.bold: true
-               font.letterSpacing: 1
-               font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
-               Layout.fillWidth: true
-               Layout.fillHeight: true
-               anchors.bottomMargin: bottomMargin
-               text: qsTr("login")
-           }
+        Text{
+            id: loginText
+            font.bold: true
+            font.letterSpacing: 1
+            font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            anchors.bottomMargin: bottomMargin
+            text: qsTr("login")
+        }
 
-           TextField {
-               id: loginTextInput
-               objectName: "loginTextInput"
-               font.letterSpacing: 1
-               text: "admin" //delete
-               font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
-               Layout.columnSpan: 2
-               Layout.fillWidth: true
-               Layout.fillHeight: true
-               anchors.bottomMargin: bottomMargin
-               style: MyTextFieldStyle{id: loginfield}
-               validator: RegExpValidator{
-                   regExp: regexLogin
-               }
-           }
+        TextField {
+            id: loginTextInput
+            objectName: "loginTextInput"
+            font.letterSpacing: 1
+            text: "admin" //delete
+            font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
+            Layout.columnSpan: 2
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            anchors.bottomMargin: bottomMargin
+            style: MyTextFieldStyle{id: loginfield}
+            validator: RegExpValidator{
+                regExp: regexLogin
+            }
+        }
 
-           Text{
-               id: passwordText
-               font.bold: true
-               font.letterSpacing: 1
-               font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
-               Layout.fillWidth: true
-               Layout.fillHeight: true
-               anchors.bottomMargin: bottomMargin
-               text: qsTr("password")
-           }
+        Text{
+            id: passwordText
+            font.bold: true
+            font.letterSpacing: 1
+            font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            anchors.bottomMargin: bottomMargin
+            text: qsTr("password")
+        }
 
-           TextField {
-               id: passwordTextInput
-               objectName: "passwordTextInput"
-               font.letterSpacing: 1
-               font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
-               Layout.columnSpan: 2
-               Layout.fillWidth: true
-               Layout.fillHeight: true
-               style: MyTextFieldStyle{id: passwordfield}
-               anchors.bottomMargin: bottomMargin
-               validator: RegExpValidator{
-                   regExp: regexPassword
-               }
-               echoMode: TextInput.Password
-               text: "123abc" // delete
-           }
+        TextField {
+            id: passwordTextInput
+            objectName: "passwordTextInput"
+            font.letterSpacing: 1
+            font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
+            Layout.columnSpan: 2
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            style: MyTextFieldStyle{id: passwordfield}
+            anchors.bottomMargin: bottomMargin
+            validator: RegExpValidator{
+                regExp: regexPassword
+            }
+            echoMode: TextInput.Password
+            text: "123abc" // delete
+        }
 
-           Text{
-               id: hostAddressText
-               font.bold: true
-               font.letterSpacing: 1
-               font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
-               Layout.fillWidth: true
-               Layout.fillHeight: true
-               anchors.bottomMargin: bottomMargin
-               text: qsTr("host_address")
-           }
+        Text{
+            id: hostAddressText
+            font.bold: true
+            font.letterSpacing: 1
+            font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            anchors.bottomMargin: bottomMargin
+            text: qsTr("host_address")
+        }
 
-           TextField {
-               id: hostAddressTextInput
-               objectName: "hostAddressTextInput"
-               font.letterSpacing: 1
-               font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
-               Layout.columnSpan: 2
-               Layout.fillWidth: true
-               Layout.fillHeight: true
-               style: MyTextFieldStyle{id: hostfield}
-               anchors.bottomMargin: bottomMargin
-               text: "10.54.11.123" // delete
-               validator: RegExpValidator{
-                   regExp: regexHostAddress
-               }
-           }
+        TextField {
+            id: hostAddressTextInput
+            objectName: "hostAddressTextInput"
+            font.letterSpacing: 1
+            font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
+            Layout.columnSpan: 2
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            style: MyTextFieldStyle{id: hostfield}
+            anchors.bottomMargin: bottomMargin
+            text: "10.54.11.115"//"192.168.43.167"//"10.54.11.117"//"192.168.43.167"//"10.54.11.123" // delete
+            validator: RegExpValidator{
+                regExp: regexHostAddress
+            }
+        }
 
-           Button {
-               id: loginInButton
-               text: qsTr("log_in")
-               Layout.columnSpan: 3
-               Layout.fillWidth: true
+        Button {
+            id: loginInButton
+            text: qsTr("log_in")
+            Layout.columnSpan: 3
+            Layout.fillWidth: true
 
-               onClicked: {
-                   setLogin(loginTextInput.text);
-                   socketcontroller.initConnection();
+            onClicked: {
+                setLogin(loginTextInput.text);
+                socketcontroller.initConnection();
 
-                   if(!errorOccurred) {
-                       var result = socketcontroller.confirmLoginAndPassword(loginTextInput.text,
-                                                                             passwordTextInput.text);
-                       console.debug(result);
-                       if(result == 1) {
-                           socketcontroller.recieveLoginClick();
-                           loginForm.visible = false;
-                           console.debug("vse ok");
-                       }
-                       else {
-                           console.debug("vse ploho, ti dodik");
-                           loginFormErrorInfoDialog.show("wrong_password");
-                       }
-                   }
-                   else
-                       errorOccurred = !errorOccurred;
-               }
-           }
-       }
+                if(!errorOccurred) {
+                    var result = socketcontroller.confirmLoginAndPassword(loginTextInput.text,
+                                                                          passwordTextInput.text);
+                    console.debug(result);
+                    if(result == 1) {
+                        socketcontroller.recieveLoginClick();
+                        loginForm.visible = false;
+                        console.debug("vse ok");
+                    }
+                    else {
+                        console.debug("vse ploho, ti dodik");
+                        loginFormErrorInfoDialog.show("wrong_password");
+                    }
+                }
+                else
+                    errorOccurred = !errorOccurred;
+            }
+        }
+    }
 
-       ResolutionController{
-           id: resolution
-       }
+    ResolutionController{
+        id: resolution
+    }
 }

@@ -31,12 +31,17 @@ Tab{
 
             function doAction()
             {
-                socketcontroller.logOut();
+                socketcontroller.logOutSignal();
             }
         }
 
         ErrorInfoDialog {
             id: accountSettingsErrorDialog
+
+            function doAction()
+            {
+                socketcontroller.logOutSignal();
+            }
         }
 
         Button{

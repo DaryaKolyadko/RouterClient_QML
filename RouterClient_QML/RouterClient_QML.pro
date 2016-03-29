@@ -14,7 +14,9 @@ SOURCES += main.cpp \
     wifidataparser.cpp \
     parser.cpp \
     portstatusdataparser.cpp \
-    portstatuscountersparser.cpp
+    portstatuscountersparser.cpp \
+    portsetupdataparser.cpp \
+    poesetupdataparser.cpp
 
 RESOURCES += qml.qrc \
     icons.qrc \
@@ -37,7 +39,11 @@ HEADERS += \
     portstatusdataparser.h \
     portstatusparseresult.h \
     portstatuscountersparser.h \
-    portsatuscountparseresult.h
+    portsatuscountparseresult.h \
+    portsetupdataparser.h \
+    portsetupparseresult.h \
+    poesetupdataparser.h \
+    poesetupparseresult.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

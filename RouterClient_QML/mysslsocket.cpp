@@ -129,7 +129,7 @@ void MySslSocket::write(QString message)
 {
     qDebug() << message;
     doConnect(host, port);
-//    // try
+    // try
 //    if(!doConnect(host, port))
 //        SocketController::sendErrorMessage(socket->errorString());
     message = message + "\r\n";

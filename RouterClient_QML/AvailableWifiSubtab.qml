@@ -9,6 +9,8 @@ Tab {
     title: qsTr("available_wifi")
     property var wifiConnectedIndexes : []
     property string connectedStr : qsTr("connected")
+    property string greenTickImg: "images/check36x36.png"
+    property string greyTickImg: "images/greycheck36x36.png"
 
     Connections {
         target: socketcontroller
@@ -25,6 +27,7 @@ Tab {
     }
 
     ColumnLayout{
+        id: columnLayout
 
         RowLayout{
             id: rowLayoutId
@@ -35,7 +38,7 @@ Tab {
                 function doAction()
                 {
                     wifiPasswordDialog.show(wifiConnectionsModel.getChild(
-                                                wifiTableView.currentRow).ssid);
+                                                wifiConnectionsListView.currentIndex).ssid);
                 }
             }
 
@@ -43,14 +46,14 @@ Tab {
                 id: infoMessageDialog
             }
 
-//            InfoMessageDialog{
-//                id: logoutDialog
+            //            InfoMessageDialog{
+            //                id: logoutDialog
 
-//                function doAction()
-//                {
-//                    socketcontroller.logOut();
-//                }
-//            }
+            //                function doAction()
+            //                {
+            //                    socketcontroller.logOut();
+            //                }
+            //            }
 
             LogOutDialog{
                 id: logoutDialog
@@ -58,6 +61,11 @@ Tab {
 
             ErrorInfoDialog{
                 id: errorMessageDialog
+
+                function doAction()
+                {
+                    socketcontroller.logOutSignal();
+                }
             }
 
             WifiPasswordDialog{
@@ -68,7 +76,7 @@ Tab {
                     var result = socketcontroller.connectToWifi(
                                 wifiConnectionsModel.getChild(
                                     wifiTableView.currentRow).ssid,
-                                 getPassword());
+                                getPassword());
 
                     if (result === 1)
                     {
@@ -107,98 +115,159 @@ Tab {
             }
         }
 
-        TableView{
-            id: wifiTableView
-            objectName: "wifiTableView"
-            Layout.fillWidth: true
-            model: wifiConnectionsModel
-            property int coefficient: 4
-            property int colWidth: wifiTableView.viewport.width / coefficient
 
-            anchors {
-                top: rowLayoutId.bottom
-                bottom: parent.bottom
-                left: parent.left
-                right: parent.right
+        ColumnLayout{
+            anchors.top: rowLayoutId.bottom
+            //           ScrollView{
+            //         anchors.fill: parent
+
+            Flickable{
+                anchors.fill: parent
+                flickableDirection: Flickable.VerticalFlick
+
+                ListView{
+                    id: wifiConnectionsListView
+                    anchors.fill: parent
+                    width: columnLayout.width
+                    clip: true
+                    model: wifiConnectionsModel
+                    anchors.leftMargin: rowLayoutId.width*0.05
+                    delegate: wifiConnectionListDelegate
+
+                    function checkConnectionButtonStatus()
+                    {
+                        var connectionIndex = wifiConnectionsListView.currentIndex;
+
+                        if (availableWifiTabId.wifiConnectedIndexes.indexOf(connectionIndex) > -1)
+                            connectToWifiButton.enabled = false;
+                        else
+                            connectToWifiButton.enabled = true;
+                    }
+
+                    highlight: Rectangle
+                    {
+                    color:"white"
+                    radius: 5
+                    opacity: 0.7
+                    focus: true
+                    border.color: "green"
+                }
+
+                onCurrentIndexChanged: {
+                    checkConnectionButtonStatus();
+                }
             }
-
-            Connections{
-                target: wifiTableView.selection
-                onSelectionChanged: wifiTableView.checkConnectionButtonStatus()
-            }
-
-            function checkConnectionButtonStatus()
-            {
-                var connectionIndex = wifiTableView.currentRow;
-
-                if (availableWifiTab.wifiConnectedIndexes.indexOf(connectionIndex) > -1)
-                    connectToWifiButton.enabled = false;
-                else
-                    connectToWifiButton.enabled = true;
-            }
-
-            TableViewColumn{
-                id: ssidColumn
-                title: qsTr("ssid_table_title")
-                role: "ssid"
-                movable: false
-                resizable: true
-                width: wifiTableView.colWidth
-            }
-
-            TableViewColumn {
-                id: stateColumn
-                title: qsTr("state")
-                role: "state"
-                movable: false
-                resizable: true
-                width: wifiTableView.colWidth
-            }
-
-            TableViewColumn {
-                id: rateColumn
-                title: qsTr("rate")
-                role: "rate"
-                movable: false
-                resizable: true
-                width: wifiTableView.colWidth / 2
-            }
-
-            TableViewColumn {
-                id: barsColumn
-                title: qsTr("bars")
-                role: "bars"
-                movable: false
-                resizable: true
-                width: wifiTableView.colWidth / 2
-            }
-
-            TableViewColumn {
-                id: securityColumn
-                title: qsTr("security")
-                role: "security"
-                movable: false
-                resizable: true
-                width: wifiTableView.colWidth
-            }
+            // }
         }
+    }
 
-        ListModel{
-            id: wifiConnectionsModel
-            objectName: "wifiConnectionsModel"
+    Component {
+        id: wifiConnectionListDelegate
 
-            function addWifiConnection(ssid_, state_, rate_, bars_,
-                                       security_)
-            {
-                var conn = state_ ? connectedStr : "";
-                append({ssid: ssid_, state: conn, rate: rate_,
-                           bars: bars_, security: security_})
-            }
+        Item {
+            id: wifiConnectionListDelegateItem
+            width: childrenRect.width //portStatusCountersListView.width
+            anchors.bottomMargin: wifiConnectionsListView.width*0.02
+            //height: childrenRect.height + 10
+            height: ((columnLayout.height + columnLayout.width)/fontCoefficient)*20
 
-            function getChild(index)
-            {
-                return get(index)
+            Row {
+                ColumnLayout {
+                    width: wifiConnectionsListView.width
+                    //Layout.fillWidth: true
+
+                    Row{
+                        Text {
+                            text: ssid
+                            color: "darkGreen"
+                            font.pointSize:(columnLayout.height + columnLayout.width)/(fontCoefficient - 10)
+                        }
+                    }
+                    Row{
+                        Text {
+                            text: qsTr("state")
+                            font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                        }
+                        Image {
+                            id: image
+                            source: wifi_state
+                            height: (columnLayout.height + columnLayout.width)/(fontCoefficient/2.5)
+                            width: height
+                        }
+                    }
+                    Row{
+                        Text {
+                            text: qsTr("rate")
+                            font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                        }
+                        Text {
+                            text: rate
+                            font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                        }
+                    }
+                    Row{
+                        Text {
+                            text: qsTr("bars")
+                            font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                        }
+                        Text {
+                            text: bars
+                            font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                        }
+                    }
+                    Row{
+                        Text {
+                            text: qsTr("security")
+                            font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                        }
+                        Text {
+                            text: security
+                            font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                        }
+                    }
+
+                    //                        Rectangle
+                    //                        {
+                    //                            height: 1;
+                    //                            width: columnLayout.width*0.8;
+                    //                            color: "gray";
+                    //                           // anchors.leftMargin: columnLayout.width*0.1
+                    //                            anchors
+                    //                            {
+                    //                                left: parent.left;
+                    //                                bottom: parent.bottom
+                    //                            }
+                    //                        }
+
+
+                    MouseArea {
+                        anchors.fill: parent
+
+                        onClicked:{
+                            wifiConnectionsListView.currentIndex = index;
+                        }
+                    }
+                }
             }
         }
     }
+
+    ListModel{
+        id: wifiConnectionsModel
+        objectName: "wifiConnectionsModel"
+
+        function addWifiConnection(ssid_, state_, rate_, bars_,
+                                   security_)
+        {
+            var conn = state_ ? greenTickImg : greyTickImg;
+            append({ssid: ssid_, wifi_state: conn, rate: rate_,
+                       bars: bars_, security: security_})
+        }
+
+        function getChild(index)
+        {
+            return get(index)
+        }
+    }
+}
 }

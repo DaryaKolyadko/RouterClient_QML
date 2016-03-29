@@ -85,7 +85,8 @@ ApplicationWindow {
     function logOut()
     {
         mainLoginForm.visible = true;
-        generalTab.trigger();
+        mainConfigurationForm.redirectToMainPage();
+        //generalTab.trigger();
         socketcontroller.close();
     }
 

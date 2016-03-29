@@ -5,7 +5,7 @@ import QtQuick.Dialogs 1.0
 FileDialog {
     id: fileDialog
     title: qsTr("bin_file_choose_text")
-    folder: shortcuts.desktop
+    folder: shortcuts.home//desktop
     nameFilters: ["Binary files (*.bin)"]
 
     onAccepted: {

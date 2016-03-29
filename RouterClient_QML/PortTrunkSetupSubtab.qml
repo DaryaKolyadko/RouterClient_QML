@@ -9,7 +9,7 @@ Tab {
 
     property bool userEditingConfiguration: false
     property int fontCoefficient: 100//resolution.dp(100)//100
-    property string portTrunkStatusStr: "portTrunkStatus"
+    property string portTrunkStatusStr: "PortTrunkStatus"
 
     Connections {
         target: socketcontroller
@@ -26,6 +26,11 @@ Tab {
 
         ErrorInfoDialog {
             id: portTrunkSetupErrorDialog
+
+            function doAction()
+            {
+                socketcontroller.logOutSignal();
+            }
         }
 
         Component.onCompleted: {
@@ -43,7 +48,7 @@ Tab {
             function updateField(fieldName, newFieldValue)
             {
                 switch (fieldName) {
-                case portTrunkStr:
+                case portTrunkStatusStr:
                     portTrunkStatus = newFieldValue;
                     break;
                 default:
@@ -104,6 +109,8 @@ Tab {
                         localBackup.updateField(paramName, newParamValue);
                         return true;
                     }
+                    else //new
+                        portTrunkSetupErrorDialog.show(qsTr("connection_lost"));
                     return false;
                 }
                 return true;

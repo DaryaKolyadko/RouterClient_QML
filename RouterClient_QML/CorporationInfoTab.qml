@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.1
 
 Item {
     id: corporationInfoTab
+    property int fontCoefficient: 90
 
     Connections {
         target: socketcontroller
@@ -19,6 +20,7 @@ Item {
             Text{
                 id: corporationInfoText
                 objectName: "corporationInfoText"
+                font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
             }
         }
     }

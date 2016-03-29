@@ -15,6 +15,7 @@ Item {
     property int bottomMargin: 15//resolution.dp(15)//15
     property Item previousSelect: generalConfigurationTab
     property int previousItemIndex: 0
+    property int startPageIndex: 0
     property string backgroundColor: "#303030"
 
     property var nameToTab: {
@@ -25,6 +26,15 @@ Item {
         "menu_wifi_config": wifiTab,
         "menu_vlan_setup": vlanSetupTab,
         "menu_corporation_info": corporationInfoTab
+    }
+
+    function redirectToMainPage(){
+        menuListView.currentIndex = startPageIndex;
+        nameToTab[menuListModel.get(configurationForm.
+                  previousItemIndex).objectName].visible = false;
+        configurationForm.previousItemIndex = startPageIndex;
+        nameToTab[menuListModel.get(menuListView.
+                  currentIndex).objectName].visible = true;
     }
 
     Connections {

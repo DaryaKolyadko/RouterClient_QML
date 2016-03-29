@@ -5,7 +5,6 @@
         <file>LoginForm.qml</file>
         <file>MainForm.qml</file>
         <file>MyTextFieldStyle.qml</file>
-        <file>SystemInformationTab.qml</file>
         <file>WifiConfigurationSubtab.qml</file>
         <file>GeneralConfigurationTab.qml</file>
         <file>LimitedEditingText.qml</file>
@@ -30,5 +29,6 @@
         <file>WifiTab.qml</file>
         <file>LogOutDialog.qml</file>
         <file>CorporationInfoTab.qml</file>
+        <file>ScrollBar.qml</file>
     </qresource>
 </RCC>

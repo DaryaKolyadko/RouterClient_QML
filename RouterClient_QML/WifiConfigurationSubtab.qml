@@ -14,6 +14,7 @@ Tab{
     property string wifiStatusStr: "WifiStatus"
     property string frequencyRangeStr: "FrequencyRange"
 
+
     Connections {
         target: socketcontroller
     }
@@ -29,6 +30,11 @@ Tab{
 
         ErrorInfoDialog {
             id: wifiConfigurationErrorDialog
+
+            function doAction()
+            {
+                socketcontroller.logOutSignal();
+            }
         }
 
         Component.onCompleted: {
@@ -216,6 +222,7 @@ Tab{
         }
     }
 
+    //possible values from server
     ListModel{
         id: wifiStatusList
         objectName: "wifiStatusList"
@@ -231,6 +238,7 @@ Tab{
         }
     }
 
+    // translation
     ListModel{
         id: frequencyRangeListModel
         objectName: "frequencyRangeListModel"
