@@ -84,23 +84,23 @@
     </message>
     <message>
         <source>ssid_table_title</source>
-        <translation>Ssid</translation>
+        <translation type="vanished">Ssid</translation>
     </message>
     <message>
         <source>state</source>
-        <translation>State</translation>
+        <translation>   State:   </translation>
     </message>
     <message>
         <source>rate</source>
-        <translation>Rate</translation>
+        <translation>   Rate:   </translation>
     </message>
     <message>
         <source>bars</source>
-        <translation>Bars</translation>
+        <translation>   Bars:   </translation>
     </message>
     <message>
         <source>security</source>
-        <translation>Security</translation>
+        <translation>   Security:   </translation>
     </message>
 </context>
 <context>
@@ -177,7 +177,7 @@
     </message>
     <message>
         <source>menu_misc_config</source>
-        <translation>MISC config</translation>
+        <translation>Other config</translation>
     </message>
     <message>
         <source>menu_poe</source>
@@ -272,6 +272,38 @@
         <source>connection_lost</source>
         <translation>Connection with router was lost. You will be logged out</translation>
     </message>
+    <message>
+        <source>enable</source>
+        <translation>Enable</translation>
+    </message>
+    <message>
+        <source>disable</source>
+        <translation>Disable</translation>
+    </message>
+    <message>
+        <source>model</source>
+        <translation>Model: *</translation>
+    </message>
+    <message>
+        <source>sw_version</source>
+        <translation>Firmware version: *</translation>
+    </message>
+    <message>
+        <source>management_vlan</source>
+        <translation>Native VLAN:</translation>
+    </message>
+    <message>
+        <source>broadcast_storm</source>
+        <translation>Storm control:</translation>
+    </message>
+    <message>
+        <source>gateway</source>
+        <translation>Gateway:</translation>
+    </message>
+    <message>
+        <source>system_description</source>
+        <translation>System description:</translation>
+    </message>
 </context>
 <context>
     <name>InfoMessageDialog</name>
@@ -322,10 +354,73 @@
     </message>
 </context>
 <context>
+    <name>PoeSubtab</name>
+    <message>
+        <source>poe_subtab</source>
+        <translation>Power over Ethernet Configuration</translation>
+    </message>
+    <message>
+        <source>enable</source>
+        <translation>On</translation>
+    </message>
+    <message>
+        <source>disable</source>
+        <translation>Off</translation>
+    </message>
+    <message>
+        <source>save_settings</source>
+        <translation>Save</translation>
+    </message>
+    <message>
+        <source>change_settings</source>
+        <translation>Change</translation>
+    </message>
+    <message>
+        <source>changes_saved</source>
+        <translation>All changes are saved</translation>
+    </message>
+    <message>
+        <source>error_setting</source>
+        <translation>The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
+    </message>
+    <message>
+        <source>connection_lost</source>
+        <translation>Connection with router was lost. You will be logged out</translation>
+    </message>
+    <message>
+        <source>update_poe_setup_list</source>
+        <translation>Update</translation>
+    </message>
+    <message>
+        <source>port_num</source>
+        <translation>Port </translation>
+    </message>
+    <message>
+        <source>status</source>
+        <translation>Status:</translation>
+    </message>
+    <message>
+        <source>delivering_power_w</source>
+        <translation>Power usage:</translation>
+    </message>
+    <message>
+        <source>current_ma</source>
+        <translation>Current usage:</translation>
+    </message>
+    <message>
+        <source>power_limit_w</source>
+        <translation>Power limit:</translation>
+    </message>
+    <message>
+        <source>priority</source>
+        <translation>Priority:</translation>
+    </message>
+</context>
+<context>
     <name>PoeTab</name>
     <message>
         <source>poe_tab_title</source>
-        <translation>PoE (Power over Ethernet) Configuration</translation>
+        <translation type="vanished">PoE (Power over Ethernet) Configuration</translation>
     </message>
 </context>
 <context>
@@ -336,7 +431,99 @@
     </message>
     <message>
         <source>port_setup_title</source>
-        <translation>Port Setup</translation>
+        <translation type="vanished">Port Setup</translation>
+    </message>
+    <message>
+        <source>disable</source>
+        <translation>Disable</translation>
+    </message>
+    <message>
+        <source>auto</source>
+        <translation>Auto</translation>
+    </message>
+    <message>
+        <source>100Full</source>
+        <translation>100Full</translation>
+    </message>
+    <message>
+        <source>100Half</source>
+        <translation>100Half</translation>
+    </message>
+    <message>
+        <source>10Full</source>
+        <translation>10Full</translation>
+    </message>
+    <message>
+        <source>10Half</source>
+        <translation>10Half</translation>
+    </message>
+    <message>
+        <source>on</source>
+        <translation>On</translation>
+    </message>
+    <message>
+        <source>off</source>
+        <translation>Off</translation>
+    </message>
+    <message>
+        <source>enable</source>
+        <translation>Enable</translation>
+    </message>
+    <message>
+        <source>normal</source>
+        <translation>Normal</translation>
+    </message>
+    <message>
+        <source>high</source>
+        <translation>High</translation>
+    </message>
+    <message>
+        <source>save_settings</source>
+        <translation>Save</translation>
+    </message>
+    <message>
+        <source>change_settings</source>
+        <translation>Change</translation>
+    </message>
+    <message>
+        <source>changes_saved</source>
+        <translation>All changes are saved</translation>
+    </message>
+    <message>
+        <source>error_setting</source>
+        <translation>The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
+    </message>
+    <message>
+        <source>connection_lost</source>
+        <translation>Connection with router was lost. You will be logged out</translation>
+    </message>
+    <message>
+        <source>update_port_setup_list</source>
+        <translation>Update</translation>
+    </message>
+    <message>
+        <source>port_num</source>
+        <translation>Port </translation>
+    </message>
+    <message>
+        <source>mode</source>
+        <translation>Mode:</translation>
+    </message>
+    <message>
+        <source>flow_control</source>
+        <translation>Flow control:</translation>
+    </message>
+    <message>
+        <source>priority802</source>
+        <translation>802.1p priority:</translation>
+    </message>
+    <message>
+        <source>port_base_priority</source>
+        <translation>Base priority:</translation>
+    </message>
+    <message>
+        <source>port_description</source>
+        <translation>Port description:</translation>
     </message>
 </context>
 <context>
@@ -351,31 +538,31 @@
     </message>
     <message>
         <source>port</source>
-        <translation>Port</translation>
+        <translation>Port </translation>
     </message>
     <message>
         <source>rx_packets_count</source>
-        <translation>RX Packets Count</translation>
+        <translation>RX Packets Count:   </translation>
     </message>
     <message>
         <source>rx_bytes_count</source>
-        <translation>RX Bytes Count</translation>
+        <translation>RX Bytes Count:   </translation>
     </message>
     <message>
         <source>error_count</source>
-        <translation>Error count</translation>
+        <translation>Error count:   </translation>
     </message>
     <message>
         <source>tx_packets_count</source>
-        <translation>TX Packets Count</translation>
+        <translation>TX Packets Count:   </translation>
     </message>
     <message>
         <source>tx_bytes_count</source>
-        <translation>TX Bytes Count</translation>
+        <translation>TX Bytes Count:   </translation>
     </message>
     <message>
         <source>collisions</source>
-        <translation>Collisions count</translation>
+        <translation>Collisions count:   </translation>
     </message>
 </context>
 <context>
@@ -390,23 +577,23 @@
     </message>
     <message>
         <source>port</source>
-        <translation>Port</translation>
+        <translation>Port </translation>
     </message>
     <message>
         <source>link</source>
-        <translation>Link</translation>
+        <translation>Link:   </translation>
     </message>
     <message>
         <source>speed</source>
-        <translation>Speed</translation>
+        <translation>Speed:   </translation>
     </message>
     <message>
         <source>duplex</source>
-        <translation>Duplex</translation>
+        <translation>Duplex:   </translation>
     </message>
     <message>
         <source>flow_control</source>
-        <translation>Flow control</translation>
+        <translation>Flow control:   </translation>
     </message>
 </context>
 <context>
@@ -417,19 +604,19 @@
     </message>
     <message>
         <source>enable</source>
-        <translation>Enable</translation>
+        <translation>On</translation>
     </message>
     <message>
         <source>disable</source>
-        <translation>Disable</translation>
+        <translation>Off</translation>
     </message>
     <message>
         <source>save_settings</source>
-        <translation>Save settings</translation>
+        <translation>Save</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation>Change settings</translation>
+        <translation>Change</translation>
     </message>
     <message>
         <source>changes_saved</source>
@@ -446,6 +633,10 @@
     <message>
         <source>port_trunk_7_8</source>
         <translation>Port 7 &amp; Port 8:</translation>
+    </message>
+    <message>
+        <source>update_port_trunk_setup</source>
+        <translation>Update</translation>
     </message>
 </context>
 <context>
@@ -490,43 +681,43 @@
     <name>SystemInformationTab</name>
     <message>
         <source>system_information</source>
-        <translation>System information</translation>
+        <translation type="vanished">System information</translation>
     </message>
     <message>
         <source>save_settings</source>
-        <translation>Save settings</translation>
+        <translation type="vanished">Save settings</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation>Change settings</translation>
+        <translation type="vanished">Change settings</translation>
     </message>
     <message>
         <source>changes_saved</source>
-        <translation>All changes are saved</translation>
+        <translation type="vanished">All changes are saved</translation>
     </message>
     <message>
         <source>error_setting</source>
-        <translation>The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
+        <translation type="vanished">The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
     </message>
     <message>
         <source>model</source>
-        <translation>Model: *</translation>
+        <translation type="vanished">Model: *</translation>
     </message>
     <message>
         <source>service_code</source>
-        <translation>Service code: *</translation>
+        <translation type="vanished">Service code: *</translation>
     </message>
     <message>
         <source>host_name</source>
-        <translation>Host name:</translation>
+        <translation type="vanished">Host name:</translation>
     </message>
     <message>
         <source>work_group</source>
-        <translation>Work group:</translation>
+        <translation type="vanished">Work group:</translation>
     </message>
     <message>
         <source>connection_lost</source>
-        <translation>Connection with router was lost. You will be logged out</translation>
+        <translation type="vanished">Connection with router was lost. You will be logged out</translation>
     </message>
 </context>
 <context>
@@ -579,7 +770,7 @@
     </message>
     <message>
         <source>ssid</source>
-        <translation>Wireless network name (SSID):</translation>
+        <translation>Wireless network name:</translation>
     </message>
     <message>
         <source>frequency_range</source>
@@ -587,7 +778,7 @@
     </message>
     <message>
         <source>wap</source>
-        <translation>Wireless access point:</translation>
+        <translation>State:</translation>
     </message>
 </context>
 <context>

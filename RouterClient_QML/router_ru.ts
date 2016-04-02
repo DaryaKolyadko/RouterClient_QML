@@ -84,23 +84,23 @@
     </message>
     <message>
         <source>ssid_table_title</source>
-        <translation>Название сети</translation>
+        <translation type="vanished">Название сети</translation>
     </message>
     <message>
         <source>state</source>
-        <translation>Статус</translation>
+        <translation>   Статус:   </translation>
     </message>
     <message>
         <source>rate</source>
-        <translation>Частота</translation>
+        <translation>   Частота:   </translation>
     </message>
     <message>
         <source>bars</source>
-        <translation>Сигнал</translation>
+        <translation>   Сигнал:   </translation>
     </message>
     <message>
         <source>security</source>
-        <translation>Безопасность</translation>
+        <translation>   Безопасность:   </translation>
     </message>
 </context>
 <context>
@@ -177,7 +177,7 @@
     </message>
     <message>
         <source>menu_misc_config</source>
-        <translation>MISC настройки</translation>
+        <translation>Другие настройки</translation>
     </message>
     <message>
         <source>menu_poe</source>
@@ -272,6 +272,38 @@
         <source>connection_lost</source>
         <translation>Соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
     </message>
+    <message>
+        <source>enable</source>
+        <translation>Включено</translation>
+    </message>
+    <message>
+        <source>disable</source>
+        <translation>Выключено</translation>
+    </message>
+    <message>
+        <source>model</source>
+        <translation>Модель: *</translation>
+    </message>
+    <message>
+        <source>sw_version</source>
+        <translation>Версия прошивки: *</translation>
+    </message>
+    <message>
+        <source>management_vlan</source>
+        <translation>Native VLAN:</translation>
+    </message>
+    <message>
+        <source>broadcast_storm</source>
+        <translation>Storm control:</translation>
+    </message>
+    <message>
+        <source>gateway</source>
+        <translation>Шлюз:</translation>
+    </message>
+    <message>
+        <source>system_description</source>
+        <translation>Описание:</translation>
+    </message>
 </context>
 <context>
     <name>InfoMessageDialog</name>
@@ -322,10 +354,73 @@
     </message>
 </context>
 <context>
+    <name>PoeSubtab</name>
+    <message>
+        <source>poe_subtab</source>
+        <translation>Настройка питания через Ethernet</translation>
+    </message>
+    <message>
+        <source>enable</source>
+        <translation>Вкл.</translation>
+    </message>
+    <message>
+        <source>disable</source>
+        <translation>Выкл.</translation>
+    </message>
+    <message>
+        <source>save_settings</source>
+        <translation>Сохранить</translation>
+    </message>
+    <message>
+        <source>change_settings</source>
+        <translation>Изменить</translation>
+    </message>
+    <message>
+        <source>changes_saved</source>
+        <translation>Все изменения сохранены</translation>
+    </message>
+    <message>
+        <source>error_setting</source>
+        <translation>Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
+    </message>
+    <message>
+        <source>connection_lost</source>
+        <translation>Соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
+    </message>
+    <message>
+        <source>update_poe_setup_list</source>
+        <translation>Обновить</translation>
+    </message>
+    <message>
+        <source>port_num</source>
+        <translation>Порт </translation>
+    </message>
+    <message>
+        <source>status</source>
+        <translation>Состояние:</translation>
+    </message>
+    <message>
+        <source>delivering_power_w</source>
+        <translation>Потребление энергии:</translation>
+    </message>
+    <message>
+        <source>current_ma</source>
+        <translation>Текущее использование:</translation>
+    </message>
+    <message>
+        <source>power_limit_w</source>
+        <translation>Передел. мощность:</translation>
+    </message>
+    <message>
+        <source>priority</source>
+        <translation>Приоритет:</translation>
+    </message>
+</context>
+<context>
     <name>PoeTab</name>
     <message>
         <source>poe_tab_title</source>
-        <translation>Настройка питания через Ethernet</translation>
+        <translation type="vanished">Настройка питания через Ethernet</translation>
     </message>
 </context>
 <context>
@@ -336,7 +431,99 @@
     </message>
     <message>
         <source>port_setup_title</source>
-        <translation>Настройка портов</translation>
+        <translation type="vanished">Настройка портов</translation>
+    </message>
+    <message>
+        <source>disable</source>
+        <translation>Выключено</translation>
+    </message>
+    <message>
+        <source>auto</source>
+        <translation>Auto</translation>
+    </message>
+    <message>
+        <source>100Full</source>
+        <translation>100Full</translation>
+    </message>
+    <message>
+        <source>100Half</source>
+        <translation>100Half</translation>
+    </message>
+    <message>
+        <source>10Full</source>
+        <translation>10Full</translation>
+    </message>
+    <message>
+        <source>10Half</source>
+        <translation>10Half</translation>
+    </message>
+    <message>
+        <source>on</source>
+        <translation>Включен</translation>
+    </message>
+    <message>
+        <source>off</source>
+        <translation>Выключен</translation>
+    </message>
+    <message>
+        <source>enable</source>
+        <translation>Включено</translation>
+    </message>
+    <message>
+        <source>normal</source>
+        <translation>Нормальный</translation>
+    </message>
+    <message>
+        <source>high</source>
+        <translation>Высокий</translation>
+    </message>
+    <message>
+        <source>save_settings</source>
+        <translation>Сохранить</translation>
+    </message>
+    <message>
+        <source>change_settings</source>
+        <translation>Изменить</translation>
+    </message>
+    <message>
+        <source>changes_saved</source>
+        <translation>Все изменения сохранены</translation>
+    </message>
+    <message>
+        <source>error_setting</source>
+        <translation>Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
+    </message>
+    <message>
+        <source>connection_lost</source>
+        <translation>Соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
+    </message>
+    <message>
+        <source>update_port_setup_list</source>
+        <translation>Обновить</translation>
+    </message>
+    <message>
+        <source>port_num</source>
+        <translation>Порт </translation>
+    </message>
+    <message>
+        <source>mode</source>
+        <translation>Режим:</translation>
+    </message>
+    <message>
+        <source>flow_control</source>
+        <translation>Упр. потоком:</translation>
+    </message>
+    <message>
+        <source>priority802</source>
+        <translation>Приоритет 802.1р:</translation>
+    </message>
+    <message>
+        <source>port_base_priority</source>
+        <translation>Баз. приоритет:</translation>
+    </message>
+    <message>
+        <source>port_description</source>
+        <translation>Описание порта:</translation>
     </message>
 </context>
 <context>
@@ -351,31 +538,31 @@
     </message>
     <message>
         <source>port</source>
-        <translation>Порт</translation>
+        <translation>Порт </translation>
     </message>
     <message>
         <source>rx_packets_count</source>
-        <translation>Кол-во RX пакетов</translation>
+        <translation>Кол-во RX пакетов:   </translation>
     </message>
     <message>
         <source>rx_bytes_count</source>
-        <translation>Кол-во RX байт</translation>
+        <translation>Кол-во RX байт:   </translation>
     </message>
     <message>
         <source>error_count</source>
-        <translation>Кол-во ошибок</translation>
+        <translation>Кол-во ошибок:   </translation>
     </message>
     <message>
         <source>tx_packets_count</source>
-        <translation>Кол-во TX байт</translation>
+        <translation>Кол-во TX байт:   </translation>
     </message>
     <message>
         <source>tx_bytes_count</source>
-        <translation>Кол-во TX байт</translation>
+        <translation>Кол-во TX байт:   </translation>
     </message>
     <message>
         <source>collisions</source>
-        <translation>Кол-во коллизий</translation>
+        <translation>Кол-во коллизий:   </translation>
     </message>
 </context>
 <context>
@@ -390,46 +577,46 @@
     </message>
     <message>
         <source>port</source>
-        <translation>Порт</translation>
+        <translation>Порт </translation>
     </message>
     <message>
         <source>link</source>
-        <translation>Соединение</translation>
+        <translation>Соединение:   </translation>
     </message>
     <message>
         <source>speed</source>
-        <translation>Скорость</translation>
+        <translation>Скорость:   </translation>
     </message>
     <message>
         <source>duplex</source>
-        <translation>Дуплекс</translation>
+        <translation>Дуплекс:   </translation>
     </message>
     <message>
         <source>flow_control</source>
-        <translation>Управление потоком</translation>
+        <translation>Управление потоком:   </translation>
     </message>
 </context>
 <context>
     <name>PortTrunkSetupSubtab</name>
     <message>
         <source>port_trunk_setup</source>
-        <translation>Внешняя линия</translation>
+        <translation>Магистральный порт</translation>
     </message>
     <message>
         <source>enable</source>
-        <translation>Включено</translation>
+        <translation>Вкл.</translation>
     </message>
     <message>
         <source>disable</source>
-        <translation>Выключено</translation>
+        <translation>Выкл.</translation>
     </message>
     <message>
         <source>save_settings</source>
-        <translation>Сохранить настройки</translation>
+        <translation>Сохранить</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation>Изменить настройки</translation>
+        <translation>Изменить</translation>
     </message>
     <message>
         <source>changes_saved</source>
@@ -446,6 +633,10 @@
     <message>
         <source>port_trunk_7_8</source>
         <translation>Порт №7 и порт №8:</translation>
+    </message>
+    <message>
+        <source>update_port_trunk_setup</source>
+        <translation>Обновить</translation>
     </message>
 </context>
 <context>
@@ -490,43 +681,43 @@
     <name>SystemInformationTab</name>
     <message>
         <source>system_information</source>
-        <translation>Информация о системе</translation>
+        <translation type="vanished">Информация о системе</translation>
     </message>
     <message>
         <source>save_settings</source>
-        <translation>Сохранить настройки</translation>
+        <translation type="vanished">Сохранить настройки</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation>Изменить настройки</translation>
+        <translation type="vanished">Изменить настройки</translation>
     </message>
     <message>
         <source>error_setting</source>
-        <translation>Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
+        <translation type="vanished">Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
     </message>
     <message>
         <source>model</source>
-        <translation>Модель: *</translation>
+        <translation type="vanished">Модель: *</translation>
     </message>
     <message>
         <source>service_code</source>
-        <translation>Сервисный код: *</translation>
+        <translation type="vanished">Сервисный код: *</translation>
     </message>
     <message>
         <source>host_name</source>
-        <translation>Имя хоста:</translation>
+        <translation type="vanished">Имя хоста:</translation>
     </message>
     <message>
         <source>work_group</source>
-        <translation>Рабочая группа:</translation>
+        <translation type="vanished">Рабочая группа:</translation>
     </message>
     <message>
         <source>changes_saved</source>
-        <translation>Все изменения сохранены</translation>
+        <translation type="vanished">Все изменения сохранены</translation>
     </message>
     <message>
         <source>connection_lost</source>
-        <translation>Соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
+        <translation type="vanished">Соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
     </message>
 </context>
 <context>
@@ -579,7 +770,7 @@
     </message>
     <message>
         <source>ssid</source>
-        <translation>Имя беспроводной сети (SSID):</translation>
+        <translation>Имя беспроводной сети:</translation>
     </message>
     <message>
         <source>frequency_range</source>
@@ -587,7 +778,7 @@
     </message>
     <message>
         <source>wap</source>
-        <translation>Точка доступа Wi-Fi:</translation>
+        <translation>Статус:</translation>
     </message>
 </context>
 <context>
