@@ -34,6 +34,9 @@ Tab {
 
         ColumnLayout{
             anchors.top: rowLayoutId.bottom
+            anchors.left: columnLayout.left
+            anchors.right: columnLayout.right
+            anchors.bottom: columnLayout.bottom
  //           ScrollView{
        //         anchors.fill: parent
 
@@ -120,9 +123,11 @@ Tab {
                                 text: qsTr("flow_control")
                                 font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
                             }
-                            Text {
-                                text: flow_control
-                                font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                            Image {
+                                id: image1
+                                source: flow_control
+                                height: (columnLayout.height + columnLayout.width)/(fontCoefficient/2.5)
+                                width: height
                             }
                         }
 
@@ -221,10 +226,11 @@ Tab {
 
             function addPortStatus(port_, link_, speed_, duplex_, flow_control_)
             {
-                var imageSource = link_ === "up" ? greenTickImg : greyTickImg;
-                append({port: port_, link: imageSource,
+                var linkImage = link_ === "up" ? greenTickImg : greyTickImg;
+                var flowControlImage = flow_control_ === "On" ? greenTickImg : greyTickImg;
+                append({port: port_, link: linkImage,
                            speed: speed_, duplex: duplex_,
-                           flow_control: flow_control_});
+                           flow_control: flowControlImage});
             }
 
             function getChild(index)

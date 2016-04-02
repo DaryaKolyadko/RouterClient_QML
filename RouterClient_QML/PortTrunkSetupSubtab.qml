@@ -10,28 +10,31 @@ Tab {
     property bool userEditingConfiguration: false
     property int fontCoefficient: 100//resolution.dp(100)//100
     property string portTrunkStatusStr: "PortTrunkStatus"
+    property int topMargin: 50
 
     Connections {
         target: socketcontroller
     }
 
-    GridLayout{
-        id: portTrunkGrid
-        columns: 3
-        anchors.fill: parent
 
-        InfoMessageDialog {
-            id: portTrunkSetupMessageDialog
-        }
+    Item{
+        id: localBackup
+        objectName: "localBackup"
+        property string portTrunkStatus: ""
 
-        ErrorInfoDialog {
-            id: portTrunkSetupErrorDialog
-
-            function doAction()
-            {
-                socketcontroller.logOutSignal();
+        function updateField(fieldName, newFieldValue)
+        {
+            switch (fieldName) {
+            case portTrunkStatusStr:
+                portTrunkStatus = newFieldValue;
+                break;
+            default:
             }
         }
+    }
+
+    ColumnLayout{
+        id: columnLayout
 
         Component.onCompleted: {
             portTrunkStatusListModel.addPortTrunkStatus(qsTr("enable"));
@@ -40,141 +43,164 @@ Tab {
             portTrunkStatusList.addPortTrunkStatus("Off");
         }
 
-        Item{
-            id: localBackup
-            objectName: "localBackup"
-            property string portTrunkStatus: ""
-
-            function updateField(fieldName, newFieldValue)
-            {
-                switch (fieldName) {
-                case portTrunkStatusStr:
-                    portTrunkStatus = newFieldValue;
-                    break;
-                default:
-                }
-            }
-        }
-
-        Button{
-            id: changeportTrunkStatus
-            text: userEditingConfiguration ? qsTr("save_settings") : qsTr("change_settings")
-            Layout.columnSpan: 3
-            Layout.fillWidth: true
-            anchors.bottomMargin: bottomMargin
-            onClicked: {
-                if(userEditingConfiguration) {
-                    portTrunkGridLayout.enabled = false;
-                    if(checkNewParamValue(portTrunkStatusStr, localBackup.portTrunkStatus,
-                                          portTrunkStatusList.get(portTrunkStatusComboBox.currentIndex).text))
-                    {
-                        setNewParamValue(portTrunkStatusStr, localBackup.portTrunkStatus,
-                                         portTrunkStatusList.get(portTrunkStatusComboBox.currentIndex).text);
-                        portTrunkSetupMessageDialog.show(qsTr("changes_saved"));
-                    }
-                    else {
-                        portTrunkGridLayout.enabled = true;
-                        return;
-                    }
-                }
-                else
-                    portTrunkGridLayout.enabled = true;
-                userEditingConfiguration = !userEditingConfiguration;
+        RowLayout{
+            id: rowLayoutId
+            InfoMessageDialog {
+                id: portTrunkSetupMessageDialog
             }
 
-            function checkNewParamValue(paramName, paramValue, newParamValue)
-            {
-                var hasChanges = paramValue.localeCompare(newParamValue);
-                if (hasChanges !== 0)
+            ErrorInfoDialog {
+                id: portTrunkSetupErrorDialog
+
+                function doAction()
                 {
-                    var res = socketcontroller.permitSetParamInfo(paramName, newParamValue);
-                    if(res === 1)
-                        return true;
-                    else if (res === 0)
-                        portTrunkSetupMessageDialog.show(qsTr("error_setting").arg(paramName).arg(newParamValue));
-                    else //new
-                        portTrunkSetupErrorDialog.show(qsTr("connection_lost"));
-                    return false;
+                    socketcontroller.logOutSignal();
                 }
-                return true;
             }
 
-            function setNewParamValue(paramName, paramValue, newParamValue)
-            {
-                var hasChanges = paramValue.localeCompare(newParamValue);
-                if (hasChanges !== 0) {
-                    var res = socketcontroller.setParamInfo(paramName, newParamValue);
-                    if(res === 1)
+            Button{
+                id: changeportTrunkStatus
+                text: userEditingConfiguration ? qsTr("save_settings") : qsTr("change_settings")
+                Layout.columnSpan: 3
+                Layout.fillWidth: true
+                anchors.bottomMargin: bottomMargin
+                onClicked: {
+                    if(userEditingConfiguration) {
+                        portTrunkGridLayout.enabled = false;
+                        if(checkNewParamValue(portTrunkStatusStr, localBackup.portTrunkStatus,
+                                              portTrunkStatusList.get(portTrunkStatusComboBox.currentIndex).text))
+                        {
+                            setNewParamValue(portTrunkStatusStr, localBackup.portTrunkStatus,
+                                             portTrunkStatusList.get(portTrunkStatusComboBox.currentIndex).text);
+                            portTrunkSetupMessageDialog.show(qsTr("changes_saved"));
+                        }
+                        else {
+                            portTrunkGridLayout.enabled = true;
+                            return;
+                        }
+                    }
+                    else
+                        portTrunkGridLayout.enabled = true;
+                    userEditingConfiguration = !userEditingConfiguration;
+                }
+
+                function checkNewParamValue(paramName, paramValue, newParamValue)
+                {
+                    var hasChanges = paramValue.localeCompare(newParamValue);
+                    if (hasChanges !== 0)
                     {
-                        localBackup.updateField(paramName, newParamValue);
-                        return true;
+                        var res = socketcontroller.permitSetParamInfo(paramName, newParamValue);
+                        if(res === 1)
+                            return true;
+                        else if (res === 0)
+                            portTrunkSetupMessageDialog.show(qsTr("error_setting").arg(paramName).arg(newParamValue));
+                        else //new
+                            portTrunkSetupErrorDialog.show(qsTr("connection_lost"));
+                        return false;
                     }
-                    else //new
-                        portTrunkSetupErrorDialog.show(qsTr("connection_lost"));
-                    return false;
+                    return true;
                 }
-                return true;
-            }
-        }
 
-        GridLayout {
-            id: portTrunkGridLayout
-            columns: 3
-            anchors.centerIn: parent
-            enabled: false
-            Layout.fillWidth: true
-
-            Text{
-                id: portTrunkStatusText
-                font.letterSpacing: 1
-                font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
-                Layout.fillWidth: true
-                text: qsTr("port_trunk_7_8")
-            }
-
-            ComboBox {
-                id:portTrunkStatusComboBox
-                objectName: "portTrunkStatusComboBox"
-                Layout.columnSpan: 2
-                Layout.fillWidth: true
-                model: portTrunkStatusListModel
-                transitions: Transition {
-                    NumberAnimation {
-                        properties: "height";
-                        easing.type: Easing.OutExpo;
-                        duration: 1000
+                function setNewParamValue(paramName, paramValue, newParamValue)
+                {
+                    var hasChanges = paramValue.localeCompare(newParamValue);
+                    if (hasChanges !== 0) {
+                        var res = socketcontroller.setParamInfo(paramName, newParamValue);
+                        if(res === 1)
+                        {
+                            localBackup.updateField(paramName, newParamValue);
+                            return true;
+                        }
+                        else //new
+                            portTrunkSetupErrorDialog.show(qsTr("connection_lost"));
+                        return false;
                     }
+                    return true;
+                }
+            }
+
+            Button{
+                id: updatePortTrunkSetupButton
+                text: qsTr("update_port_trunk_setup")
+                Layout.fillWidth: true
+                onClicked: {
+                    socketcontroller.getPortTrunkSetup();
                 }
             }
         }
 
-        ListModel{
-            id: portTrunkStatusList
-            objectName: "portTrunkStatusList"
+        ColumnLayout{
+            anchors.top: rowLayoutId.bottom
+            anchors.left: columnLayout.left
+            anchors.right: columnLayout.right
+            anchors.bottom: columnLayout.bottom
+            clip: true
 
-            function addPortTrunkStatus(portTrunk)
-            {
-                append({text: portTrunk})
+            Flickable{
+                anchors.fill: parent
+                flickableDirection: Flickable.VerticalFlick
+                contentHeight: (portTrunkGridLayout.height + portTrunkSetupSubtabId.topMargin)
+
+                GridLayout {
+                    id: portTrunkGridLayout
+                    columns: 3
+                    anchors.centerIn: parent
+                    enabled: false
+                    Layout.fillWidth: true
+                    clip: true
+
+                    Text{
+                        id: portTrunkStatusText
+                        font.letterSpacing: 1
+                        font.pointSize: (columnLayout.height + columnLayout.width)/(fontCoefficient -10)
+                        Layout.fillWidth: true
+                        text: qsTr("port_trunk_7_8")
+                    }
+
+                    ComboBox {
+                        id:portTrunkStatusComboBox
+                        objectName: "portTrunkStatusComboBox"
+                        Layout.columnSpan: 2
+                       // Layout.fillWidth: true
+                        model: portTrunkStatusListModel
+                        transitions: Transition {
+                            NumberAnimation {
+                                properties: "height";
+                                easing.type: Easing.OutExpo;
+                                duration: 1000
+                            }
+                        }
+                    }
+                }
+            }
+            ListModel{
+                id: portTrunkStatusList
+                objectName: "portTrunkStatusList"
+
+                function addPortTrunkStatus(portTrunk)
+                {
+                    append({text: portTrunk})
+                }
+
+                function getChild(index)
+                {
+                    return get(index)
+                }
             }
 
-            function getChild(index)
-            {
-                return get(index)
-            }
-        }
+            ListModel{
+                id: portTrunkStatusListModel
+                objectName: "portTrunkStatusListModel"
 
-        ListModel{
-            id: portTrunkStatusListModel
-            objectName: "portTrunkStatusListModel"
+                function addPortTrunkStatus(portTrunk)
+                {
+                    append({text: portTrunk})
+                }
 
-            function addPortTrunkStatus(portTrunk)
-            {
-                append({text: portTrunk})
-            }
-
-            function getChild(index)
-            {
-                return get(index)
+                function getChild(index)
+                {
+                    return get(index)
+                }
             }
         }
     }

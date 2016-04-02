@@ -159,6 +159,9 @@ Item{
 
         ColumnLayout{
             anchors.top: rowLayoutId.bottom
+            anchors.left: columnLayout.left
+            anchors.right: columnLayout.right
+            anchors.bottom: columnLayout.bottom
             clip: true
 
             Flickable{

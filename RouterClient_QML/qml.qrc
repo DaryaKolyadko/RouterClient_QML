@@ -30,5 +30,6 @@
         <file>LogOutDialog.qml</file>
         <file>CorporationInfoTab.qml</file>
         <file>ScrollBar.qml</file>
+        <file>PoeSubtab.qml</file>
     </qresource>
 </RCC>

@@ -118,6 +118,9 @@ Tab {
 
         ColumnLayout{
             anchors.top: rowLayoutId.bottom
+            anchors.left: columnLayout.left
+            anchors.right: columnLayout.right
+            anchors.bottom: columnLayout.bottom
             //           ScrollView{
             //         anchors.fill: parent
 
@@ -146,11 +149,12 @@ Tab {
 
                     highlight: Rectangle
                     {
-                    color:"white"
+                    color: "#C4D9C5"
                     radius: 5
                     opacity: 0.7
                     focus: true
                     border.color: "green"
+                    anchors.rightMargin: 15
                 }
 
                 onCurrentIndexChanged: {
@@ -178,7 +182,7 @@ Tab {
 
                     Row{
                         Text {
-                            text: ssid
+                            text: " " + ssid
                             color: "darkGreen"
                             font.pointSize:(columnLayout.height + columnLayout.width)/(fontCoefficient - 10)
                         }

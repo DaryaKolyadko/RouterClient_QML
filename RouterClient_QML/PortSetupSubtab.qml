@@ -210,6 +210,9 @@ Tab {
 
         ColumnLayout{
             anchors.top: rowLayoutId.bottom
+            anchors.left: columnLayout.left
+            anchors.right: columnLayout.right
+            anchors.bottom: columnLayout.bottom
             anchors.leftMargin: 15
             anchors.rightMargin: 15
 

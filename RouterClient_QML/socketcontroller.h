@@ -97,6 +97,7 @@ public slots:
     void getPortStatusCountersList();
     void getPortSetupList();
     void getPoeSetupList();
+    void getPortTrunkSetup();
     QString getLogin();
     QString getInfo(QString message);
     QString getParamInfo(QString paramName);

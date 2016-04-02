@@ -134,10 +134,10 @@ Item {
                 socketcontroller.initConnection();
 
                 if(!errorOccurred) {
-                    var result = socketcontroller.confirmLoginAndPassword(loginTextInput.text,
-                                                                          passwordTextInput.text);
-                    console.debug(result);
-                    if(result == 1) {
+//                    var result = socketcontroller.confirmLoginAndPassword(loginTextInput.text,
+//                                                                          passwordTextInput.text);
+//                    console.debug(result);
+//                    if(result == 1) {
                         socketcontroller.recieveLoginClick();
                         loginForm.visible = false;
                         console.debug("vse ok");
@@ -146,9 +146,9 @@ Item {
                         console.debug("vse ploho, ti dodik");
                         loginFormErrorInfoDialog.show("wrong_password");
                     }
-                }
-                else
-                    errorOccurred = !errorOccurred;
+//                }
+//                else
+//                    errorOccurred = !errorOccurred;
             }
         }
     }

@@ -34,13 +34,13 @@ SocketController::SocketController(QObject *parent) : QObject(parent)
 void SocketController::recieveLoginClick()
 {
     init();
-//    getPortSetupList();
-//    getPortStatusCountersList();
-//    getPortStatusList();
-//    getInfoAboutWifiConnections();
-//    getPoeSetupList();
-    getValuesFromServer();
-    initBackup();
+    getPortSetupList();
+    getPortStatusCountersList();
+    getPortStatusList();
+    getInfoAboutWifiConnections();
+    getPoeSetupList();
+//    getValuesFromServer();
+//    initBackup();
 }
 
 void SocketController::initConnection()
@@ -50,8 +50,8 @@ void SocketController::initConnection()
     loginTextInput = loginForm->findChild<QObject*>("loginTextInput");
     passwordTextInput = loginForm->findChild<QObject*>("passwordTextInput");
     hostAddressTextInput = loginForm->findChild<QObject*>("hostAddressTextInput");
-    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 10013))
-        sendErrorMessage(socket.getErrorMessage());
+//    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 10013))
+//        sendErrorMessage(socket.getErrorMessage());
 }
 
 void SocketController::init()
@@ -133,10 +133,11 @@ void SocketController::init()
     portBasePriorityCount = portBasePriorityNameList->property("count").toInt();
 
     QObject* poeTab = configurationForm->findChild<QObject*>("poeTab");
-    poeSetupModel = poeTab->findChild<QObject*>("poeSetupModel");
-    poeSetupStatusNameList = poeTab->findChild<QObject*>("statusList");
+    QObject* poeSubtab = poeTab->findChild<QObject*>("poeSubtab");
+    poeSetupModel = poeSubtab->findChild<QObject*>("poeSetupModel");
+    poeSetupStatusNameList = poeSubtab->findChild<QObject*>("statusList");
     poeSetupStatusCount = poeSetupStatusNameList->property("count").toInt();
-    poeSetupPriorityNameList = poeTab->findChild<QObject*>("priorityList");
+    poeSetupPriorityNameList = poeSubtab->findChild<QObject*>("priorityList");
     poeSetupPriorityCount = poeSetupPriorityNameList->property("count").toInt();
 
     QObject* corporationInfoTab = configurationForm->findChild<QObject*>("corporationInfoTab");
@@ -251,10 +252,7 @@ void SocketController::getValuesFromServer()
 //    workGroupTextInput->setProperty("text", getParamInfo("WorkGroup"));
     accountSettingsLoginTextInput->setProperty("text", getLogin());
 
-    portTrunkStatusServerValue = getParamInfo("PortTrunkStatus");
-    portTrunkStatusComboBox->setProperty("currentIndex",
-                     findIndexByValue(portTrunkStatusNameList, portTrunkStatusCount,
-                                   portTrunkStatusServerValue));
+    getPortTrunkSetup();
 
     corporationInfoText->setProperty("text", getParamInfo("CorporationInfo"));
 
@@ -288,8 +286,8 @@ void SocketController::getInfoAboutWifiConnections()
     //QString data = "*  SSID             MODE   CHAN  RATE       SIGNAL  BARS  SECURITY \n   Promwad Devices  Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n   Promwad Guest    Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n   Promwad Test     Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n   AP-lo1-10        Infra  1     54 Mbit/s  65      ▂▄▆_  WPA2     \n";
     //QString data = "DEVICE  TYPE      STATE        CONNECTION \neth0   ethernet      notconnected    Wired Connection 0    \nwlan0   wifi      connected    eduroam    \neth1    ethernet  unavailable  --         \nlo      loopback  unmanaged    --         \n";
     //QString data = "DEVICE  TYPE      STATE        CONNECTION \nwlan0   wifi      connected    eduroam    \neth0    ethernet  unavailable  --         \nlo      loopback  unmanaged    --         \n";
-    //QString data = "  SSID             MODE   CHAN  RATE       SIGNAL  BARS  SECURITY  \n    Promwad  Infra  1     54 Mbit/s 100     ▂▄▆█  WPA2     \n   *         Promwad Guest    Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n *  Promwad Test     Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2      \n   AP-lo1-10        Infra  1     54 Mbit/s  65      ▂▄▆_  WPA2";
-    QString data = getParamInfo("WifiConnections");
+    QString data = "  SSID             MODE   CHAN  RATE       SIGNAL  BARS  SECURITY  \n    Promwad  Infra  1     54 Mbit/s 100     ▂▄▆█  WPA2     \n   *         Promwad Guest    Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n *  Promwad Test     Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2      \n   AP-lo1-10        Infra  1     54 Mbit/s  65      ▂▄▆_  WPA2";
+    //QString data = getParamInfo("WifiConnections");
     WifiDataParser* parser = new WifiDataParser();
     WifiInfoParseResult result;
     result = parser->parseWifiConnectionsInfo(data);
@@ -313,12 +311,20 @@ void SocketController::getInfoAboutWifiConnections()
     }
 }
 
+void SocketController::getPortTrunkSetup()
+{
+    portTrunkStatusServerValue = getParamInfo("PortTrunkStatus");
+    portTrunkStatusComboBox->setProperty("currentIndex",
+                                         findIndexByValue(portTrunkStatusNameList, portTrunkStatusCount,
+                                                          portTrunkStatusServerValue));
+}
+
 void SocketController::getPortStatusList()
 {
     QMetaObject::invokeMethod(portStatusModel, "clear");
     QVariant retValue;
-    //QString data = "1         Down              -               -            - \n2         Down              -               -            - \n3         Down              -               -            -   \n4         up              100M               Full            Off \n";
-    QString data = getParamInfo("PortStatusList");
+    QString data = "1         Down              -               -            - \n2         Down              -               -            - \n3         Down              -               -            -   \n4         up              100M               Full            Off \n";
+    //QString data = getParamInfo("PortStatusList");
     PortStatusDataParser* parser = new PortStatusDataParser();
     PortStatusParseResult result;
     result = parser->parsePortStatusData(data);
@@ -340,8 +346,8 @@ void SocketController::getPortStatusCountersList()
 {
     QMetaObject::invokeMethod(portStatusCountersModel, "clear");
     QVariant retValue;
-    //QString data = "1        0              0               0            0              0               0 \n2        0              0               0            0              0               0 \n3        0              0               0            0              0               0 \n4         0              0               0            0              0               0  \n5         0              0               0            0              0               0  \n6         0              0               0            0              0               0  \n7         0              0               0            0              0               0  \n8         0              0               0            0              0               0  \n";
-    QString data = getParamInfo("PortStatusCountersList");
+    QString data = "1        0              0               0            0              0               0 \n2        0              0               0            0              0               0 \n3        0              0               0            0              0               0 \n4         0              0               0            0              0               0  \n5         0              0               0            0              0               0  \n6         0              0               0            0              0               0  \n7         0              0               0            0              0               0  \n8         0              0               0            0              0               0  \n";
+    //QString data = getParamInfo("PortStatusCountersList");
     PortStatusCountersParser* parser = new PortStatusCountersParser();
     PortStatusCountParseResult result;
     result = parser->parsePortStatusCountData(data);
@@ -365,8 +371,8 @@ void SocketController::getPortSetupList()
 {
     QMetaObject::invokeMethod(portSetupModel, "clear");
     QVariant retValue;
-    //QString data = "1        Auto              On               On            Normal              -               \n2        Auto              On               On            Normal              -               \n3        Auto              On               On            Normal              -               \n4        Auto              On               On            Normal              -               \n5        Auto              On               On            Normal              -               \n6        Auto              On               On            Normal              -               \n7        Auto              On               On            Normal              -               \n8        Auto              On               On            Normal              -               \n";
-    QString data = getParamInfo("PortSetupDataList");
+    QString data = "1        Auto              On               On            Normal              -               \n2        Auto              On               On            Normal              -               \n3        Auto              On               On            Normal              -               \n4        Auto              On               On            Normal              -               \n5        Auto              On               On            Normal              -               \n6        Auto              On               On            Normal              -               \n7        Auto              On               On            Normal              -               \n8        Auto              On               On            Normal              -               \n";
+    //QString data = getParamInfo("PortSetupDataList");
     PortSetupDataParser* parser = new PortSetupDataParser();
     PortSetupParseResult result;
     result = parser->parsePortSetupData(data);
@@ -401,8 +407,8 @@ void SocketController::getPoeSetupList()
 {
     QMetaObject::invokeMethod(poeSetupModel, "clear");
     QVariant retValue;
-    //QString data = "1        On              0               0            15,4              0               \n2       On              0               0            15,4              0              \n3        On              0               0            15,4              0              \n4       On              0               0            15,4              0              \n5       On              0               0            15,4              0               \n6       On              0               0            15,4              0                \n7       On              0               0            15,4              0               \n8        On              0               0            15,4              0              \n";
-    QString data = getParamInfo("PoeSetupDataList");
+    QString data = "1        On              0               0            15,4              0               \n2       On              0               0            15,4              0              \n3        On              0               0            15,4              0              \n4       On              0               0            15,4              0              \n5       On              0               0            15,4              0               \n6       On              0               0            15,4              0                \n7       On              0               0            15,4              0               \n8        On              0               0            15,4              0              \n";
+    //QString data = getParamInfo("PoeSetupDataList");
     PoeSetupDataParser* parser = new PoeSetupDataParser();
     PoeSetupParseResult result;
     result = parser->parsePoeSetupData(data);

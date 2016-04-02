@@ -15,6 +15,7 @@ Tab {
     ColumnLayout{
         id: columnLayout
         anchors.fill: parent
+       // anchors.right: portSetupSubtab.right
 
         RowLayout{
             id: rowLayoutId
@@ -31,6 +32,9 @@ Tab {
 
         ColumnLayout{
             anchors.top: rowLayoutId.bottom
+            anchors.left: columnLayout.left
+            anchors.right: columnLayout.right
+            anchors.bottom: columnLayout.bottom
  //           ScrollView{
        //         anchors.fill: parent
 
