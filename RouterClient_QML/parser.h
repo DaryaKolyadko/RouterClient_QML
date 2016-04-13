@@ -7,8 +7,6 @@ class Parser
 {
 public:
     Parser();
-
-protected:
     QString linuxDivider = "\n";
     QString whitespace = " ";
 };
