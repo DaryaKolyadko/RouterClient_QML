@@ -12,6 +12,10 @@ class SocketController : public QObject
     Q_OBJECT
 
 private:
+    int blockSize = 1024;
+    int portCount = 0;
+    int vlanCount = 8;
+    QString emptyString = "";
     int wifiStatusCount;
     int frequencyRangeCount;
     int portTrunkStatusCount;
@@ -73,6 +77,18 @@ private:
     QObject* portTrunkStatusModel;
     QObject* portTrunkStatusNameList;
     QObject* portTrunkConfigBackup;
+    QObject* portRepeater;
+    QObject* vlanBackup;
+    QObject* vlanTypeComboBox;
+    QObject* vlanCurrentModel;
+    QObject* vlanTypeListModel;
+    QObject* vlanTypeList;
+    QObject* vlanSubtab;
+    QObject* vlanTabId;
+    QString vlanTypeServerValue;
+    int vlanTypeCount;
+    QObject* portTaggingStatusList;
+    int portTaggingStatusCount;
     MySslSocket socket;
     void init();
     void getValuesFromServer();
@@ -98,6 +114,8 @@ public slots:
     void getPortSetupList();
     void getPoeSetupList();
     void getPortTrunkSetup();
+    void getGeneralConfigData();
+    void getVlanSettings();
     QString getLogin();
     QString getInfo(QString message);
     QString getParamInfo(QString paramName);
@@ -113,6 +131,7 @@ public slots:
     void logOutSignal();
     void rebootSystem();
     void restoreSystemDefault();
+    int sendFile(QString fileName);
 };
 
 #endif // SOCKETCONTROLLER_H

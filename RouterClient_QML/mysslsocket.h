@@ -19,10 +19,13 @@ public:
     explicit MySslSocket(QObject *parent = 0);
     QString getErrorMessage();
     QString writeQueryAndReadAnswer(QString message);
+    QString writeAndRead(QByteArray arr);
     bool doConnect(QString host, int port);
     bool doConnectToExistingSocket();
     void close();
     void write(QString message);
+    static const int ok = 1;
+    static const int notOk = 0;
 
 signals:
 

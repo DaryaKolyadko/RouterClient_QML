@@ -8,6 +8,7 @@
 #include <cstdio>
 #include <QObject>
 #include <QUrl>
+#include <QPair>
 #include "wifidataparser.h"
 #include "wifiinfoparseresult.h"
 #include "portstatusdataparser.h"
@@ -18,6 +19,7 @@
 #include "portsetupparseresult.h"
 #include "poesetupdataparser.h"
 #include "poesetupparseresult.h"
+#include "vlansettingsparser.h"
 
 SocketController::SocketController(QObject *parent) : QObject(parent)
 {
@@ -34,13 +36,13 @@ SocketController::SocketController(QObject *parent) : QObject(parent)
 void SocketController::recieveLoginClick()
 {
     init();
-    getPortSetupList();
-    getPortStatusCountersList();
-    getPortStatusList();
-    getInfoAboutWifiConnections();
-    getPoeSetupList();
-//    getValuesFromServer();
-//    initBackup();
+//    getPortSetupList();
+//    getPortStatusCountersList();
+//    getPortStatusList();
+//    getInfoAboutWifiConnections();
+//    getPoeSetupList();
+    getValuesFromServer();
+    initBackup();
 }
 
 void SocketController::initConnection()
@@ -50,8 +52,8 @@ void SocketController::initConnection()
     loginTextInput = loginForm->findChild<QObject*>("loginTextInput");
     passwordTextInput = loginForm->findChild<QObject*>("passwordTextInput");
     hostAddressTextInput = loginForm->findChild<QObject*>("hostAddressTextInput");
-//    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 10013))
-//        sendErrorMessage(socket.getErrorMessage());
+    if(!socket.doConnect(hostAddressTextInput->property("text").toString(), 10014))
+        sendErrorMessage(socket.getErrorMessage());
 }
 
 void SocketController::init()
@@ -59,9 +61,9 @@ void SocketController::init()
     QObject *configurationForm = rootObject->findChild<QObject*>("mainConfigurationForm");
     QObject *generalConfigTab = configurationForm->findChild<QObject*>("generalConfigurationTab");
 
-//    QVariant returnedValue
-//    QMetaObject::invokeMethod(generalConfigTab, "getNetworkMask", Q_RETURN_ARG(QVariant, returnedValue));
-//    qDebug() << returnedValue.toString();
+    //    QVariant returnedValue
+    //    QMetaObject::invokeMethod(generalConfigTab, "getNetworkMask", Q_RETURN_ARG(QVariant, returnedValue));
+    //    qDebug() << returnedValue.toString();
 
     configHostAddressTextInput = generalConfigTab->findChild<QObject*>("hostAddressTextInput");
     networkMaskTextInput = generalConfigTab->findChild<QObject*>("networkMaskTextInput");
@@ -91,12 +93,12 @@ void SocketController::init()
     wifiStatusCount = wifiStatusModel->property("count" ).toInt();
     wifiConfigBackup = wifiConfigSubtab->findChild<QObject*>("localBackup");
 
-//    QObject *systemInformationTab = configurationForm->findChild<QObject*>("systemInformationTab");
-//    modelTextInput = systemInformationTab->findChild<QObject*>("modelTextInput");
-//    hostNameTextInput = systemInformationTab->findChild<QObject*>("hostNameTextInput");
-//    serviceCodeTextInput = systemInformationTab->findChild<QObject*>("serviceCodeTextInput");
-//    workGroupTextInput = systemInformationTab->findChild<QObject*>("workGroupTextInput");
-//    systemInfoBackup = systemInformationTab->findChild<QObject*>("localBackup");
+    //    QObject *systemInformationTab = configurationForm->findChild<QObject*>("systemInformationTab");
+    //    modelTextInput = systemInformationTab->findChild<QObject*>("modelTextInput");
+    //    hostNameTextInput = systemInformationTab->findChild<QObject*>("hostNameTextInput");
+    //    serviceCodeTextInput = systemInformationTab->findChild<QObject*>("serviceCodeTextInput");
+    //    workGroupTextInput = systemInformationTab->findChild<QObject*>("workGroupTextInput");
+    //    systemInfoBackup = systemInformationTab->findChild<QObject*>("localBackup");
 
     availableWifiSubtab = wifiTab->findChild<QObject*>("availableWifiSubtab");
     wifiConnectionsModel = availableWifiSubtab->findChild<QObject*>("wifiConnectionsModel");
@@ -139,6 +141,54 @@ void SocketController::init()
     poeSetupStatusCount = poeSetupStatusNameList->property("count").toInt();
     poeSetupPriorityNameList = poeSubtab->findChild<QObject*>("priorityList");
     poeSetupPriorityCount = poeSetupPriorityNameList->property("count").toInt();
+
+    QObject* vlanTab = configurationForm->findChild<QObject*>("vlanSetupTab");
+    vlanTabId = vlanTab->findChild<QObject*>("vlanTabId");
+    vlanTypeComboBox = vlanTab->findChild<QObject*>("vlanTypeCombobox");
+    vlanTypeList = vlanTab->findChild<QObject*>("vlanTypeList");
+    vlanTypeListModel = vlanTab->findChild<QObject*>("vlanTypeListModel");
+    vlanTypeCount = vlanTypeListModel->property("count").toInt();
+    vlanSubtab = vlanTab->findChild<QObject*>("vlanSetupSubtab");
+    vlanBackup  = vlanSubtab->findChild<QObject*>("localBackup");
+    vlanCurrentModel = vlanSubtab->findChild<QObject*>("currentVlanModel");
+    QObject* vlanSettings = vlanSubtab->findChild<QObject*>("vlanSettings");
+    portRepeater = vlanSettings->findChild<QObject*>("portRepeater");
+    portTaggingStatusList = vlanSettings->findChild<QObject*>("taggingStatusList");
+    portTaggingStatusCount = portTaggingStatusList->property("count").toInt();
+
+//    portCount = 8;//getParamInfo("PortCount");
+//    portRepeater->setProperty("model", portCount);
+
+//    QString vlanType = "portBased";//getParamInfo("VlanType");
+
+//    if(vlanType != "noVlan")
+//    {
+//        portCount = 8;//getParamInfo("PortCount");
+//        vlanBackup  = vlanSubtab->findChild<QObject*>("localBackup");
+//        vlanCurrentModel = vlanSubtab->findChild<QObject*>("currentVlanModel");
+//        QVariant retValue;
+//        QMetaObject::invokeMethod(vlanCurrentModel, "init",
+//                                  Q_RETURN_ARG(QVariant, retValue),
+//                                  Q_ARG(QVariant, portCount),
+//                                  Q_ARG(QVariant, vlanCount));
+
+
+//        if (vlanType == "portBased")
+//        {
+//            QObject* vlanSettings = vlanSubtab->findChild<QObject*>("vlanSettings");
+//            vlanSettings->setProperty("visible", true);
+//            portRepeater = vlanSettings->findChild<QObject*>("portRepeater");
+//            portRepeater->setProperty("model", portCount);
+//        }
+
+//        QMetaObject::invokeMethod(vlanCurrentModel, "addPortVlanEnabled",
+//                                  Q_RETURN_ARG(QVariant, retValue),
+//                                  Q_ARG(QVariant, 3),
+//                                  Q_ARG(QVariant, 2));
+//    }
+//==================
+    //getVlanSettings();
+    //======
 
     QObject* corporationInfoTab = configurationForm->findChild<QObject*>("corporationInfoTab");
     corporationInfoText = corporationInfoTab->findChild<QObject*>("corporationInfoText");
@@ -228,33 +278,41 @@ void SocketController::getValuesFromServer()
     swVersionTextInput->setProperty("text", getParamInfo("SwVersion"));
     managementVlanServerValue = getParamInfo("ManagementVlan");
     managementVlanComboBox->setProperty("currentIndex",
-                     findIndexByValue(managementVlanModel, managementVlanCount,
-                                   managementVlanServerValue));
+                                        findIndexByValue(managementVlanModel, managementVlanCount,
+                                                         managementVlanServerValue));
     broadcastStormServerValue = getParamInfo("BroadcastStormControl");
     broadcastStormComboBox->setProperty("currentIndex",
-                     findIndexByValue(broadcastStormNameList, broadcastStormCount,
-                                   broadcastStormServerValue));
+                                        findIndexByValue(broadcastStormNameList, broadcastStormCount,
+                                                         broadcastStormServerValue));
     gatewayTextInput->setProperty("text", getParamInfo("Gateway"));
     systemDescriptionTextInput->setProperty("text", getParamInfo("SystemDescription"));
 
 
     ssidTextInput->setProperty("text", getParamInfo("Ssid"));
     frequencyRangeComboBox->setProperty("currentIndex",
-                     findIndexByValue(frequencyRangeModel, frequencyRangeCount, //"2.4"));
-                                   getParamInfo("FrequencyRange")));
+                                        findIndexByValue(frequencyRangeModel, frequencyRangeCount, //"2.4"));
+                                                         getParamInfo("FrequencyRange")));
     wifiStatusServerValue = getParamInfo("WifiStatus");
     wifiStatusComboBox->setProperty("currentIndex",
-                     findIndexByValue(wifiStatusNameList, wifiStatusCount,
-                                   wifiStatusServerValue));
-//    modelTextInput->setProperty("text", getParamInfo("Model"));
-//    hostNameTextInput->setProperty("text", getParamInfo("HostName"));
-//    serviceCodeTextInput->setProperty("text", getParamInfo("ServiceCode"));
-//    workGroupTextInput->setProperty("text", getParamInfo("WorkGroup"));
+                                    findIndexByValue(wifiStatusNameList, wifiStatusCount,
+                                                     wifiStatusServerValue));
+    //    modelTextInput->setProperty("text", getParamInfo("Model"));
+    //    hostNameTextInput->setProperty("text", getParamInfo("HostName"));
+    //    serviceCodeTextInput->setProperty("text", getParamInfo("ServiceCode"));
+    //    workGroupTextInput->setProperty("text", getParamInfo("WorkGroup"));
     accountSettingsLoginTextInput->setProperty("text", getLogin());
 
     getPortTrunkSetup();
+    getVlanSettings();
 
     corporationInfoText->setProperty("text", getParamInfo("CorporationInfo"));
+    //    vlanCount = getParamInfo("VlanCount");
+//    vlanRepeater->setProperty("model", 8);  //getParamInfo("VlanCount"));
+//    int retValue;
+//    QMetaObject::invokeMethod(vlanCurrentModel, "init",
+//                              Q_RETURN_ARG(QVariant, retValue),
+//                              Q_ARG(QVariant, vlanCount),
+//            Q_ARG(QVariant, portCount));
 
     getInfoAboutWifiConnections();
     getPortStatusList();
@@ -272,11 +330,85 @@ void SocketController::initBackup()
     generalConfigBackup->setProperty("gateway", gatewayTextInput->property("text"));
     generalConfigBackup->setProperty("systemDescription", systemDescriptionTextInput->property("text"));
 
-//    systemInfoBackup->setProperty("hostName", hostNameTextInput->property("text"));
-//    systemInfoBackup->setProperty("workGroup", workGroupTextInput->property("text"));
+    //    systemInfoBackup->setProperty("hostName", hostNameTextInput->property("text"));
+    //    systemInfoBackup->setProperty("workGroup", workGroupTextInput->property("text"));
     wifiConfigBackup->setProperty("ssid", ssidTextInput->property("text"));
     wifiConfigBackup->setProperty("frequencyRange", frequencyRangeComboBox->property("currentText"));
     wifiConfigBackup->setProperty("wifiStatus", wifiStatusServerValue);
+}
+
+void SocketController::getVlanSettings()
+{
+    vlanSubtab->setProperty("init", true);
+    vlanTabId->setProperty("init", true);
+    //QString vlanType = "802.1q";// "portBased";//
+    QString vlanType = getParamInfo("VlanType");
+    vlanTypeComboBox->setProperty("currentIndex",
+                                  findIndexByValue(vlanTypeList, vlanTypeCount,
+                                                   vlanType));
+
+    if(vlanType != "noVlan")
+    {
+        //portCount = 8;//
+        portCount = getParamInfo("PortCount").toInt();
+
+        QVariant retValue;
+        QMetaObject::invokeMethod(vlanCurrentModel, "init",
+                                  Q_RETURN_ARG(QVariant, retValue),
+                                  Q_ARG(QVariant, portCount),
+                                  Q_ARG(QVariant, vlanCount));
+
+        portRepeater->setProperty("model", portCount);
+
+        QMetaObject::invokeMethod(vlanCurrentModel, "deleteAllChecks",
+                                  Q_RETURN_ARG(QVariant, retValue));
+
+        VlanSettingsParser* parser = new VlanSettingsParser();
+        //QString portVlanData = "1 1\n2 1\n3 1\n1 3\n4 2\n5 2\n6 2\n7 3\n8 3\n";//
+        QString portVlanData = getParamInfo("VlanSettings");
+        QList<QPair<int, int>> portVlanDataResult = parser->parsePortVlanData(portVlanData);
+
+        for (int i = 0; i < portVlanDataResult.count(); i++)
+        {
+            QPair<int, int> portVlanPair = portVlanDataResult.at(i);
+            QMetaObject::invokeMethod(vlanCurrentModel, "addPortVlanEnabled",
+                                  Q_RETURN_ARG(QVariant, retValue),
+                                  Q_ARG(QVariant, portVlanPair.first),
+                                  Q_ARG(QVariant, portVlanPair.second));
+        }
+
+        //QString portPvidData = "1 1\n2 2\n3 3\n4 4\n5 5\n6 6\n7 7\n8 8\n"; //
+        QString portPvidData = getParamInfo("PortsPvid");
+        QMap<int, int> portPvidDataResult = parser->parsePortPvidData(portPvidData);
+
+        for(int port = 1; port <= portCount; port++)
+        {
+            QMetaObject::invokeMethod(vlanCurrentModel, "setPortPvid",
+                                  Q_RETURN_ARG(QVariant, retValue),
+                                  Q_ARG(QVariant, port),
+                                  Q_ARG(QVariant, portPvidDataResult[port]));
+        }
+
+        if (vlanType == "802.1q")
+        {
+            //QString portTaggingData = "1 On\n2 Off\n3 On\n4 On\n5 On\n6 On\n7 On\n8 On\n";//
+            QString portTaggingData = getParamInfo("PortsTaggingStatus");
+            QMap<int, QString> portTaggingDataResult = parser->parsePortTaggingData(portTaggingData);
+
+            for(int port = 1; port <= portCount; port++)
+            {
+                QMetaObject::invokeMethod(vlanCurrentModel, "setPortTaggingStatus",
+                                      Q_RETURN_ARG(QVariant, retValue),
+                                      Q_ARG(QVariant, port),
+                                      Q_ARG(QVariant, findIndexByValue(portTaggingStatusList,
+                                                                       portTaggingStatusCount,
+                                                                       portTaggingDataResult[port])));
+            }
+        }
+    }
+
+    vlanSubtab->setProperty("init", false);
+    vlanTabId->setProperty("init", false);
 }
 
 void SocketController::getInfoAboutWifiConnections()
@@ -286,24 +418,28 @@ void SocketController::getInfoAboutWifiConnections()
     //QString data = "*  SSID             MODE   CHAN  RATE       SIGNAL  BARS  SECURITY \n   Promwad Devices  Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n   Promwad Guest    Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n   Promwad Test     Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n   AP-lo1-10        Infra  1     54 Mbit/s  65      ▂▄▆_  WPA2     \n";
     //QString data = "DEVICE  TYPE      STATE        CONNECTION \neth0   ethernet      notconnected    Wired Connection 0    \nwlan0   wifi      connected    eduroam    \neth1    ethernet  unavailable  --         \nlo      loopback  unmanaged    --         \n";
     //QString data = "DEVICE  TYPE      STATE        CONNECTION \nwlan0   wifi      connected    eduroam    \neth0    ethernet  unavailable  --         \nlo      loopback  unmanaged    --         \n";
-    QString data = "  SSID             MODE   CHAN  RATE       SIGNAL  BARS  SECURITY  \n    Promwad  Infra  1     54 Mbit/s 100     ▂▄▆█  WPA2     \n   *         Promwad Guest    Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n *  Promwad Test     Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2      \n   AP-lo1-10        Infra  1     54 Mbit/s  65      ▂▄▆_  WPA2";
-    //QString data = getParamInfo("WifiConnections");
+    //QString data = "  SSID             MODE   CHAN  RATE       SIGNAL  BARS  SECURITY  \n    Promwad  Infra  1     54 Mbit/s 100     ▂▄▆█  WPA2     \n   *         Promwad Guest    Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2     \n *  Promwad Test     Infra  1     54 Mbit/s  100     ▂▄▆█  WPA2      \n   AP-lo1-10        Infra  1     54 Mbit/s  65      ▂▄▆_  WPA2";
+    QString data = getParamInfo("WifiConnections");
+
+    if(data == emptyString)
+        logOutSignal();
+
     WifiDataParser* parser = new WifiDataParser();
     WifiInfoParseResult result;
     result = parser->parseWifiConnectionsInfo(data);
     QVariant varParams;
     varParams.setValue<QList<int>>(result.connectedIndexes);
     QMetaObject::invokeMethod(availableWifiSubtab, "addWifiConnectedIndexes",
-            Q_RETURN_ARG(QVariant, retValue),
-            Q_ARG(QVariant, varParams));
+                              Q_RETURN_ARG(QVariant, retValue),
+                              Q_ARG(QVariant, varParams));
     int networksCount = result.params[0].length();
 
     for(int i = 0; i < networksCount; i++)
     {
         bool isConnected = result.connectedIndexes.contains(i);
         QMetaObject::invokeMethod(wifiConnectionsModel, "addWifiConnection",
-                Q_RETURN_ARG(QVariant, retValue),
-                Q_ARG(QVariant, result.params[result.columnIndexes["ssid"]].at(i)),
+                                  Q_RETURN_ARG(QVariant, retValue),
+                                  Q_ARG(QVariant, result.params[result.columnIndexes["ssid"]].at(i)),
                 Q_ARG(QVariant, isConnected),
                 Q_ARG(QVariant, result.params[result.columnIndexes["rate"]].at(i)),
                 Q_ARG(QVariant, result.params[result.columnIndexes["bars"]].at(i)),
@@ -319,12 +455,35 @@ void SocketController::getPortTrunkSetup()
                                                           portTrunkStatusServerValue));
 }
 
+void SocketController::getGeneralConfigData()
+{
+    configHostAddressTextInput->setProperty("text", hostAddressTextInput->property("text").toString());
+    networkMaskTextInput->setProperty("text", getParamInfo("NetworkMask"));
+    macAddressTextInput->setProperty("text", getParamInfo("MacAddress"));
+    modelTextInput->setProperty("text", getParamInfo("Model"));
+    swVersionTextInput->setProperty("text", getParamInfo("SwVersion"));
+    managementVlanServerValue = getParamInfo("ManagementVlan");
+    managementVlanComboBox->setProperty("currentIndex",
+                                        findIndexByValue(managementVlanModel, managementVlanCount,
+                                                         managementVlanServerValue));
+    broadcastStormServerValue = getParamInfo("BroadcastStormControl");
+    broadcastStormComboBox->setProperty("currentIndex",
+                                        findIndexByValue(broadcastStormNameList, broadcastStormCount,
+                                                         broadcastStormServerValue));
+    gatewayTextInput->setProperty("text", getParamInfo("Gateway"));
+    systemDescriptionTextInput->setProperty("text", getParamInfo("SystemDescription"));
+}
+
 void SocketController::getPortStatusList()
 {
     QMetaObject::invokeMethod(portStatusModel, "clear");
     QVariant retValue;
-    QString data = "1         Down              -               -            - \n2         Down              -               -            - \n3         Down              -               -            -   \n4         up              100M               Full            Off \n";
-    //QString data = getParamInfo("PortStatusList");
+    //QString data = "1         Down              -               -            - \n2         Down              -               -            - \n3         Down              -               -            -   \n4         up              100M               Full            Off \n";
+    QString data = getParamInfo("PortStatusList");
+
+    if(data == emptyString)
+        logOutSignal();
+
     PortStatusDataParser* parser = new PortStatusDataParser();
     PortStatusParseResult result;
     result = parser->parsePortStatusData(data);
@@ -333,8 +492,8 @@ void SocketController::getPortStatusList()
     for(int i = 0; i < portsCount; i++)
     {
         QMetaObject::invokeMethod(portStatusModel, "addPortStatus",
-                Q_RETURN_ARG(QVariant, retValue),
-                Q_ARG(QVariant, result.params[result.columnIndexes["port"]].at(i)),
+                                  Q_RETURN_ARG(QVariant, retValue),
+                                  Q_ARG(QVariant, result.params[result.columnIndexes["port"]].at(i)),
                 Q_ARG(QVariant, result.params[result.columnIndexes["link"]].at(i)),
                 Q_ARG(QVariant, result.params[result.columnIndexes["speed"]].at(i)),
                 Q_ARG(QVariant, result.params[result.columnIndexes["duplex"]].at(i)),
@@ -346,8 +505,12 @@ void SocketController::getPortStatusCountersList()
 {
     QMetaObject::invokeMethod(portStatusCountersModel, "clear");
     QVariant retValue;
-    QString data = "1        0              0               0            0              0               0 \n2        0              0               0            0              0               0 \n3        0              0               0            0              0               0 \n4         0              0               0            0              0               0  \n5         0              0               0            0              0               0  \n6         0              0               0            0              0               0  \n7         0              0               0            0              0               0  \n8         0              0               0            0              0               0  \n";
-    //QString data = getParamInfo("PortStatusCountersList");
+    //QString data = "1        0              0               0            0              0               0 \n2        0              0               0            0              0               0 \n3        0              0               0            0              0               0 \n4         0              0               0            0              0               0  \n5         0              0               0            0              0               0  \n6         0              0               0            0              0               0  \n7         0              0               0            0              0               0  \n8         0              0               0            0              0               0  \n";
+    QString data = getParamInfo("PortStatusCountersList");
+
+    if(data == emptyString)
+        logOutSignal();
+
     PortStatusCountersParser* parser = new PortStatusCountersParser();
     PortStatusCountParseResult result;
     result = parser->parsePortStatusCountData(data);
@@ -356,8 +519,8 @@ void SocketController::getPortStatusCountersList()
     for(int i = 0; i < portsCount; i++)
     {
         QMetaObject::invokeMethod(portStatusCountersModel, "addPortStatusCounter",
-                Q_RETURN_ARG(QVariant, retValue),
-                Q_ARG(QVariant, result.params[result.columnIndexes["port"]].at(i)),
+                                  Q_RETURN_ARG(QVariant, retValue),
+                                  Q_ARG(QVariant, result.params[result.columnIndexes["port"]].at(i)),
                 Q_ARG(QVariant, result.params[result.columnIndexes["rx_packets_count"]].at(i)),
                 Q_ARG(QVariant, result.params[result.columnIndexes["rx_bytes_count"]].at(i)),
                 Q_ARG(QVariant, result.params[result.columnIndexes["error_count"]].at(i)),
@@ -371,8 +534,12 @@ void SocketController::getPortSetupList()
 {
     QMetaObject::invokeMethod(portSetupModel, "clear");
     QVariant retValue;
-    QString data = "1        Auto              On               On            Normal              -               \n2        Auto              On               On            Normal              -               \n3        Auto              On               On            Normal              -               \n4        Auto              On               On            Normal              -               \n5        Auto              On               On            Normal              -               \n6        Auto              On               On            Normal              -               \n7        Auto              On               On            Normal              -               \n8        Auto              On               On            Normal              -               \n";
-    //QString data = getParamInfo("PortSetupDataList");
+    //QString data = "1        Auto              On               On            Normal              -               \n2        Auto              On               On            Normal              -               \n3        Auto              On               On            Normal              -               \n4        Auto              On               On            Normal              -               \n5        Auto              On               On            Normal              -               \n6        Auto              On               On            Normal              -               \n7        Auto              On               On            Normal              -               \n8        Auto              On               On            Normal              -               \n";
+    QString data = getParamInfo("PortSetupDataList");
+
+    if(data == emptyString)
+        logOutSignal();
+
     PortSetupDataParser* parser = new PortSetupDataParser();
     PortSetupParseResult result;
     result = parser->parsePortSetupData(data);
@@ -390,11 +557,11 @@ void SocketController::getPortSetupList()
                                                 priority802Count,
                                                 result.params[result.columnIndexes["priority802"]].at(i));
         int portBasePriorityIndex = findIndexByValue(portBasePriorityNameList,
-                                                portBasePriorityCount,
-                                                result.params[result.columnIndexes["port_base_priority"]].at(i));
+                                                     portBasePriorityCount,
+                                                     result.params[result.columnIndexes["port_base_priority"]].at(i));
         QMetaObject::invokeMethod(portSetupModel, "addPortSetupData",
-                Q_RETURN_ARG(QVariant, retValue),
-                Q_ARG(QVariant, result.params[result.columnIndexes["port"]].at(i)),
+                                  Q_RETURN_ARG(QVariant, retValue),
+                                  Q_ARG(QVariant, result.params[result.columnIndexes["port"]].at(i)),
                 Q_ARG(QVariant, modeIndex),
                 Q_ARG(QVariant, flowControlIndex),
                 Q_ARG(QVariant, priority802Index),
@@ -407,9 +574,13 @@ void SocketController::getPoeSetupList()
 {
     QMetaObject::invokeMethod(poeSetupModel, "clear");
     QVariant retValue;
-    QString data = "1        On              0               0            15,4              0               \n2       On              0               0            15,4              0              \n3        On              0               0            15,4              0              \n4       On              0               0            15,4              0              \n5       On              0               0            15,4              0               \n6       On              0               0            15,4              0                \n7       On              0               0            15,4              0               \n8        On              0               0            15,4              0              \n";
-    //QString data = getParamInfo("PoeSetupDataList");
+    //QString data = "1        On              0               0            15,4              0               \n2       On              0               0            15,4              0              \n3        On              0               0            15,4              0              \n4       On              0               0            15,4              0              \n5       On              0               0            15,4              0               \n6       On              0               0            15,4              0                \n7       On              0               0            15,4              0               \n8        On              0               0            15,4              0              \n";
+    QString data = getParamInfo("PoeSetupDataList");
     PoeSetupDataParser* parser = new PoeSetupDataParser();
+
+    if(data == emptyString)
+        logOutSignal();
+
     PoeSetupParseResult result;
     result = parser->parsePoeSetupData(data);
     int portsCount = result.params[0].length();
@@ -417,14 +588,14 @@ void SocketController::getPoeSetupList()
     for(int i = 0; i < portsCount; i++)
     {
         int statusIndex  = findIndexByValue(poeSetupStatusNameList,
-                                          poeSetupStatusCount,
-                                          result.params[result.columnIndexes["status"]].at(i));
+                                            poeSetupStatusCount,
+                                            result.params[result.columnIndexes["status"]].at(i));
         int priorityIndex = findIndexByValue(poeSetupPriorityNameList,
-                                                poeSetupPriorityCount,
-                                                result.params[result.columnIndexes["priority"]].at(i));
+                                             poeSetupPriorityCount,
+                                             result.params[result.columnIndexes["priority"]].at(i));
         QMetaObject::invokeMethod(poeSetupModel, "addPoeSetupData",
-                Q_RETURN_ARG(QVariant, retValue),
-                Q_ARG(QVariant, result.params[result.columnIndexes["port"]].at(i)),
+                                  Q_RETURN_ARG(QVariant, retValue),
+                                  Q_ARG(QVariant, result.params[result.columnIndexes["port"]].at(i)),
                 Q_ARG(QVariant, statusIndex),
                 Q_ARG(QVariant, result.params[result.columnIndexes["delivering_power"]].at(i)),
                 Q_ARG(QVariant, result.params[result.columnIndexes["current_ma"]].at(i)),
@@ -441,6 +612,7 @@ int SocketController::connectToWifi(QString ssid, QString password)
 
 void SocketController::logOutSignal()
 {
+    socket.write("logOut");
     logOut();
 }
 
@@ -451,7 +623,7 @@ int SocketController::findIndexByValue(QObject* model, int countInt, QString val
     int counter = 0;
     for(QVariant index = 0; index < count; index = counter) {
         bool succeeded = QMetaObject::invokeMethod(
-            model, "getChild", Q_RETURN_ARG(QVariant, retValue), Q_ARG( QVariant, index ) );
+                    model, "getChild", Q_RETURN_ARG(QVariant, retValue), Q_ARG( QVariant, index ) );
         if (succeeded) {
             const QObject *child = qvariant_cast<QObject *>( retValue );
             QString val = child->property("text").toString();
@@ -477,4 +649,67 @@ void SocketController::restoreSystemDefault()
 {
     socket.write("restoreSystemDefault");
     rebootSystem();
+}
+
+int SocketController::sendFile(QString fileName)
+{
+    QByteArray buffer;
+    QFile file(fileName);
+    qint64 size = file.size();
+    QString result;
+    QStringList strList = fileName.split("/");
+    QString fileNameToSend = strList[strList.size() - 1].replace(" ", "_");
+
+    do{
+        result = socket.writeQueryAndReadAnswer("startUpdateSending " + fileNameToSend
+                                                + " " + QString::number(size));
+
+        if (result == "")
+            return 0;
+    }
+    while(result.toInt() != MySslSocket::ok);
+
+
+    int nextBlockSize = size > blockSize ? blockSize : size;
+
+    if(file.open(QIODevice::ReadOnly))
+    {
+        QDataStream stream(&file);
+        stream.setVersion (QDataStream::Qt_4_2) ;
+
+        while(size > 0)
+        {
+            char *temp = new char[nextBlockSize + 1];
+            stream.readRawData(temp, nextBlockSize);
+            buffer.append(temp, nextBlockSize);
+            delete [] temp;
+
+            if(stream.status() != QDataStream::Ok)
+            {
+                qDebug() << "Ошибка чтения файла";
+            }
+
+            QString res;
+
+            do{
+                res = socket.writeAndRead(buffer);
+
+                if(res == "")
+                        return 0;
+            }
+            while(res.toInt() != MySslSocket::ok);
+
+            size -= nextBlockSize;
+            nextBlockSize = size > blockSize ? blockSize : size;
+            buffer.clear();
+        }
+
+        file.close();
+    }
+    else
+    {
+        return -1;
+    }
+
+    return 1;
 }

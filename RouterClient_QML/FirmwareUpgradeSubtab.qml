@@ -8,56 +8,59 @@ Tab {
     active: true
     title: qsTr("firmware_upgrade")
 
-    property int fontCoefficient: 100
+    property int fontCoefficient: 110
 
     Connections {
         target: socketcontroller
     }
-    ColumnLayout{
-        anchors.fill: parent
-        ColumnLayout{
 
+    ColumnLayout{
+        id: columnLayout
+        anchors.fill: parent
+
+        GridLayout{
             anchors.centerIn: parent
+            columns: 2
 
             Rectangle{
                 id: rect
-                color: "red"
-                height: parent.parent.height*0.5
-                width: parent.parent.width*0.85
-                border.color: "black"
-                border.width: 1
-                radius: 4
+                color: "transparent"
+                height: columnLayout.height*0.45
+                width: columnLayout.width*0.85
                 anchors.bottomMargin: 10
 
                 Text{
                     id: firmwareUpgradeText
                     anchors.centerIn: parent
+                    color: "red"
+                    font.bold: true
                     horizontalAlignment: Text.AlignHCenter
                     text:qsTr("firmware_upgrade_text")
                     wrapMode: Text.Wrap
-                    width: firmwareUpgradeSubtabId.width*0.8
-                    font.pointSize: (parent.parent.parent.height + parent.parent.parent.width)/fontCoefficient
+                    width: columnLayout.width*0.88
+                    font.pointSize: (columnLayout.height + columnLayout.width)/fontCoefficient
                 }
             }
 
             RowLayout{
                 id: rowLayout
+                Layout.columnSpan: 2
 
                 Rectangle{
                     id: rectInner
-                    height: (parent.parent.parent.height + parent.parent.parent.width)/fontCoefficient
+                    height: (firmwareUpgradeSubtabId.height + firmwareUpgradeSubtabId.width)/fontCoefficient
                     width: parent.parent.width*0.7
-                    border.color: "transparent"
                     color: "transparent"
                     anchors.bottomMargin: 10
 
                     Text{
+                        id: innerText
                         anchors.centerIn: parent
                         horizontalAlignment: Text.AlignHCenter
                         wrapMode: Text.Wrap
                         width: firmwareUpgradeSubtabId.width*0.65
                         text: qsTr("bin_file_choose_text")
-                        font.pointSize: (parent.parent.parent.parent.height + parent.parent.parent.parent.width)/fontCoefficient
+                        font.pointSize: (columnLayout.height + columnLayout.width)/fontCoefficient
                     }
                 }
 
@@ -69,8 +72,21 @@ Tab {
                 }
             }
 
+            InfoMessageDialog {
+                id: infoMessageDialog
+            }
+
+            ErrorInfoDialog{
+                id: errorInfoDialog
+            }
+
             ChooseFileDialog {
                 id: fileDialog
+
+                function doAction()
+                {
+                    innerText.text = filePath;
+                }
             }
 
             Button{
@@ -88,7 +104,26 @@ Tab {
 
                 function doAction()
                 {
-                    // TODO
+                    if(fileDialog.filePath == "")
+                    {
+                        infoMessageDialog.show("please_choose_file");
+                        return;
+                    }
+
+                    var res = socketcontroller.sendFile(fileDialog.filePath);
+                    fileDialog.filePath = "";
+
+                    if(res === 1)
+                        infoMessageDialog.show("upgrade_was_sent");
+                    else if (res === 0)
+                    {
+                        errorInfoDialog.show("upgrade_was_not_sent_connection_lost");
+                        socketcontroller.logOutSignal();
+                    }
+                    else if (res === -1)
+                        errorInfoDialog.show("problem_with_file");
+
+                    innerText.text = qsTr("bin_file_choose_text");
                 }
             }
         }
