@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     portstatusdataparser.cpp \
     portstatuscountersparser.cpp \
     portsetupdataparser.cpp \
-    poesetupdataparser.cpp
+    poesetupdataparser.cpp \
+    vlansettingsparser.cpp
 
 RESOURCES += qml.qrc \
     icons.qrc \
@@ -43,7 +44,8 @@ HEADERS += \
     portsetupdataparser.h \
     portsetupparseresult.h \
     poesetupdataparser.h \
-    poesetupparseresult.h
+    poesetupparseresult.h \
+    vlansettingsparser.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

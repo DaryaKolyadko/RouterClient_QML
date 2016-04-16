@@ -12,13 +12,13 @@
 
 int main(int argc, char *argv[])
 {
-    // QApplication app(argc, argv);
+     QApplication app(argc, argv);
 
-    // QGuiApplication may be resolve "ASSERT: "context" in file
+    //QGuiApplication may be resolve "ASSERT: "context" in file
     //opengl\qopenglfunctions.cpp" bug
     // It is QTBUG-42213
     // TEST IT!!!
-    QGuiApplication app(argc, argv);
+    //QGuiApplication app(argc, argv);
     //app.addLibraryPath("C:\\Program Files (x86)\\GnuWin32\\lib");
 
     SocketController socketController;

@@ -117,7 +117,7 @@ Item {
             Layout.fillHeight: true
             style: MyTextFieldStyle{id: hostfield}
             anchors.bottomMargin: bottomMargin
-            text: "10.54.11.115"//"192.168.43.167"//"10.54.11.117"//"192.168.43.167"//"10.54.11.123" // delete
+            text: "10.54.11.115"//"192.168.1.44"//"10.54.11.115"//"192.168.43.167"//"10.54.11.117"//"192.168.43.167"//"10.54.11.123" // delete
             validator: RegExpValidator{
                 regExp: regexHostAddress
             }
@@ -134,10 +134,10 @@ Item {
                 socketcontroller.initConnection();
 
                 if(!errorOccurred) {
-//                    var result = socketcontroller.confirmLoginAndPassword(loginTextInput.text,
-//                                                                          passwordTextInput.text);
-//                    console.debug(result);
-//                    if(result == 1) {
+                    var result = socketcontroller.confirmLoginAndPassword(loginTextInput.text,
+                                                                          passwordTextInput.text);
+                    console.debug(result);
+                    if(result === 1) {
                         socketcontroller.recieveLoginClick();
                         loginForm.visible = false;
                         console.debug("vse ok");
@@ -146,9 +146,9 @@ Item {
                         console.debug("vse ploho, ti dodik");
                         loginFormErrorInfoDialog.show("wrong_password");
                     }
-//                }
-//                else
-//                    errorOccurred = !errorOccurred;
+                }
+                else
+                    errorOccurred = !errorOccurred;
             }
         }
     }

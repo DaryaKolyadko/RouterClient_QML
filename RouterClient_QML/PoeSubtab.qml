@@ -32,11 +32,11 @@ Tab {
         anchors.fill: parent
 
         InfoMessageDialog {
-            id: generalConfigurationMessageDialog
+            id: poeMessageDialog
         }
 
         ErrorInfoDialog{
-            id: generalConfiguraionErrorDialog
+            id: poeErrorDialog
 
             function doAction()
             {
@@ -92,7 +92,8 @@ Tab {
                         poeSetupGridView.enabled = false;
 
                         if(possibleChangedItemsIndexes.length == 0) {
-                            generalConfigurationMessageDialog.show(qsTr("changes_saved"));
+                            poeMessageDialog.show(qsTr("changes_saved"));
+                            userEditingConfiguration = !userEditingConfiguration;
                             return;
                         }
 
@@ -103,12 +104,14 @@ Tab {
                                checkNewParamValue(portPriorityStr, element, localBackup.portPriority[element],
                                      priorityList.get(poeSetupModel.get(element).priority_idx).text))
                             {
-                                setNewParamValue(portStatusStr, element, localBackup.portStatus[element],
+                                var setSuccess = true;
+                                setSuccess = setNewParamValue(portStatusStr, element, localBackup.portStatus[element],
                                                 statusList.get(poeSetupModel.get(element).status_idx).text);
-                                setNewParamValue(portPriorityStr, element, localBackup.portPriority[element],
+                                setSuccess = setNewParamValue(portPriorityStr, element, localBackup.portPriority[element],
                                                 priorityList.get(poeSetupModel.get(element).priority_idx).text);
                                 possibleChangedItemsIndexes = []
-                                generalConfigurationMessageDialog.show(qsTr("changes_saved"));
+                                if(setSuccess)
+                                    poeMessageDialog.show(qsTr("changes_saved"));
                             }
                             else {
                                 poeSetupGridView.enabled = true;
@@ -131,9 +134,9 @@ Tab {
                         if(res === 1)
                             return true;
                         else if (res === 0)
-                            generalConfigurationMessageDialog.show(qsTr("error_setting").arg(paramName).arg(newParamValue));
+                            poeMessageDialog.show(qsTr("error_setting").arg(paramName).arg(newParamValue));
                         else // new
-                            generalConfiguraionErrorDialog.show(qsTr("connection_lost"));
+                            poeErrorDialog.show(qsTr("connection_lost"));
                         return false;
                     }
                     return true;
@@ -307,7 +310,8 @@ Tab {
                         onCurrentIndexChanged: {
                             if(!loading) {
                                 addPossibleChangeIndex(index);
-                                poeSetupModel.set(index,{"priority_idx" : priorityCombobox.currentIndex})
+                                //poeSetupModel.set(index,{"priority_idx" : priorityCombobox.currentIndex})
+                                poeSetupModel.setProperty(index, "priority_idx", priorityCombobox.currentIndex);
                             }
                         }
 

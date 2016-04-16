@@ -76,7 +76,7 @@ ApplicationWindow {
                 text: qsTr("log_out")
                 Layout.alignment: Qt.AlignRight
                 onClicked: {
-                    logOut();
+                    socketcontroller.logOutSignal();
                 }
             }
         }
@@ -86,8 +86,8 @@ ApplicationWindow {
     {
         mainLoginForm.visible = true;
         mainConfigurationForm.redirectToMainPage();
-        //generalTab.trigger();
         socketcontroller.close();
+       // appWindow.close();
     }
 
     ResolutionController{

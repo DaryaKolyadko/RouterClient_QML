@@ -31,5 +31,6 @@
         <file>CorporationInfoTab.qml</file>
         <file>ScrollBar.qml</file>
         <file>PoeSubtab.qml</file>
+        <file>VlanSetupSubtab.qml</file>
     </qresource>
 </RCC>

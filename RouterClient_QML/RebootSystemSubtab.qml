@@ -20,6 +20,7 @@ Tab {
 
             Text{
                 text:qsTr("reboot_system_text")
+                font.pointSize: (parent.parent.parent.height + parent.parent.parent.width)/fontCoefficient
             }
 
             Button{

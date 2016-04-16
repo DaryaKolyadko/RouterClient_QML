@@ -36,10 +36,14 @@ Item{
         Component.onCompleted: {
             for(var i = 1; i <= 8; i++)
                 managementVlanListModel.addManagementVlan(i);
-            broadcastStormListModel.addBroadcastStorm(qsTr("enable"));
             broadcastStormListModel.addBroadcastStorm(qsTr("disable"));
-            broadcastStormList.addBroadcastStorm("On");
+            broadcastStormListModel.addBroadcastStorm("10%");
+            broadcastStormListModel.addBroadcastStorm("20%");
+            broadcastStormListModel.addBroadcastStorm("40%");
             broadcastStormList.addBroadcastStorm("Off");
+            broadcastStormList.addBroadcastStorm("10%");
+            broadcastStormList.addBroadcastStorm("20%");
+            broadcastStormList.addBroadcastStorm("40%");
         }
 
         Item{
