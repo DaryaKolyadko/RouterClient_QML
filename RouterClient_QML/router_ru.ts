@@ -52,7 +52,7 @@
     <name>AvailableWifiSubtab</name>
     <message>
         <source>available_wifi</source>
-        <translation>Доступные сети</translation>
+        <translation type="vanished">Доступные сети</translation>
     </message>
     <message>
         <source>connected</source>
@@ -72,15 +72,15 @@
     </message>
     <message>
         <source>update_wifi_list</source>
-        <translation>Обновить список</translation>
+        <translation type="vanished">Обновить список</translation>
     </message>
     <message>
         <source>connect_to_wifi</source>
-        <translation>Подключиться</translation>
+        <translation type="vanished">Подключиться</translation>
     </message>
     <message>
         <source>connect_warning</source>
-        <translation>При успешном подключении к другой сети соединение с маршрутизатором, возможно, будет потеряно. Хотите продолжить?</translation>
+        <translation type="vanished">При успешном подключении к другой сети соединение с маршрутизатором, возможно, будет потеряно. Хотите продолжить?</translation>
     </message>
     <message>
         <source>ssid_table_title</source>
@@ -107,15 +107,15 @@
     <name>AvailableWifiTab</name>
     <message>
         <source>available_wifi</source>
-        <translation type="vanished">Доступные сети</translation>
+        <translation>Доступные сети</translation>
     </message>
     <message>
         <source>update_wifi_list</source>
-        <translation type="vanished">Обновить список</translation>
+        <translation>Обновить список</translation>
     </message>
     <message>
         <source>connect_to_wifi</source>
-        <translation type="vanished">Подключиться</translation>
+        <translation>Подключиться</translation>
     </message>
     <message>
         <source>state</source>
@@ -131,7 +131,7 @@
     </message>
     <message>
         <source>connect_warning</source>
-        <translation type="vanished">При успешном подключении к другой сети соединение с маршрутизатором, возможно, будет потеряно. Хотите продолжить?</translation>
+        <translation>При успешном подключении к другой сети соединение с маршрутизатором, возможно, будет потеряно. Хотите продолжить?</translation>
     </message>
     <message>
         <source>ssid</source>
@@ -155,7 +155,7 @@
     </message>
     <message>
         <source>connected</source>
-        <translation type="vanished">подключен</translation>
+        <translation>подключен</translation>
     </message>
     <message>
         <source>connection_lost</source>
@@ -235,26 +235,18 @@
     </message>
 </context>
 <context>
-    <name>GeneralConfigurationTab</name>
+    <name>GeneralConfigurationSubtab</name>
     <message>
-        <source>general_settings</source>
-        <translation type="vanished">Основные настройки</translation>
-    </message>
-    <message>
-        <source>save_settings</source>
-        <translation>Сохранить настройки</translation>
-    </message>
-    <message>
-        <source>change_settings</source>
-        <translation>Изменить настройки</translation>
-    </message>
-    <message>
-        <source>changes_saved</source>
-        <translation>Все изменения сохранены</translation>
+        <source>disable</source>
+        <translation>Выкл.</translation>
     </message>
     <message>
         <source>error_setting</source>
         <translation>Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
+    </message>
+    <message>
+        <source>connection_lost</source>
+        <translation>Соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
     </message>
     <message>
         <source>host_address</source>
@@ -267,18 +259,6 @@
     <message>
         <source>mac_adddress</source>
         <translation>MAC-адрес: *</translation>
-    </message>
-    <message>
-        <source>connection_lost</source>
-        <translation>Соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
-    </message>
-    <message>
-        <source>enable</source>
-        <translation>Включено</translation>
-    </message>
-    <message>
-        <source>disable</source>
-        <translation>Выключено</translation>
     </message>
     <message>
         <source>model</source>
@@ -303,6 +283,85 @@
     <message>
         <source>system_description</source>
         <translation>Описание:</translation>
+    </message>
+</context>
+<context>
+    <name>GeneralConfigurationTab</name>
+    <message>
+        <source>general_settings</source>
+        <translation type="vanished">Основные настройки</translation>
+    </message>
+    <message>
+        <source>save_settings</source>
+        <translation>Сохранить настройки</translation>
+    </message>
+    <message>
+        <source>change_settings</source>
+        <translation>Изменить</translation>
+    </message>
+    <message>
+        <source>changes_saved</source>
+        <translation>Все изменения сохранены</translation>
+    </message>
+    <message>
+        <source>error_setting</source>
+        <translation type="vanished">Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
+    </message>
+    <message>
+        <source>host_address</source>
+        <translation type="vanished">Адрес хоста:</translation>
+    </message>
+    <message>
+        <source>network_mask</source>
+        <translation type="vanished">Маска подсети:</translation>
+    </message>
+    <message>
+        <source>mac_adddress</source>
+        <translation type="vanished">MAC-адрес: *</translation>
+    </message>
+    <message>
+        <source>connection_lost</source>
+        <translation type="vanished">Соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
+    </message>
+    <message>
+        <source>enable</source>
+        <translation type="vanished">Включено</translation>
+    </message>
+    <message>
+        <source>disable</source>
+        <translation type="vanished">Выключено</translation>
+    </message>
+    <message>
+        <source>model</source>
+        <translation type="vanished">Модель: *</translation>
+    </message>
+    <message>
+        <source>sw_version</source>
+        <translation type="vanished">Версия прошивки: *</translation>
+    </message>
+    <message>
+        <source>management_vlan</source>
+        <translation type="vanished">Native VLAN:</translation>
+    </message>
+    <message>
+        <source>broadcast_storm</source>
+        <translation type="vanished">Storm control:</translation>
+    </message>
+    <message>
+        <source>gateway</source>
+        <translation type="vanished">Шлюз:</translation>
+    </message>
+    <message>
+        <source>system_description</source>
+        <translation type="vanished">Описание:</translation>
+    </message>
+    <message>
+        <source>general_config_subtab</source>
+        <translation>Основные настройки</translation>
+    </message>
+    <message>
+        <source>update_general_config</source>
+        <translation>Обновить</translation>
     </message>
 </context>
 <context>
@@ -357,7 +416,7 @@
     <name>PoeSubtab</name>
     <message>
         <source>poe_subtab</source>
-        <translation>Настройка питания через Ethernet</translation>
+        <translation type="vanished">Настройка питания через Ethernet</translation>
     </message>
     <message>
         <source>enable</source>
@@ -369,15 +428,15 @@
     </message>
     <message>
         <source>save_settings</source>
-        <translation>Сохранить</translation>
+        <translation type="vanished">Сохранить</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation>Изменить</translation>
+        <translation type="vanished">Изменить</translation>
     </message>
     <message>
         <source>changes_saved</source>
-        <translation>Все изменения сохранены</translation>
+        <translation type="vanished">Все изменения сохранены</translation>
     </message>
     <message>
         <source>error_setting</source>
@@ -389,7 +448,7 @@
     </message>
     <message>
         <source>update_poe_setup_list</source>
-        <translation>Обновить</translation>
+        <translation type="vanished">Обновить</translation>
     </message>
     <message>
         <source>port_num</source>
@@ -422,12 +481,32 @@
         <source>poe_tab_title</source>
         <translation type="vanished">Настройка питания через Ethernet</translation>
     </message>
+    <message>
+        <source>poe_subtab</source>
+        <translation>Настройка питания через Ethernet</translation>
+    </message>
+    <message>
+        <source>save_settings</source>
+        <translation>Сохранить</translation>
+    </message>
+    <message>
+        <source>change_settings</source>
+        <translation>Изменить</translation>
+    </message>
+    <message>
+        <source>changes_saved</source>
+        <translation>Все изменения сохранены</translation>
+    </message>
+    <message>
+        <source>update_poe_setup_list</source>
+        <translation>Обновить</translation>
+    </message>
 </context>
 <context>
     <name>PortSetupSubtab</name>
     <message>
         <source>port_setup</source>
-        <translation>Настройка</translation>
+        <translation type="vanished">Настройка</translation>
     </message>
     <message>
         <source>port_setup_title</source>
@@ -479,27 +558,27 @@
     </message>
     <message>
         <source>save_settings</source>
-        <translation>Сохранить</translation>
+        <translation type="vanished">Сохранить</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation>Изменить</translation>
+        <translation type="vanished">Изменить</translation>
     </message>
     <message>
         <source>changes_saved</source>
-        <translation>Все изменения сохранены</translation>
+        <translation type="vanished">Все изменения сохранены</translation>
     </message>
     <message>
         <source>error_setting</source>
-        <translation>Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
+        <translation type="vanished">Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
     </message>
     <message>
         <source>connection_lost</source>
-        <translation>Соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
+        <translation type="vanished">Соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
     </message>
     <message>
         <source>update_port_setup_list</source>
-        <translation>Обновить</translation>
+        <translation type="vanished">Обновить</translation>
     </message>
     <message>
         <source>port_num</source>
@@ -527,14 +606,45 @@
     </message>
 </context>
 <context>
+    <name>PortSetupTab</name>
+    <message>
+        <source>port_setup</source>
+        <translation>Настройка</translation>
+    </message>
+    <message>
+        <source>save_settings</source>
+        <translation>Сохранить</translation>
+    </message>
+    <message>
+        <source>change_settings</source>
+        <translation>Изменить</translation>
+    </message>
+    <message>
+        <source>changes_saved</source>
+        <translation>Все изменения сохранены</translation>
+    </message>
+    <message>
+        <source>error_setting</source>
+        <translation>Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
+    </message>
+    <message>
+        <source>connection_lost</source>
+        <translation>Соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
+    </message>
+    <message>
+        <source>update_port_setup_list</source>
+        <translation>Обновить</translation>
+    </message>
+</context>
+<context>
     <name>PortStatusCountersSubtab</name>
     <message>
         <source>port_status_counters</source>
-        <translation>Счетчики</translation>
+        <translation type="vanished">Счетчики</translation>
     </message>
     <message>
         <source>update_port_status_counters_list</source>
-        <translation>Обновить список</translation>
+        <translation type="vanished">Обновить список</translation>
     </message>
     <message>
         <source>port</source>
@@ -566,14 +676,25 @@
     </message>
 </context>
 <context>
+    <name>PortStatusCountersTab</name>
+    <message>
+        <source>port_status_counters</source>
+        <translation>Счетчики</translation>
+    </message>
+    <message>
+        <source>update_port_status_counters_list</source>
+        <translation>Обновить</translation>
+    </message>
+</context>
+<context>
     <name>PortStatusSubtab</name>
     <message>
         <source>port_status</source>
-        <translation>Состояние</translation>
+        <translation type="vanished">Состояние</translation>
     </message>
     <message>
         <source>update_port_status_list</source>
-        <translation>Обновить список</translation>
+        <translation type="vanished">Обновить список</translation>
     </message>
     <message>
         <source>port</source>
@@ -594,6 +715,17 @@
     <message>
         <source>flow_control</source>
         <translation>Управление потоком:   </translation>
+    </message>
+</context>
+<context>
+    <name>PortStatusTab</name>
+    <message>
+        <source>port_status</source>
+        <translation>Состояние</translation>
+    </message>
+    <message>
+        <source>update_port_status_list</source>
+        <translation>Обновить</translation>
     </message>
 </context>
 <context>
@@ -721,40 +853,61 @@
     </message>
 </context>
 <context>
+    <name>VlanSetupSubtab</name>
+    <message>
+        <source>untag</source>
+        <translation>Выкл.</translation>
+    </message>
+    <message>
+        <source>tagged</source>
+        <translation>Вкл.</translation>
+    </message>
+    <message>
+        <source>port_num</source>
+        <translation>Порт </translation>
+    </message>
+    <message>
+        <source>vlan_num</source>
+        <translation>VLAN </translation>
+    </message>
+    <message>
+        <source>portPvidText</source>
+        <translation>PVID порта:</translation>
+    </message>
+    <message>
+        <source>portTagging</source>
+        <translation>Тэгирование трафика:</translation>
+    </message>
+</context>
+<context>
     <name>VlanSetupTab</name>
     <message>
         <source>vlan_tab_title</source>
-        <translation>Настройка VLAN</translation>
-    </message>
-</context>
-<context>
-    <name>WarningDialog</name>
-    <message>
-        <source>warning</source>
-        <translation>Предупреждение</translation>
-    </message>
-</context>
-<context>
-    <name>WifiConfigurationSubtab</name>
-    <message>
-        <source>wifi</source>
-        <translation>Wi-Fi</translation>
+        <translation type="vanished">Настройка VLAN</translation>
     </message>
     <message>
-        <source>on</source>
-        <translation>Включено</translation>
+        <source>vlan_subtab</source>
+        <translation>VLAN</translation>
     </message>
     <message>
-        <source>off</source>
-        <translation>Выключено</translation>
+        <source>noVlan</source>
+        <translation>Без VLAN</translation>
+    </message>
+    <message>
+        <source>portBased</source>
+        <translation>На основе портов</translation>
+    </message>
+    <message>
+        <source>802.1q</source>
+        <translation>На основе 802.1q</translation>
     </message>
     <message>
         <source>save_settings</source>
-        <translation>Сохранить настройки</translation>
+        <translation>Сохранить</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation>Изменить настройки</translation>
+        <translation>Изменить</translation>
     </message>
     <message>
         <source>changes_saved</source>
@@ -769,8 +922,54 @@
         <translation>Соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
     </message>
     <message>
+        <source>update_vlan_setup_list</source>
+        <translation>Обновить</translation>
+    </message>
+</context>
+<context>
+    <name>WarningDialog</name>
+    <message>
+        <source>warning</source>
+        <translation>Предупреждение</translation>
+    </message>
+</context>
+<context>
+    <name>WifiConfigurationSubtab</name>
+    <message>
+        <source>wifi</source>
+        <translation type="vanished">Wi-Fi</translation>
+    </message>
+    <message>
+        <source>on</source>
+        <translation>Включено</translation>
+    </message>
+    <message>
+        <source>off</source>
+        <translation>Выключено</translation>
+    </message>
+    <message>
+        <source>save_settings</source>
+        <translation type="vanished">Сохранить настройки</translation>
+    </message>
+    <message>
+        <source>change_settings</source>
+        <translation type="vanished">Изменить настройки</translation>
+    </message>
+    <message>
+        <source>changes_saved</source>
+        <translation type="vanished">Все изменения сохранены</translation>
+    </message>
+    <message>
+        <source>error_setting</source>
+        <translation>Проблема с установкой значения: %1 = %2. Проверьте введенные значения и исправьте ошибки.</translation>
+    </message>
+    <message>
+        <source>connection_lost</source>
+        <translation>Соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
+    </message>
+    <message>
         <source>ssid</source>
-        <translation>Имя беспроводной сети:</translation>
+        <translation>Имя сети:</translation>
     </message>
     <message>
         <source>frequency_range</source>
@@ -785,7 +984,7 @@
     <name>WifiConfigurationTab</name>
     <message>
         <source>wifi</source>
-        <translation type="vanished">Wi-Fi</translation>
+        <translation>Wi-Fi</translation>
     </message>
     <message>
         <source>off</source>
@@ -797,11 +996,11 @@
     </message>
     <message>
         <source>save_settings</source>
-        <translation type="vanished">Сохранить настройки</translation>
+        <translation>Сохранить</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation type="vanished">Изменить настройки</translation>
+        <translation>Изменить</translation>
     </message>
     <message>
         <source>error_setting</source>
@@ -821,7 +1020,11 @@
     </message>
     <message>
         <source>changes_saved</source>
-        <translation type="vanished">Все изменения сохранены</translation>
+        <translation>Все изменения сохранены</translation>
+    </message>
+    <message>
+        <source>update_wifi_config</source>
+        <translation>Обновить</translation>
     </message>
 </context>
 <context>

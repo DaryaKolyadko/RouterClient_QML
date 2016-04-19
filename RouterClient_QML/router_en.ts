@@ -52,7 +52,7 @@
     <name>AvailableWifiSubtab</name>
     <message>
         <source>available_wifi</source>
-        <translation>WiFi connections</translation>
+        <translation type="vanished">WiFi connections</translation>
     </message>
     <message>
         <source>connected</source>
@@ -72,15 +72,15 @@
     </message>
     <message>
         <source>update_wifi_list</source>
-        <translation>Update list</translation>
+        <translation type="vanished">Update list</translation>
     </message>
     <message>
         <source>connect_to_wifi</source>
-        <translation>Connect</translation>
+        <translation type="vanished">Connect</translation>
     </message>
     <message>
         <source>connect_warning</source>
-        <translation>If you were connected to another network you may lost the connection with router. Are you sure?</translation>
+        <translation type="vanished">If you were connected to another network you may lost the connection with router. Are you sure?</translation>
     </message>
     <message>
         <source>ssid_table_title</source>
@@ -107,15 +107,15 @@
     <name>AvailableWifiTab</name>
     <message>
         <source>available_wifi</source>
-        <translation type="vanished">WiFi connections</translation>
+        <translation>WiFi connections</translation>
     </message>
     <message>
         <source>update_wifi_list</source>
-        <translation type="vanished">Update list</translation>
+        <translation>Update list</translation>
     </message>
     <message>
         <source>connect_to_wifi</source>
-        <translation type="vanished">Connect</translation>
+        <translation>Connect</translation>
     </message>
     <message>
         <source>state</source>
@@ -131,7 +131,7 @@
     </message>
     <message>
         <source>connect_warning</source>
-        <translation type="vanished">If you were connected to another network you may lost the connection with router. Are you sure?</translation>
+        <translation>If you were connected to another network you may lost the connection with router. Are you sure?</translation>
     </message>
     <message>
         <source>ssid</source>
@@ -155,7 +155,7 @@
     </message>
     <message>
         <source>connected</source>
-        <translation type="vanished">connected</translation>
+        <translation>connected</translation>
     </message>
     <message>
         <source>connection_lost</source>
@@ -235,26 +235,18 @@
     </message>
 </context>
 <context>
-    <name>GeneralConfigurationTab</name>
+    <name>GeneralConfigurationSubtab</name>
     <message>
-        <source>general_settings</source>
-        <translation type="vanished">General settings</translation>
-    </message>
-    <message>
-        <source>save_settings</source>
-        <translation>Save settings</translation>
-    </message>
-    <message>
-        <source>change_settings</source>
-        <translation>Change settings</translation>
-    </message>
-    <message>
-        <source>changes_saved</source>
-        <translation>All changes are saved</translation>
+        <source>disable</source>
+        <translation>Disable</translation>
     </message>
     <message>
         <source>error_setting</source>
         <translation>The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
+    </message>
+    <message>
+        <source>connection_lost</source>
+        <translation>Connection with router was lost. You will be logged out</translation>
     </message>
     <message>
         <source>host_address</source>
@@ -267,18 +259,6 @@
     <message>
         <source>mac_adddress</source>
         <translation>MAC-adddress: *</translation>
-    </message>
-    <message>
-        <source>connection_lost</source>
-        <translation>Connection with router was lost. You will be logged out</translation>
-    </message>
-    <message>
-        <source>enable</source>
-        <translation>Enable</translation>
-    </message>
-    <message>
-        <source>disable</source>
-        <translation>Disable</translation>
     </message>
     <message>
         <source>model</source>
@@ -303,6 +283,85 @@
     <message>
         <source>system_description</source>
         <translation>System description:</translation>
+    </message>
+</context>
+<context>
+    <name>GeneralConfigurationTab</name>
+    <message>
+        <source>general_settings</source>
+        <translation type="vanished">General settings</translation>
+    </message>
+    <message>
+        <source>save_settings</source>
+        <translation>Save settings</translation>
+    </message>
+    <message>
+        <source>change_settings</source>
+        <translation>Change</translation>
+    </message>
+    <message>
+        <source>changes_saved</source>
+        <translation>All changes are saved</translation>
+    </message>
+    <message>
+        <source>error_setting</source>
+        <translation type="vanished">The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
+    </message>
+    <message>
+        <source>host_address</source>
+        <translation type="vanished">Host address:</translation>
+    </message>
+    <message>
+        <source>network_mask</source>
+        <translation type="vanished">Network mask:</translation>
+    </message>
+    <message>
+        <source>mac_adddress</source>
+        <translation type="vanished">MAC-adddress: *</translation>
+    </message>
+    <message>
+        <source>connection_lost</source>
+        <translation type="vanished">Connection with router was lost. You will be logged out</translation>
+    </message>
+    <message>
+        <source>enable</source>
+        <translation type="vanished">Enable</translation>
+    </message>
+    <message>
+        <source>disable</source>
+        <translation type="vanished">Disable</translation>
+    </message>
+    <message>
+        <source>model</source>
+        <translation type="vanished">Model: *</translation>
+    </message>
+    <message>
+        <source>sw_version</source>
+        <translation type="vanished">Firmware version: *</translation>
+    </message>
+    <message>
+        <source>management_vlan</source>
+        <translation type="vanished">Native VLAN:</translation>
+    </message>
+    <message>
+        <source>broadcast_storm</source>
+        <translation type="vanished">Storm control:</translation>
+    </message>
+    <message>
+        <source>gateway</source>
+        <translation type="vanished">Gateway:</translation>
+    </message>
+    <message>
+        <source>system_description</source>
+        <translation type="vanished">System description:</translation>
+    </message>
+    <message>
+        <source>general_config_subtab</source>
+        <translation>General settings</translation>
+    </message>
+    <message>
+        <source>update_general_config</source>
+        <translation>Update</translation>
     </message>
 </context>
 <context>
@@ -357,7 +416,7 @@
     <name>PoeSubtab</name>
     <message>
         <source>poe_subtab</source>
-        <translation>Power over Ethernet Configuration</translation>
+        <translation type="vanished">Power over Ethernet Configuration</translation>
     </message>
     <message>
         <source>enable</source>
@@ -369,15 +428,15 @@
     </message>
     <message>
         <source>save_settings</source>
-        <translation>Save</translation>
+        <translation type="vanished">Save</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation>Change</translation>
+        <translation type="vanished">Change</translation>
     </message>
     <message>
         <source>changes_saved</source>
-        <translation>All changes are saved</translation>
+        <translation type="vanished">All changes are saved</translation>
     </message>
     <message>
         <source>error_setting</source>
@@ -389,7 +448,7 @@
     </message>
     <message>
         <source>update_poe_setup_list</source>
-        <translation>Update</translation>
+        <translation type="vanished">Update</translation>
     </message>
     <message>
         <source>port_num</source>
@@ -422,12 +481,32 @@
         <source>poe_tab_title</source>
         <translation type="vanished">PoE (Power over Ethernet) Configuration</translation>
     </message>
+    <message>
+        <source>poe_subtab</source>
+        <translation>Power over Ethernet Configuration</translation>
+    </message>
+    <message>
+        <source>save_settings</source>
+        <translation>Save</translation>
+    </message>
+    <message>
+        <source>change_settings</source>
+        <translation>Change</translation>
+    </message>
+    <message>
+        <source>changes_saved</source>
+        <translation>All changes are saved</translation>
+    </message>
+    <message>
+        <source>update_poe_setup_list</source>
+        <translation>Update</translation>
+    </message>
 </context>
 <context>
     <name>PortSetupSubtab</name>
     <message>
         <source>port_setup</source>
-        <translation>Настройка</translation>
+        <translation type="vanished">Настройка</translation>
     </message>
     <message>
         <source>port_setup_title</source>
@@ -479,27 +558,27 @@
     </message>
     <message>
         <source>save_settings</source>
-        <translation>Save</translation>
+        <translation type="vanished">Save</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation>Change</translation>
+        <translation type="vanished">Change</translation>
     </message>
     <message>
         <source>changes_saved</source>
-        <translation>All changes are saved</translation>
+        <translation type="vanished">All changes are saved</translation>
     </message>
     <message>
         <source>error_setting</source>
-        <translation>The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
+        <translation type="vanished">The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
     </message>
     <message>
         <source>connection_lost</source>
-        <translation>Connection with router was lost. You will be logged out</translation>
+        <translation type="vanished">Connection with router was lost. You will be logged out</translation>
     </message>
     <message>
         <source>update_port_setup_list</source>
-        <translation>Update</translation>
+        <translation type="vanished">Update</translation>
     </message>
     <message>
         <source>port_num</source>
@@ -527,14 +606,45 @@
     </message>
 </context>
 <context>
+    <name>PortSetupTab</name>
+    <message>
+        <source>port_setup</source>
+        <translation>Настройка</translation>
+    </message>
+    <message>
+        <source>save_settings</source>
+        <translation>Save</translation>
+    </message>
+    <message>
+        <source>change_settings</source>
+        <translation>Change</translation>
+    </message>
+    <message>
+        <source>changes_saved</source>
+        <translation>All changes are saved</translation>
+    </message>
+    <message>
+        <source>error_setting</source>
+        <translation>The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
+    </message>
+    <message>
+        <source>connection_lost</source>
+        <translation>Connection with router was lost. You will be logged out</translation>
+    </message>
+    <message>
+        <source>update_port_setup_list</source>
+        <translation>Update</translation>
+    </message>
+</context>
+<context>
     <name>PortStatusCountersSubtab</name>
     <message>
         <source>port_status_counters</source>
-        <translation>Counters</translation>
+        <translation type="vanished">Counters</translation>
     </message>
     <message>
         <source>update_port_status_counters_list</source>
-        <translation>Update list</translation>
+        <translation type="vanished">Update list</translation>
     </message>
     <message>
         <source>port</source>
@@ -566,14 +676,25 @@
     </message>
 </context>
 <context>
+    <name>PortStatusCountersTab</name>
+    <message>
+        <source>port_status_counters</source>
+        <translation>Counters</translation>
+    </message>
+    <message>
+        <source>update_port_status_counters_list</source>
+        <translation>Update</translation>
+    </message>
+</context>
+<context>
     <name>PortStatusSubtab</name>
     <message>
         <source>port_status</source>
-        <translation>Status</translation>
+        <translation type="vanished">Status</translation>
     </message>
     <message>
         <source>update_port_status_list</source>
-        <translation>Update list</translation>
+        <translation type="vanished">Update list</translation>
     </message>
     <message>
         <source>port</source>
@@ -594,6 +715,17 @@
     <message>
         <source>flow_control</source>
         <translation>Flow control:   </translation>
+    </message>
+</context>
+<context>
+    <name>PortStatusTab</name>
+    <message>
+        <source>port_status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <source>update_port_status_list</source>
+        <translation>Update</translation>
     </message>
 </context>
 <context>
@@ -721,10 +853,77 @@
     </message>
 </context>
 <context>
+    <name>VlanSetupSubtab</name>
+    <message>
+        <source>untag</source>
+        <translation>Untagged</translation>
+    </message>
+    <message>
+        <source>tagged</source>
+        <translation>Tagged</translation>
+    </message>
+    <message>
+        <source>port_num</source>
+        <translation>Port </translation>
+    </message>
+    <message>
+        <source>vlan_num</source>
+        <translation>VLAN </translation>
+    </message>
+    <message>
+        <source>portPvidText</source>
+        <translation>Port PVID:</translation>
+    </message>
+    <message>
+        <source>portTagging</source>
+        <translation>Port tagging:</translation>
+    </message>
+</context>
+<context>
     <name>VlanSetupTab</name>
     <message>
         <source>vlan_tab_title</source>
-        <translation>VLAN Setup</translation>
+        <translation type="vanished">VLAN Setup</translation>
+    </message>
+    <message>
+        <source>vlan_subtab</source>
+        <translation>VLAN</translation>
+    </message>
+    <message>
+        <source>noVlan</source>
+        <translation>No VLAN</translation>
+    </message>
+    <message>
+        <source>portBased</source>
+        <translation>Port-based</translation>
+    </message>
+    <message>
+        <source>802.1q</source>
+        <translation>Based on 802.1q</translation>
+    </message>
+    <message>
+        <source>save_settings</source>
+        <translation>Save</translation>
+    </message>
+    <message>
+        <source>change_settings</source>
+        <translation>Change</translation>
+    </message>
+    <message>
+        <source>changes_saved</source>
+        <translation>All changes are saved</translation>
+    </message>
+    <message>
+        <source>error_setting</source>
+        <translation>The problem occured with setting value: %1 = %2. Check input and correct any errors.</translation>
+    </message>
+    <message>
+        <source>connection_lost</source>
+        <translation>Connection with router was lost. You will be logged out</translation>
+    </message>
+    <message>
+        <source>update_vlan_setup_list</source>
+        <translation>Update</translation>
     </message>
 </context>
 <context>
@@ -738,7 +937,7 @@
     <name>WifiConfigurationSubtab</name>
     <message>
         <source>wifi</source>
-        <translation>Wi-Fi</translation>
+        <translation type="vanished">Wi-Fi</translation>
     </message>
     <message>
         <source>on</source>
@@ -750,15 +949,15 @@
     </message>
     <message>
         <source>save_settings</source>
-        <translation>Save settings</translation>
+        <translation type="vanished">Save settings</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation>Change settings</translation>
+        <translation type="vanished">Change settings</translation>
     </message>
     <message>
         <source>changes_saved</source>
-        <translation>All changes are saved</translation>
+        <translation type="vanished">All changes are saved</translation>
     </message>
     <message>
         <source>error_setting</source>
@@ -785,7 +984,7 @@
     <name>WifiConfigurationTab</name>
     <message>
         <source>wifi</source>
-        <translation type="vanished">Wi-Fi</translation>
+        <translation>Wi-Fi</translation>
     </message>
     <message>
         <source>off</source>
@@ -797,15 +996,15 @@
     </message>
     <message>
         <source>save_settings</source>
-        <translation type="vanished">Save settings</translation>
+        <translation>Save</translation>
     </message>
     <message>
         <source>change_settings</source>
-        <translation type="vanished">Change settings</translation>
+        <translation>Change</translation>
     </message>
     <message>
         <source>changes_saved</source>
-        <translation type="vanished">All changes are saved</translation>
+        <translation>All changes are saved</translation>
     </message>
     <message>
         <source>error_setting</source>
@@ -822,6 +1021,10 @@
     <message>
         <source>wap</source>
         <translation type="vanished">Wireless access point:</translation>
+    </message>
+    <message>
+        <source>update_wifi_config</source>
+        <translation>Update</translation>
     </message>
 </context>
 <context>
