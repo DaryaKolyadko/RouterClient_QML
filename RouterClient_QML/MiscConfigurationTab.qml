@@ -8,6 +8,11 @@ Item {
         target: socketcontroller
     }
 
+    function redirectToFirstTab()
+    {
+        miscConfigurationInnerTabView.currentIndex  = 0;
+    }
+
     TabView{
         id: miscConfigurationInnerTabView
         objectName: "miscConfigurationInnerTabView"

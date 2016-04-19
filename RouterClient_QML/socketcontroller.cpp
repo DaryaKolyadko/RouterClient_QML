@@ -36,11 +36,13 @@ SocketController::SocketController(QObject *parent) : QObject(parent)
 void SocketController::recieveLoginClick()
 {
     init();
-//    getPortSetupList();
-//    getPortStatusCountersList();
-//    getPortStatusList();
-//    getInfoAboutWifiConnections();
-//    getPoeSetupList();
+    //    getPortSetupList();
+    //    getPortStatusCountersList();
+    //    getPortStatusList();
+    //    getInfoAboutWifiConnections();
+    //    getPoeSetupList();
+    //    getPortTrunkSetup();
+    //    getVlanSettings();
     getValuesFromServer();
     initBackup();
 }
@@ -60,26 +62,23 @@ void SocketController::init()
 {
     QObject *configurationForm = rootObject->findChild<QObject*>("mainConfigurationForm");
     QObject *generalConfigTab = configurationForm->findChild<QObject*>("generalConfigurationTab");
+    QObject *generalConfigSubtab = generalConfigTab->findChild<QObject*>("generalConfigurationSubtab");
 
-    //    QVariant returnedValue
-    //    QMetaObject::invokeMethod(generalConfigTab, "getNetworkMask", Q_RETURN_ARG(QVariant, returnedValue));
-    //    qDebug() << returnedValue.toString();
-
-    configHostAddressTextInput = generalConfigTab->findChild<QObject*>("hostAddressTextInput");
-    networkMaskTextInput = generalConfigTab->findChild<QObject*>("networkMaskTextInput");
-    macAddressTextInput = generalConfigTab->findChild<QObject*>("macAddressTextInput");
-    modelTextInput = generalConfigTab->findChild<QObject*>("modelTextInput");
-    swVersionTextInput = generalConfigTab->findChild<QObject*>("swVersionTextInput");
-    managementVlanModel = generalConfigTab->findChild<QObject*>("managementVlanListModel");
+    configHostAddressTextInput = generalConfigSubtab->findChild<QObject*>("hostAddressTextInput");
+    networkMaskTextInput = generalConfigSubtab->findChild<QObject*>("networkMaskTextInput");
+    macAddressTextInput = generalConfigSubtab->findChild<QObject*>("macAddressTextInput");
+    modelTextInput = generalConfigSubtab->findChild<QObject*>("modelTextInput");
+    swVersionTextInput = generalConfigSubtab->findChild<QObject*>("swVersionTextInput");
+    managementVlanModel = generalConfigSubtab->findChild<QObject*>("managementVlanListModel");
     managementVlanCount = managementVlanModel->property("count" ).toInt();
-    managementVlanComboBox = generalConfigTab->findChild<QObject*>("managementVlanComboBox");
-    broadcastStormModel = generalConfigTab->findChild<QObject*>("broadcastStormListModel");
-    broadcastStormNameList = generalConfigTab->findChild<QObject*>("broadcastStormList");
+    managementVlanComboBox = generalConfigSubtab->findChild<QObject*>("managementVlanComboBox");
+    broadcastStormModel = generalConfigSubtab->findChild<QObject*>("broadcastStormListModel");
+    broadcastStormNameList = generalConfigSubtab->findChild<QObject*>("broadcastStormList");
     broadcastStormCount = broadcastStormModel->property("count" ).toInt();
-    broadcastStormComboBox = generalConfigTab->findChild<QObject*>("broadcastStormComboBox");
-    gatewayTextInput = generalConfigTab->findChild<QObject*>("gatewayTextInput");
-    systemDescriptionTextInput = generalConfigTab->findChild<QObject*>("systemDescriptionTextInput");
-    generalConfigBackup = generalConfigTab->findChild<QObject*>("localBackup");
+    broadcastStormComboBox = generalConfigSubtab->findChild<QObject*>("broadcastStormComboBox");
+    gatewayTextInput = generalConfigSubtab->findChild<QObject*>("gatewayTextInput");
+    systemDescriptionTextInput = generalConfigSubtab->findChild<QObject*>("systemDescriptionTextInput");
+    generalConfigBackup = generalConfigSubtab->findChild<QObject*>("localBackup");
 
     QObject *wifiTab = configurationForm->findChild<QObject*>("wifiTab");
     QObject *wifiConfigSubtab = wifiTab->findChild<QObject*>("wifiConfigurationSubtab");
@@ -93,14 +92,9 @@ void SocketController::init()
     wifiStatusCount = wifiStatusModel->property("count" ).toInt();
     wifiConfigBackup = wifiConfigSubtab->findChild<QObject*>("localBackup");
 
-    //    QObject *systemInformationTab = configurationForm->findChild<QObject*>("systemInformationTab");
-    //    modelTextInput = systemInformationTab->findChild<QObject*>("modelTextInput");
-    //    hostNameTextInput = systemInformationTab->findChild<QObject*>("hostNameTextInput");
-    //    serviceCodeTextInput = systemInformationTab->findChild<QObject*>("serviceCodeTextInput");
-    //    workGroupTextInput = systemInformationTab->findChild<QObject*>("workGroupTextInput");
-    //    systemInfoBackup = systemInformationTab->findChild<QObject*>("localBackup");
-
-    availableWifiSubtab = wifiTab->findChild<QObject*>("availableWifiSubtab");
+    QObject* availableWifiTab = wifiTab->findChild<QObject*>("availableWifiTab");
+    wifiConnectButton = availableWifiTab->findChild<QObject*>("connectToWifiButton");
+    availableWifiSubtab = availableWifiTab->findChild<QObject*>("availableWifiSubtab");
     wifiConnectionsModel = availableWifiSubtab->findChild<QObject*>("wifiConnectionsModel");
     wifiTableView = availableWifiSubtab->findChild<QObject*>("wifiTableView");
 
@@ -109,10 +103,12 @@ void SocketController::init()
     accountSettingsLoginTextInput = accountSettingsSubtab->findChild<QObject*>("accountSettingsLoginTextInput");
 
     QObject* portsTab = configurationForm->findChild<QObject*>("portsTab");
-    QObject* portStatusSubtab = portsTab->findChild<QObject*>("portStatusSubtab");
+    QObject* portStatusTab = portsTab->findChild<QObject*>("portStatusTab");
+    QObject* portStatusSubtab = portStatusTab->findChild<QObject*>("portStatusSubtab");
     portStatusModel = portStatusSubtab->findChild<QObject*>("portStatusModel");
 
-    portStatusCountersSubtab = portsTab->findChild<QObject*>("portStatusCountersSubtab");
+    QObject* portStatusCountersTab = portsTab->findChild<QObject*>("portStatusCountersTab");
+    portStatusCountersSubtab = portStatusCountersTab->findChild<QObject*>("portStatusCountersSubtab");
     portStatusCountersModel = portStatusCountersSubtab->findChild<QObject*>("portStatusCountersModel");
 
     QObject* portTrunkSetupSubtab = portsTab->findChild<QObject*>("portTrunkSetupSubtab");
@@ -122,7 +118,8 @@ void SocketController::init()
     portTrunkStatusCount = portTrunkStatusModel->property("count").toInt();
     portTrunkConfigBackup = portTrunkSetupSubtab->findChild<QObject*>("localBackup");
 
-    QObject* portSetupSubtab = portsTab->findChild<QObject*>("portSetupSubtab");
+    QObject* portSetupTab = portsTab->findChild<QObject*>("portSetupTab");
+    QObject* portSetupSubtab = portSetupTab->findChild<QObject*>("portSetupSubtab");
     portSetupModel = portSetupSubtab->findChild<QObject*>("portSetupModel");
     portSetupModelCount = portSetupModel->property("count").toInt();
     portSetupModeNameList = portSetupSubtab->findChild<QObject*>("modeList");
@@ -156,37 +153,37 @@ void SocketController::init()
     portTaggingStatusList = vlanSettings->findChild<QObject*>("taggingStatusList");
     portTaggingStatusCount = portTaggingStatusList->property("count").toInt();
 
-//    portCount = 8;//getParamInfo("PortCount");
-//    portRepeater->setProperty("model", portCount);
+    //    portCount = 8;//getParamInfo("PortCount");
+    //    portRepeater->setProperty("model", portCount);
 
-//    QString vlanType = "portBased";//getParamInfo("VlanType");
+    //    QString vlanType = "portBased";//getParamInfo("VlanType");
 
-//    if(vlanType != "noVlan")
-//    {
-//        portCount = 8;//getParamInfo("PortCount");
-//        vlanBackup  = vlanSubtab->findChild<QObject*>("localBackup");
-//        vlanCurrentModel = vlanSubtab->findChild<QObject*>("currentVlanModel");
-//        QVariant retValue;
-//        QMetaObject::invokeMethod(vlanCurrentModel, "init",
-//                                  Q_RETURN_ARG(QVariant, retValue),
-//                                  Q_ARG(QVariant, portCount),
-//                                  Q_ARG(QVariant, vlanCount));
+    //    if(vlanType != "noVlan")
+    //    {
+    //        portCount = 8;//getParamInfo("PortCount");
+    //        vlanBackup  = vlanSubtab->findChild<QObject*>("localBackup");
+    //        vlanCurrentModel = vlanSubtab->findChild<QObject*>("currentVlanModel");
+    //        QVariant retValue;
+    //        QMetaObject::invokeMethod(vlanCurrentModel, "init",
+    //                                  Q_RETURN_ARG(QVariant, retValue),
+    //                                  Q_ARG(QVariant, portCount),
+    //                                  Q_ARG(QVariant, vlanCount));
 
 
-//        if (vlanType == "portBased")
-//        {
-//            QObject* vlanSettings = vlanSubtab->findChild<QObject*>("vlanSettings");
-//            vlanSettings->setProperty("visible", true);
-//            portRepeater = vlanSettings->findChild<QObject*>("portRepeater");
-//            portRepeater->setProperty("model", portCount);
-//        }
+    //        if (vlanType == "portBased")
+    //        {
+    //            QObject* vlanSettings = vlanSubtab->findChild<QObject*>("vlanSettings");
+    //            vlanSettings->setProperty("visible", true);
+    //            portRepeater = vlanSettings->findChild<QObject*>("portRepeater");
+    //            portRepeater->setProperty("model", portCount);
+    //        }
 
-//        QMetaObject::invokeMethod(vlanCurrentModel, "addPortVlanEnabled",
-//                                  Q_RETURN_ARG(QVariant, retValue),
-//                                  Q_ARG(QVariant, 3),
-//                                  Q_ARG(QVariant, 2));
-//    }
-//==================
+    //        QMetaObject::invokeMethod(vlanCurrentModel, "addPortVlanEnabled",
+    //                                  Q_RETURN_ARG(QVariant, retValue),
+    //                                  Q_ARG(QVariant, 3),
+    //                                  Q_ARG(QVariant, 2));
+    //    }
+    //==================
     //getVlanSettings();
     //======
 
@@ -212,7 +209,6 @@ int SocketController::setInfo(QString message)
 int SocketController::setParamInfo(QString paramName, QString paramValue)
 {
     QString resultStr = socket.writeQueryAndReadAnswer("set"  + paramName + " " + paramValue);
-
     if (resultStr.isEmpty())
         return -1;
 
@@ -232,7 +228,6 @@ int SocketController::permitSetInfo(QString message)
 int SocketController::permitSetParamInfo(QString paramName, QString paramValue)
 {
     QString resultStr = socket.writeQueryAndReadAnswer("permitSet"  + paramName + " " + paramValue);
-
     if (resultStr.isEmpty())
         return -1;
 
@@ -271,31 +266,33 @@ void SocketController::close()
 
 void SocketController::getValuesFromServer()
 {
-    configHostAddressTextInput->setProperty("text", hostAddressTextInput->property("text").toString());
-    networkMaskTextInput->setProperty("text", getParamInfo("NetworkMask"));
-    macAddressTextInput->setProperty("text", getParamInfo("MacAddress"));
-    modelTextInput->setProperty("text", getParamInfo("Model"));
-    swVersionTextInput->setProperty("text", getParamInfo("SwVersion"));
-    managementVlanServerValue = getParamInfo("ManagementVlan");
-    managementVlanComboBox->setProperty("currentIndex",
-                                        findIndexByValue(managementVlanModel, managementVlanCount,
-                                                         managementVlanServerValue));
-    broadcastStormServerValue = getParamInfo("BroadcastStormControl");
-    broadcastStormComboBox->setProperty("currentIndex",
-                                        findIndexByValue(broadcastStormNameList, broadcastStormCount,
-                                                         broadcastStormServerValue));
-    gatewayTextInput->setProperty("text", getParamInfo("Gateway"));
-    systemDescriptionTextInput->setProperty("text", getParamInfo("SystemDescription"));
+    //    configHostAddressTextInput->setProperty("text", hostAddressTextInput->property("text").toString());
+    //    networkMaskTextInput->setProperty("text", getParamInfo("NetworkMask"));
+    //    macAddressTextInput->setProperty("text", getParamInfo("MacAddress"));
+    //    modelTextInput->setProperty("text", getParamInfo("Model"));
+    //    swVersionTextInput->setProperty("text", getParamInfo("SwVersion"));
+    //    managementVlanServerValue = getParamInfo("ManagementVlan");
+    //    managementVlanComboBox->setProperty("currentIndex",
+    //                                        findIndexByValue(managementVlanModel, managementVlanCount,
+    //                                                         managementVlanServerValue));
+    //    broadcastStormServerValue = getParamInfo("BroadcastStormControl");
+    //    broadcastStormComboBox->setProperty("currentIndex",
+    //                                        findIndexByValue(broadcastStormNameList, broadcastStormCount,
+    //                                                         broadcastStormServerValue));
+    //    gatewayTextInput->setProperty("text", getParamInfo("Gateway"));
+    //    systemDescriptionTextInput->setProperty("text", getParamInfo("SystemDescription"));
+    getGeneralConfigData();
 
+    //    ssidTextInput->setProperty("text", getParamInfo("Ssid"));
+    //    frequencyRangeComboBox->setProperty("currentIndex",
+    //                                        findIndexByValue(frequencyRangeModel, frequencyRangeCount, //"2.4"));
+    //                                                         getParamInfo("FrequencyRange")));
+    //    wifiStatusServerValue = getParamInfo("WifiStatus");
+    //    wifiStatusComboBox->setProperty("currentIndex",
+    //                                    findIndexByValue(wifiStatusNameList, wifiStatusCount,
+    //                                                     wifiStatusServerValue));
+    getWifiConfiguration();
 
-    ssidTextInput->setProperty("text", getParamInfo("Ssid"));
-    frequencyRangeComboBox->setProperty("currentIndex",
-                                        findIndexByValue(frequencyRangeModel, frequencyRangeCount, //"2.4"));
-                                                         getParamInfo("FrequencyRange")));
-    wifiStatusServerValue = getParamInfo("WifiStatus");
-    wifiStatusComboBox->setProperty("currentIndex",
-                                    findIndexByValue(wifiStatusNameList, wifiStatusCount,
-                                                     wifiStatusServerValue));
     //    modelTextInput->setProperty("text", getParamInfo("Model"));
     //    hostNameTextInput->setProperty("text", getParamInfo("HostName"));
     //    serviceCodeTextInput->setProperty("text", getParamInfo("ServiceCode"));
@@ -307,12 +304,12 @@ void SocketController::getValuesFromServer()
 
     corporationInfoText->setProperty("text", getParamInfo("CorporationInfo"));
     //    vlanCount = getParamInfo("VlanCount");
-//    vlanRepeater->setProperty("model", 8);  //getParamInfo("VlanCount"));
-//    int retValue;
-//    QMetaObject::invokeMethod(vlanCurrentModel, "init",
-//                              Q_RETURN_ARG(QVariant, retValue),
-//                              Q_ARG(QVariant, vlanCount),
-//            Q_ARG(QVariant, portCount));
+    //    vlanRepeater->setProperty("model", 8);  //getParamInfo("VlanCount"));
+    //    int retValue;
+    //    QMetaObject::invokeMethod(vlanCurrentModel, "init",
+    //                              Q_RETURN_ARG(QVariant, retValue),
+    //                              Q_ARG(QVariant, vlanCount),
+    //            Q_ARG(QVariant, portCount));
 
     getInfoAboutWifiConnections();
     getPortStatusList();
@@ -329,9 +326,6 @@ void SocketController::initBackup()
     generalConfigBackup->setProperty("broadcastStorm", broadcastStormServerValue);
     generalConfigBackup->setProperty("gateway", gatewayTextInput->property("text"));
     generalConfigBackup->setProperty("systemDescription", systemDescriptionTextInput->property("text"));
-
-    //    systemInfoBackup->setProperty("hostName", hostNameTextInput->property("text"));
-    //    systemInfoBackup->setProperty("workGroup", workGroupTextInput->property("text"));
     wifiConfigBackup->setProperty("ssid", ssidTextInput->property("text"));
     wifiConfigBackup->setProperty("frequencyRange", frequencyRangeComboBox->property("currentText"));
     wifiConfigBackup->setProperty("wifiStatus", wifiStatusServerValue);
@@ -341,15 +335,19 @@ void SocketController::getVlanSettings()
 {
     vlanSubtab->setProperty("init", true);
     vlanTabId->setProperty("init", true);
-    //QString vlanType = "802.1q";// "portBased";//
+    //QString vlanType =  "portBased";//"802.1q";//
     QString vlanType = getParamInfo("VlanType");
+
+    if(vlanType == emptyString)
+        logOutSignal();
+
     vlanTypeComboBox->setProperty("currentIndex",
                                   findIndexByValue(vlanTypeList, vlanTypeCount,
                                                    vlanType));
 
     if(vlanType != "noVlan")
     {
-        //portCount = 8;//
+        //portCount = 8;
         portCount = getParamInfo("PortCount").toInt();
 
         QVariant retValue;
@@ -364,45 +362,59 @@ void SocketController::getVlanSettings()
                                   Q_RETURN_ARG(QVariant, retValue));
 
         VlanSettingsParser* parser = new VlanSettingsParser();
-        //QString portVlanData = "1 1\n2 1\n3 1\n1 3\n4 2\n5 2\n6 2\n7 3\n8 3\n";//
+
+
         QString portVlanData = getParamInfo("VlanSettings");
+        // QString portVlanData = "1 1\n2 1\n3 1\n1 3\n4 2\n5 2\n6 2\n7 3\n8 3\n";//
+
+         if(portVlanData == emptyString)
+             logOutSignal();
+
         QList<QPair<int, int>> portVlanDataResult = parser->parsePortVlanData(portVlanData);
 
         for (int i = 0; i < portVlanDataResult.count(); i++)
         {
             QPair<int, int> portVlanPair = portVlanDataResult.at(i);
             QMetaObject::invokeMethod(vlanCurrentModel, "addPortVlanEnabled",
-                                  Q_RETURN_ARG(QVariant, retValue),
-                                  Q_ARG(QVariant, portVlanPair.first),
-                                  Q_ARG(QVariant, portVlanPair.second));
+                                      Q_RETURN_ARG(QVariant, retValue),
+                                      Q_ARG(QVariant, portVlanPair.first),
+                                      Q_ARG(QVariant, portVlanPair.second));
         }
 
         //QString portPvidData = "1 1\n2 2\n3 3\n4 4\n5 5\n6 6\n7 7\n8 8\n"; //
         QString portPvidData = getParamInfo("PortsPvid");
+
+        if(portPvidData == emptyString)
+            logOutSignal();
+
         QMap<int, int> portPvidDataResult = parser->parsePortPvidData(portPvidData);
 
         for(int port = 1; port <= portCount; port++)
         {
             QMetaObject::invokeMethod(vlanCurrentModel, "setPortPvid",
-                                  Q_RETURN_ARG(QVariant, retValue),
-                                  Q_ARG(QVariant, port),
-                                  Q_ARG(QVariant, portPvidDataResult[port]));
+                                      Q_RETURN_ARG(QVariant, retValue),
+                                      Q_ARG(QVariant, port),
+                                      Q_ARG(QVariant, portPvidDataResult[port]));
         }
 
         if (vlanType == "802.1q")
         {
             //QString portTaggingData = "1 On\n2 Off\n3 On\n4 On\n5 On\n6 On\n7 On\n8 On\n";//
             QString portTaggingData = getParamInfo("PortsTaggingStatus");
+
+            if(portTaggingData == emptyString)
+                logOutSignal();
+
             QMap<int, QString> portTaggingDataResult = parser->parsePortTaggingData(portTaggingData);
 
             for(int port = 1; port <= portCount; port++)
             {
                 QMetaObject::invokeMethod(vlanCurrentModel, "setPortTaggingStatus",
-                                      Q_RETURN_ARG(QVariant, retValue),
-                                      Q_ARG(QVariant, port),
-                                      Q_ARG(QVariant, findIndexByValue(portTaggingStatusList,
-                                                                       portTaggingStatusCount,
-                                                                       portTaggingDataResult[port])));
+                                          Q_RETURN_ARG(QVariant, retValue),
+                                          Q_ARG(QVariant, port),
+                                          Q_ARG(QVariant, findIndexByValue(portTaggingStatusList,
+                                                                           portTaggingStatusCount,
+                                                                           portTaggingDataResult[port])));
             }
         }
     }
@@ -450,6 +462,7 @@ void SocketController::getInfoAboutWifiConnections()
 void SocketController::getPortTrunkSetup()
 {
     portTrunkStatusServerValue = getParamInfo("PortTrunkStatus");
+    //portTrunkStatusServerValue = "On";
     portTrunkStatusComboBox->setProperty("currentIndex",
                                          findIndexByValue(portTrunkStatusNameList, portTrunkStatusCount,
                                                           portTrunkStatusServerValue));
@@ -472,6 +485,18 @@ void SocketController::getGeneralConfigData()
                                                          broadcastStormServerValue));
     gatewayTextInput->setProperty("text", getParamInfo("Gateway"));
     systemDescriptionTextInput->setProperty("text", getParamInfo("SystemDescription"));
+}
+
+void SocketController::getWifiConfiguration()
+{
+    ssidTextInput->setProperty("text", getParamInfo("Ssid"));
+    frequencyRangeComboBox->setProperty("currentIndex",
+                                        findIndexByValue(frequencyRangeModel, frequencyRangeCount, //"2.4"));
+                                                         getParamInfo("FrequencyRange")));
+    wifiStatusServerValue = getParamInfo("WifiStatus");
+    wifiStatusComboBox->setProperty("currentIndex",
+                                    findIndexByValue(wifiStatusNameList, wifiStatusCount,
+                                                     wifiStatusServerValue));
 }
 
 void SocketController::getPortStatusList()
@@ -606,6 +631,7 @@ void SocketController::getPoeSetupList()
 
 int SocketController::connectToWifi(QString ssid, QString password)
 {
+    setWifiConnectButtonState(false);
     QString result = getInfo(QString("connectToWifi %1 %2").arg(ssid, password));
     return result.toInt();
 }
@@ -640,6 +666,11 @@ QString SocketController::getLogin()
     return loginTextInput->property("text").toString();
 }
 
+void SocketController::setWifiConnectButtonState(bool state)
+{
+    wifiConnectButton->setProperty("enabled", state);
+}
+
 void SocketController::rebootSystem()
 {
     socket.write("rebootSystem");
@@ -667,7 +698,7 @@ int SocketController::sendFile(QString fileName)
         if (result == "")
             return 0;
     }
-    while(result.toInt() != MySslSocket::ok);
+    while(result.toInt() != SslSocketWrapper::ok);
 
 
     int nextBlockSize = size > blockSize ? blockSize : size;
@@ -695,9 +726,9 @@ int SocketController::sendFile(QString fileName)
                 res = socket.writeAndRead(buffer);
 
                 if(res == "")
-                        return 0;
+                    return 0;
             }
-            while(res.toInt() != MySslSocket::ok);
+            while(res.toInt() != SslSocketWrapper::ok);
 
             size -= nextBlockSize;
             nextBlockSize = size > blockSize ? blockSize : size;

@@ -5,7 +5,7 @@
 #include <QVariant>
 #include <QString>
 #include <QQmlApplicationEngine>
-#include "mysslsocket.h"
+#include "sslsocketwrapper.h"
 
 class SocketController : public QObject
 {
@@ -67,6 +67,7 @@ private:
     QString wifiStatusServerValue;
     QObject* wifiTableView;
     QObject* availableWifiSubtab;
+    QObject* wifiConnectButton;
     QObject* accountSettingsLoginTextInput;
     QObject* portStatusModel;
     QObject* portStatusCountersSubtab;
@@ -89,7 +90,7 @@ private:
     int vlanTypeCount;
     QObject* portTaggingStatusList;
     int portTaggingStatusCount;
-    MySslSocket socket;
+    SslSocketWrapper socket;
     void init();
     void getValuesFromServer();
     int findIndexByValue(QObject* model, int count, QString value);
@@ -115,6 +116,7 @@ public slots:
     void getPoeSetupList();
     void getPortTrunkSetup();
     void getGeneralConfigData();
+    void getWifiConfiguration();
     void getVlanSettings();
     QString getLogin();
     QString getInfo(QString message);
@@ -132,6 +134,7 @@ public slots:
     void rebootSystem();
     void restoreSystemDefault();
     int sendFile(QString fileName);
+    void setWifiConnectButtonState(bool state);
 };
 
 #endif // SOCKETCONTROLLER_H

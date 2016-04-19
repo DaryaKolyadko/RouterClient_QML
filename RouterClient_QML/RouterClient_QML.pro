@@ -10,14 +10,14 @@ CONFIG += openssl-linked
 
 SOURCES += main.cpp \
     socketcontroller.cpp \
-    mysslsocket.cpp \
     wifidataparser.cpp \
     parser.cpp \
     portstatusdataparser.cpp \
     portstatuscountersparser.cpp \
     portsetupdataparser.cpp \
     poesetupdataparser.cpp \
-    vlansettingsparser.cpp
+    vlansettingsparser.cpp \
+    sslsocketwrapper.cpp
 
 RESOURCES += qml.qrc \
     icons.qrc \
@@ -33,7 +33,6 @@ include(deployment.pri)
 
 HEADERS += \
     socketcontroller.h \
-    mysslsocket.h \
     wifiinfoparseresult.h \
     wifidataparser.h \
     parser.h \
@@ -45,7 +44,8 @@ HEADERS += \
     portsetupparseresult.h \
     poesetupdataparser.h \
     poesetupparseresult.h \
-    vlansettingsparser.h
+    vlansettingsparser.h \
+    sslsocketwrapper.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

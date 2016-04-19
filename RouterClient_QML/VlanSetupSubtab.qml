@@ -9,7 +9,6 @@ ScrollView {
     implicitWidth: 650
     implicitHeight: 200
     clip: true
-    enabled: false
     horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
     property alias vlanBackup: localBackup
     property alias vlanCurrent: currentVlanModel
@@ -22,12 +21,13 @@ ScrollView {
     property string portPvidStr: "PortPvid"
     property string portTaggingStatusStr: "PortTaggingStatus"
     property bool init: false;
+    property int fontCoefficient: 100
 
     Item {
         id: content
+        enabled: false
         width: Math.max(vlanSetupId.viewport.width, vlanSettings.implicitWidth + 2 * vlanSettings.rowSpacing)
         height: Math.max(vlanSetupId.viewport.height, vlanSettings.implicitHeight + 2 * vlanSettings.columnSpacing)
-        property int fontCoefficient: 100
         property bool portTaggingShow: false
 
         property var regexPvid: /\b(?:(?:[1-8]?))\b/
@@ -184,23 +184,26 @@ ScrollView {
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.leftMargin: vlanSettings.rowSpacing
+            anchors.leftMargin: vlanSetupId.width*0.04
             anchors.rightMargin: vlanSettings.rowSpacing
             anchors.topMargin: vlanSettings.columnSpacing
             clip: true
 
             Column {
+                spacing: vlanSetupId.width*0.04
+
                 Repeater{
                     id: portRepeater
                     objectName: "portRepeater"
 
                     Column{
                         objectName: "columnI"
+                        spacing: 10
 
                         Text{
                             objectName: "textPort"
                             color: "darkGreen"
-                            font.pointSize: (vlanSetupId.height + vlanSetupId.width)/(fontCoefficient - 20)
+                            font.pointSize: (vlanSetupId.viewport.height + vlanSetupId.width)/(fontCoefficient - 20)
                             text: qsTr("port_num") + " #" + (index+1)
                         }
                         Column {
@@ -255,7 +258,6 @@ ScrollView {
                                 TextField{
                                     id: portPvid
                                     objectName: "portPvidTextField"
-                                    text:  "lol"
                                     font.letterSpacing: 1
                                     font.pointSize: (vlanSetupId.height + vlanSetupId.width)/fontCoefficient
                                     style: MyTextFieldStyle{id: portpvidfield}

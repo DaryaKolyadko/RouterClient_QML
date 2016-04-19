@@ -8,21 +8,25 @@ Item {
         target: socketcontroller
     }
 
+    function redirectToFirstTab()
+    {
+        wifiTabInnerTabView.currentIndex  = 0;
+    }
+
     TabView{
-        anchors.fill: parent
         id: wifiTabInnerTabView
         objectName: "wifiTabInnerTabView"
+        anchors.fill: parent
 
-        WifiConfigurationSubtab{
-            id: wifiConfigurationSubtab
-            objectName: "wifiConfigurationSubtab"
-            active: true
+        WifiConfigurationTab{
+            id: wifiConfigurationTab
+            objectName: "wifiConfigurationTab"
             anchors.fill: parent
         }
 
-        AvailableWifiSubtab{
-            id: availableWifiSubtab
-            objectName: "availableWifiSubtab"
+        AvailableWifiTab{
+            id: availableWifiTab
+            objectName: "availableWifiTab"
             active: true
             anchors.fill: parent
         }

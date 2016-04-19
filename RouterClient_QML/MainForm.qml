@@ -87,7 +87,6 @@ ApplicationWindow {
         mainLoginForm.visible = true;
         mainConfigurationForm.redirectToMainPage();
         socketcontroller.close();
-       // appWindow.close();
     }
 
     ResolutionController{

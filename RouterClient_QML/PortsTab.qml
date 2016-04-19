@@ -9,26 +9,33 @@ Item {
         target: socketcontroller
     }
 
+    function redirectToFirstTab()
+    {
+        portsTabView.currentIndex  = 0;
+    }
+
     TabView{
+        id: portsTabView
         anchors.fill: parent
 
-        PortStatusSubtab{
-            id: portStatusSubtab
-            objectName: "portStatusSubtab"
+        PortStatusTab{
+            id: portStatusTab
+            objectName: "portStatusTab"
             anchors.fill: parent
         }
 
-        PortSetupSubtab{
+        PortSetupTab{
             id: portSetupSubtab
-            objectName: "portSetupSubtab"
+            objectName: "portSetupTab"
             anchors.fill: parent
         }
 
-        PortStatusCountersSubtab{
-            id: portStatusCountersSubtab
-            objectName: "portStatusCountersSubtab"
+        PortStatusCountersTab{
+            id: portStatusCountersTab
+            objectName: "portStatusCountersTab"
             anchors.fill: parent
         }
+
 
         PortTrunkSetupSubtab{
             id: portTrunkSetupSubtab

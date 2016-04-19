@@ -9,7 +9,13 @@ Item {
         target: socketcontroller
     }
 
+    function redirectToFirstTab()
+    {
+        vlanTabView.currentIndex  = 0;
+    }
+
     TabView{
+        id: vlanTabView
         anchors.fill: parent
 
         Tab{
@@ -70,7 +76,7 @@ Item {
 
                             onClicked: {
                                 if(userEditingConfiguration) {
-                                    vlanSubtab.enabled = false;
+                                    vlanSubtab.innerContent.enabled = false;
 
                                     if(vlanSubtab.possibleChangedItemIndexes.length == 0) {
                                         vlanSetupMessageDialog.show(qsTr("changes_saved"));
@@ -97,7 +103,7 @@ Item {
                                                 checkSuccess = checkNewPortVlan(paramName, element.port, element.vlan, oldValue, newValue);
 
                                                 if(!checkSuccess)
-                                                    vlanSetupGridView.enabled = true;
+                                                    vlanSubtab.innerContent.enabled = true;
 
                                                 return;
                                             }
@@ -117,7 +123,7 @@ Item {
                                             checkSuccess = checkNewParamValue(paramName, element.port, oldValue, newValue);
 
                                             if(!checkSuccess)
-                                                vlanSetupGridView.enabled = true;
+                                                vlanSubtab.innerContent.enabled = true;
                                             return;
                                         }
                                     });
@@ -156,7 +162,7 @@ Item {
                                             setSuccess = setNewParamValue(paramName, element.port, oldValue, newValue);
                                         });
 
-                                        vlanSubtab.enabled = false;
+                                        vlanSubtab.innerContent.enabled = false;
                                         vlanSubtab.possibleChangedItemIndexes = []
 
                                         if(setSuccess)
@@ -164,7 +170,7 @@ Item {
                                     }
                                 }
                                 else {
-                                    vlanSubtab.enabled = true;
+                                    vlanSubtab.innerContent.enabled = true;
                                 }
                                 userEditingConfiguration = !userEditingConfiguration;
                             }
@@ -232,7 +238,6 @@ Item {
                                 var hasChanges = paramValue !== newParamValue;
 
                                 if (hasChanges == true) {
-                                    //var res = 1;
                                     var res = socketcontroller.setParamInfo(portVlanStr, (port+1) + " " + (vlan+1) + " " + (newParamValue ? "On" : "Off"));
                                     if(res === 1) {
                                         vlanSubtab.vlanBackup.updateField(port, vlan, newParamValue);
@@ -285,7 +290,6 @@ Item {
 
                         function checkNewVlanType(newVlanType)
                         {
-                            //var res = 1;
                             var res = socketcontroller.permitSetParamInfo(vlanTypeStr, newVlanType);
 
                             if(res === 1)
@@ -299,7 +303,6 @@ Item {
 
                         function setNewVlanType(newVlanType)
                         {
-                            //var res = 1;
                             var res = socketcontroller.setParamInfo(vlanTypeStr, newVlanType);
 
                             if(res === 1)

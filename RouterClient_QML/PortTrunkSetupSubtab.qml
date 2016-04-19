@@ -61,7 +61,6 @@ Tab {
             Button{
                 id: changeportTrunkStatus
                 text: userEditingConfiguration ? qsTr("save_settings") : qsTr("change_settings")
-                Layout.columnSpan: 3
                 Layout.fillWidth: true
                 anchors.bottomMargin: bottomMargin
                 onClicked: {

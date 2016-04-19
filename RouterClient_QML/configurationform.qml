@@ -35,6 +35,11 @@ Item {
         configurationForm.previousItemIndex = startPageIndex;
         nameToTab[menuListModel.get(menuListView.
                   currentIndex).objectName].visible = true;
+
+        for (var i = 0; i < menuListModel.count - 1; i++)
+        {
+            nameToTab[menuListModel.get(i).objectName].redirectToFirstTab();
+        }
     }
 
     Connections {
@@ -222,7 +227,6 @@ Rectangle {
         objectName: "generalConfigurationTab"
         anchors.fill: parent
         anchors.topMargin: configurationForm.height*configurationForm.barMarginCoefficient
-        fontCoefficient: fontCoefficient
     }
 
     MiscConfigurationTab{

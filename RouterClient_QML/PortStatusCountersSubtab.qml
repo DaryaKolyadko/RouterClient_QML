@@ -2,165 +2,115 @@ import QtQuick 2.5
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
-Tab {
-    id: portStatusCountersSubtabId
-    active: true
-    title: qsTr("port_status_counters")
+ScrollView {
+    id:portsCountersId
+    implicitWidth: 650
+    implicitHeight: 200
+    clip: true
+    horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
     property int fontCoefficient: 100
 
-    Connections {
-        target: socketcontroller
-    }
+    Item {
+        id: content
+        width: Math.max(portsCountersId.viewport.width, portCounters.implicitWidth + 2 * portCounters.rowSpacing)
+        height: Math.max(portsCountersId.viewport.height, portCounters.implicitHeight + 2 * portCounters.columnSpacing)
 
-    ColumnLayout{
-        id: columnLayout
-        anchors.fill: parent
-       // anchors.right: portSetupSubtab.right
-
-        RowLayout{
-            id: rowLayoutId
-
-            Button{
-                id: updatePortStatusCountersListButton
-                text: qsTr("update_port_status_counters_list")
-                Layout.fillWidth: true
-                onClicked: {
-                    socketcontroller.getPortStatusCountersList();
-                }
-            }
+        Connections {
+            target: socketcontroller
         }
 
-        ColumnLayout{
-            anchors.top: rowLayoutId.bottom
-            anchors.left: columnLayout.left
-            anchors.right: columnLayout.right
-            anchors.bottom: columnLayout.bottom
- //           ScrollView{
-       //         anchors.fill: parent
+        GridLayout{
+            id: portCounters
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: portsCountersId.width*0.04
+            anchors.rightMargin: portCounters.rowSpacing
+            anchors.topMargin: portCounters.columnSpacing
+            clip: true
 
-            Flickable{
-                anchors.fill: parent
-                flickableDirection: Flickable.VerticalFlick
+            Column{
+                spacing: portsCountersId.width*0.04
 
-                    ListView{
-                        id: portStatusCountersListView
-                        anchors.fill: parent
-                        width: columnLayout.width
-                        anchors.leftMargin: rowLayoutId.width*0.05
-                        clip: true
-                        model: portStatusCountersModel
-                        delegate: portStatusCountersListDelegate
-                    }
-               // }
-            }
-        }
+                Repeater{
+                    id: portStatusCountersRepeater
+                    objectName: "portStatusContersRepeater"
+                    model: portStatusCountersModel
 
-        Component {
-            id: portStatusCountersListDelegate
-
-            Item {
-                id: portStatusCountersListDelegateItem
-                width: childrenRect.width //portStatusCountersListView.width
-                anchors.bottomMargin: portStatusCountersListView.width*0.02
-                //height: childrenRect.height + 10
-                height: ((columnLayout.height + columnLayout.width)/fontCoefficient)*24
-
-                Row {
-                    ColumnLayout {
-                        width: portStatusCountersListView.width
-                        Layout.fillWidth: true
+                    Column {
+                        spacing: 10
 
                         Row{
                             Text {
                                 text: qsTr("port") + " #"
                                 color: "darkGreen"
-                                font.pointSize:(columnLayout.height + columnLayout.width)/(fontCoefficient - 10)
+                                font.pointSize:(portsCountersId.viewport.height + portsCountersId.width)/(fontCoefficient - 10)
                             }
                             Text {
                                 text: port
                                 color: "darkGreen"
-                                font.pointSize:(columnLayout.height + columnLayout.width)/(fontCoefficient - 10)
+                                font.pointSize:(portsCountersId.viewport.height + portsCountersId.width)/(fontCoefficient - 10)
                             }
                         }
                         Row{
                             Text {
                                 text: qsTr("rx_packets_count")
-                                font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                                font.pointSize:(portsCountersId.viewport.height + portsCountersId.width)/fontCoefficient
                             }
                             Text {
                                 text: rx_packets_count
-                                font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                                font.pointSize:(portsCountersId.viewport.height + portsCountersId.width)/fontCoefficient
                             }
                         }
                         Row{
                             Text {
                                 text: qsTr("rx_bytes_count")
-                                font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                                font.pointSize:(portsCountersId.viewport.height + portsCountersId.width)/fontCoefficient
                             }
                             Text {
                                 text: rx_bytes_count
-                                font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                                font.pointSize:(portsCountersId.viewport.height + portsCountersId.width)/fontCoefficient
                             }
                         }
                         Row{
                             Text {
                                 text: qsTr("error_count")
-                                font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                                font.pointSize:(portsCountersId.viewport.height + portsCountersId.width)/fontCoefficient
                             }
                             Text {
                                 text: error_count
-                                font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                                font.pointSize:(portsCountersId.viewport.height + portsCountersId.width)/fontCoefficient
                             }
                         }
                         Row{
                             Text {
                                 text: qsTr("tx_packets_count")
-                                font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                                font.pointSize:(portsCountersId.viewport.height + portsCountersId.width)/fontCoefficient
                             }
                             Text {
                                 text: tx_packets_count
-                                font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                                font.pointSize:(portsCountersId.viewport.height + portsCountersId.width)/fontCoefficient
                             }
                         }
                         Row{
                             Text {
                                 text: qsTr("tx_bytes_count")
-                                font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                                font.pointSize:(portsCountersId.viewport.height + portsCountersId.width)/fontCoefficient
                             }
                             Text {
                                 text: tx_bytes_count
-                                font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                                font.pointSize:(portsCountersId.viewport.height + portsCountersId.width)/fontCoefficient
                             }
                         }
                         Row{
+
                             Text {
                                 text: qsTr("collisions")
-                                font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
+                                font.pointSize:(portsCountersId.viewport.height + portsCountersId.width)/fontCoefficient
                             }
                             Text {
                                 text: collisions
-                                font.pointSize:(columnLayout.height + columnLayout.width)/fontCoefficient
-                            }
-                        }
-//                        Rectangle
-//                        {
-//                            height: 1;
-//                            width: columnLayout.width*0.8;
-//                            color: "gray";
-//                           // anchors.leftMargin: columnLayout.width*0.1
-//                            anchors
-//                            {
-//                                left: parent.left;
-//                                bottom: parent.bottom
-//                            }
-//                        }
-
-
-                        MouseArea {
-                            anchors.fill: parent
-
-                            onClicked:{
-                                portStatusCountersListView.currentIndex = index;
+                                font.pointSize:(portsCountersId.viewport.height + portsCountersId.width)/fontCoefficient
                             }
                         }
                     }

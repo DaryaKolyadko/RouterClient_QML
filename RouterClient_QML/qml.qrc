@@ -29,8 +29,13 @@
         <file>WifiTab.qml</file>
         <file>LogOutDialog.qml</file>
         <file>CorporationInfoTab.qml</file>
-        <file>ScrollBar.qml</file>
         <file>PoeSubtab.qml</file>
         <file>VlanSetupSubtab.qml</file>
+        <file>GeneralConfigurationSubtab.qml</file>
+        <file>PortStatusCountersTab.qml</file>
+        <file>PortStatusTab.qml</file>
+        <file>AvailableWifiTab.qml</file>
+        <file>PortSetupTab.qml</file>
+        <file>WifiConfigurationTab.qml</file>
     </qresource>
 </RCC>
