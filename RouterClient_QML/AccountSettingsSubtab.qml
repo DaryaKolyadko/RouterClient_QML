@@ -2,10 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
-Tab{
+Item{
     id: accountSettingsSubtabId
-    active: true
-    title: qsTr("account_settings")
 
     property int bottomMargin: 15//resolution.dp(15) //15
     property int fontCoefficient: 100//resolution.dp(100) // 100
@@ -15,6 +13,10 @@ Tab{
 
     Connections {
         target: socketcontroller
+    }
+
+    function clean() {
+        accountSettingsGridLayout.clean();
     }
 
     GridLayout{
@@ -95,11 +97,21 @@ Tab{
             }
         }
 
+        function clean() {
+            accountSettingsGridLayout.clean();
+        }
+
         GridLayout {
             id: accountSettingsGridLayout
             columns: 3
             anchors.centerIn: parent
             Layout.fillWidth: true
+
+            function clean(){
+                oldPasswordTextInput.text = "";
+                newPasswordTextInput.text = "";
+                confirmPasswordTextInput.text = "";
+            }
 
             Text{
                 id: loginText
@@ -138,7 +150,6 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
-                //text: "123abc" //delete
                 style: MyTextFieldStyle{id: oldpasswordield}
                 validator: RegExpValidator{
                     regExp: regexPassword
@@ -161,7 +172,6 @@ Tab{
                 font.pointSize: (parent.parent.height + parent.parent.width)/fontCoefficient
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
-                //text: "123456" //delete
                 style: MyTextFieldStyle{id: newpasswordfield}
                 validator: RegExpValidator{
                     regExp: regexPassword
