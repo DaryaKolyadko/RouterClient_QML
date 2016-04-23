@@ -5,7 +5,7 @@
     <name>AccountSettingsSubtab</name>
     <message>
         <source>account_settings</source>
-        <translation>Аккаунт</translation>
+        <translation type="vanished">Аккаунт</translation>
     </message>
     <message>
         <source>change_password</source>
@@ -233,6 +233,22 @@
         <source>firmware_upgrade_dialog</source>
         <translation>Вы уверены, что хотите обновить систему? Обновление НЕ может быть прервано! По итогу Вам нужно будет повторно авторизоваться</translation>
     </message>
+    <message>
+        <source>please_choose_file</source>
+        <translation>Пожалуйста, выбирите файл *.bin</translation>
+    </message>
+    <message>
+        <source>upgrade_was_not_sent_connection_lost</source>
+        <translation>Файл обновления НЕ быыл отправлен. Потеряно соединение с маршрутизатором</translation>
+    </message>
+    <message>
+        <source>problem_with_file</source>
+        <translation>Возникла проблема с файлом. Выберите другой</translation>
+    </message>
+    <message>
+        <source>upgrade_was_sent_successfully</source>
+        <translation>Файл обновления был успешно отправлен</translation>
+    </message>
 </context>
 <context>
     <name>GeneralConfigurationSubtab</name>
@@ -396,6 +412,14 @@
         <source>log_in</source>
         <translation>Войти</translation>
     </message>
+    <message>
+        <source>wrong_password</source>
+        <translation>Неверный пароль. Попробуйте снова</translation>
+    </message>
+    <message>
+        <source>connection_problems</source>
+        <translation>Проблемы с соединением. Попробуйте снова</translation>
+    </message>
 </context>
 <context>
     <name>MainForm</name>
@@ -410,6 +434,13 @@
     <message>
         <source>log_out</source>
         <translation>Выйти</translation>
+    </message>
+</context>
+<context>
+    <name>MiscConfigurationTab</name>
+    <message>
+        <source>account_settings</source>
+        <translation>Аккаунт</translation>
     </message>
 </context>
 <context>
@@ -732,7 +763,7 @@
     <name>PortTrunkSetupSubtab</name>
     <message>
         <source>port_trunk_setup</source>
-        <translation>Магистральный порт</translation>
+        <translation>Агрегирование</translation>
     </message>
     <message>
         <source>enable</source>
@@ -807,6 +838,20 @@
     <message>
         <source>restore_system_dialog</source>
         <translation>Вы уверены? Все пользовательские настройки будут сброшены до значения по умолчанию. И система будет перезагружена</translation>
+    </message>
+</context>
+<context>
+    <name>SocketController</name>
+    <message>
+        <source>connection_lost</source>
+        <translation>Соединение с маршрутизатором было утеряно. Вы будете деавторизованы</translation>
+    </message>
+</context>
+<context>
+    <name>SslSocketWrapper</name>
+    <message>
+        <source>error_while_connecting</source>
+        <translation>Ошибка при подключении к хосту: </translation>
     </message>
 </context>
 <context>

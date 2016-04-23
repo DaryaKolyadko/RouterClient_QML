@@ -5,7 +5,7 @@
     <name>AccountSettingsSubtab</name>
     <message>
         <source>account_settings</source>
-        <translation>Account</translation>
+        <translation type="vanished">Account</translation>
     </message>
     <message>
         <source>change_password</source>
@@ -233,6 +233,27 @@
         <source>firmware_upgrade_dialog</source>
         <translation>Are you sure you want to upgrade system? Upgrage must NOT be interrupted! After all you will need to re-login</translation>
     </message>
+    <message>
+        <source>please_choose_file</source>
+        <translation>Please choose file *.bin</translation>
+    </message>
+    <message>
+        <source>upgrade_was_sent</source>
+        <translatorcomment>Файл обновления был успешно отправлен</translatorcomment>
+        <translation type="vanished">Upgrade file was sent successfully</translation>
+    </message>
+    <message>
+        <source>upgrade_was_not_sent_connection_lost</source>
+        <translation>Upgrade was NOT send. Connection with router was lost</translation>
+    </message>
+    <message>
+        <source>problem_with_file</source>
+        <translation>Some problem with file. Choose another one</translation>
+    </message>
+    <message>
+        <source>upgrade_was_sent_successfully</source>
+        <translation>Upgrade file was sent successfully</translation>
+    </message>
 </context>
 <context>
     <name>GeneralConfigurationSubtab</name>
@@ -396,6 +417,14 @@
         <source>log_in</source>
         <translation>Log in</translation>
     </message>
+    <message>
+        <source>wrong_password</source>
+        <translation>Wrong password. Try again</translation>
+    </message>
+    <message>
+        <source>connection_problems</source>
+        <translation>Connection problems. Try again</translation>
+    </message>
 </context>
 <context>
     <name>MainForm</name>
@@ -410,6 +439,13 @@
     <message>
         <source>log_out</source>
         <translation>Log out</translation>
+    </message>
+</context>
+<context>
+    <name>MiscConfigurationTab</name>
+    <message>
+        <source>account_settings</source>
+        <translation>Account</translation>
     </message>
 </context>
 <context>
@@ -609,7 +645,7 @@
     <name>PortSetupTab</name>
     <message>
         <source>port_setup</source>
-        <translation>Настройка</translation>
+        <translation>Setup</translation>
     </message>
     <message>
         <source>save_settings</source>
@@ -807,6 +843,20 @@
     <message>
         <source>restore_system_dialog</source>
         <translation>Are you sure? All user configuration wiil be reset to default. And the system will be reboot</translation>
+    </message>
+</context>
+<context>
+    <name>SocketController</name>
+    <message>
+        <source>connection_lost</source>
+        <translation>Connection with router was lost. You will be logged out</translation>
+    </message>
+</context>
+<context>
+    <name>SslSocketWrapper</name>
+    <message>
+        <source>error_while_connecting</source>
+        <translation>Error occured while connecting to the host: </translation>
     </message>
 </context>
 <context>
