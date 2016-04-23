@@ -40,6 +40,8 @@ Item {
         {
             nameToTab[menuListModel.get(i).objectName].redirectToFirstTab();
         }
+
+        miscConfigurationTab.cleanAccountPage();
     }
 
     Connections {

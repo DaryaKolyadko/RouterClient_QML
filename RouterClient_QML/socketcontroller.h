@@ -15,6 +15,8 @@ private:
     int blockSize = 1024;
     int portCount = 0;
     int vlanCount = 8;
+    bool connectionLost = false;
+    int connectionPort = 10019;
     QString emptyString = "";
     int wifiStatusCount;
     int frequencyRangeCount;
@@ -118,6 +120,7 @@ public slots:
     void getGeneralConfigData();
     void getWifiConfiguration();
     void getVlanSettings();
+    bool isConnectionLost();
     QString getLogin();
     QString getInfo(QString message);
     QString getParamInfo(QString paramName);

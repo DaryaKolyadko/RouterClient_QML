@@ -106,7 +106,7 @@ Tab {
                 {
                     if(fileDialog.filePath == "")
                     {
-                        infoMessageDialog.show("please_choose_file");
+                        infoMessageDialog.show(qsTr("please_choose_file"));
                         return;
                     }
 
@@ -114,14 +114,14 @@ Tab {
                     fileDialog.filePath = "";
 
                     if(res === 1)
-                        infoMessageDialog.show("upgrade_was_sent");
+                        infoMessageDialog.show(qsTr("upgrade_was_sent_successfully"));
                     else if (res === 0)
                     {
-                        errorInfoDialog.show("upgrade_was_not_sent_connection_lost");
+                        errorInfoDialog.show(qsTr("upgrade_was_not_sent_connection_lost"));
                         socketcontroller.logOutSignal();
                     }
                     else if (res === -1)
-                        errorInfoDialog.show("problem_with_file");
+                        errorInfoDialog.show(qsTr("problem_with_file"));
 
                     innerText.text = qsTr("bin_file_choose_text");
                 }

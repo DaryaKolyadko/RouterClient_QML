@@ -61,8 +61,8 @@ bool SslSocketWrapper::doConnectToExistingSocket()
    socket->connectToHostEncrypted(host, port);
 
     // we need to wait...
-   if(!socket->waitForEncrypted(5000)){
-        errorMessage = "Ошибка при подключении к хосту: " + socket->errorString();
+   if(!socket->waitForEncrypted(30000)){
+        errorMessage = QT_TR_NOOP("error_while_connecting") + socket->errorString();
         qDebug() << "Error: " << errorMessage;
         return false;
     }

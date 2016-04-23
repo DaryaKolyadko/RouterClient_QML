@@ -13,16 +13,31 @@ Item {
         miscConfigurationInnerTabView.currentIndex  = 0;
     }
 
+    function cleanAccountPage() {
+        accountSettingsSubtab.item.clean();
+    }
+
     TabView{
         id: miscConfigurationInnerTabView
         objectName: "miscConfigurationInnerTabView"
         anchors.fill: parent
 
-        AccountSettingsSubtab{
+        Tab{
             id: accountSettingsSubtab
             objectName: "accountSettingsSubtab"
+            title: qsTr("account_settings")
             active: true
             anchors.fill: parent
+
+            function clean() {
+                accountSettingsInner.clean();
+            }
+
+            AccountSettingsSubtab{
+                id: accountSettingsInner
+                objectName: "accountSettingsInner"
+                anchors.fill: parent
+            }
         }
 
         RestoreSystemSubtab{

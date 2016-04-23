@@ -32,7 +32,7 @@ Item {
         target: socketcontroller
         onSendErrorMessage:{
             errorOccurred = true;
-            loginFormMessageDialog.show(message);
+            loginFormErrorInfoDialog.show(message);
         }
     }
 
@@ -93,7 +93,7 @@ Item {
                 regExp: regexPassword
             }
             echoMode: TextInput.Password
-            text: "123abc" // delete
+            //text: "123abc" // delete
         }
 
         Text{
@@ -117,7 +117,7 @@ Item {
             Layout.fillHeight: true
             style: MyTextFieldStyle{id: hostfield}
             anchors.bottomMargin: bottomMargin
-            text: "10.54.11.115"//"192.168.1.44"//"10.54.11.115"//"192.168.43.167"//"10.54.11.117"//"192.168.43.167"//"10.54.11.123" // delete
+            //text: "10.150.6.166"//"192.168.100.5" //"10.54.11.115"//"192.168.1.44"//"10.54.11.115"//"192.168.43.167"//"10.54.11.117"//"192.168.43.167"//"10.54.11.123" // delete
             validator: RegExpValidator{
                 regExp: regexHostAddress
             }
@@ -135,16 +135,26 @@ Item {
 
                 if(!errorOccurred) {
                     var result = socketcontroller.confirmLoginAndPassword(loginTextInput.text,
-                                                                          passwordTextInput.text);
+                                                  passwordTextInput.text);
                     console.debug(result);
-                    if(result === 1) {
+                    if(result === 1 && !socketcontroller.isConnectionLost()) {
                         socketcontroller.recieveLoginClick();
-                        loginForm.visible = false;
-                        console.debug("vse ok");
+
+                        if (!socketcontroller.isConnectionLost())
+                        {
+                            loginForm.visible = false;
+                            console.debug("vse ok");
+                        }
+                        else
+                            console.debug("connection problems");
                     }
-                    else {
+                    else if (result === 0){
                         console.debug("vse ploho, ti dodik");
-                        loginFormErrorInfoDialog.show("wrong_password");
+                        loginFormErrorInfoDialog.show(qsTr("wrong_password"));
+                    }
+                    else
+                    {
+                        loginFormErrorInfoDialog.show(qsTr("connection_problems"));
                     }
                 }
                 else

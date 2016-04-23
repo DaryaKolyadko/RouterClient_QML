@@ -16,23 +16,6 @@ Tab {
         target: socketcontroller
     }
 
-
-    Item{
-        id: localBackup
-        objectName: "localBackup"
-        property string portTrunkStatus: ""
-
-        function updateField(fieldName, newFieldValue)
-        {
-            switch (fieldName) {
-            case portTrunkStatusStr:
-                portTrunkStatus = newFieldValue;
-                break;
-            default:
-            }
-        }
-    }
-
     ColumnLayout{
         id: columnLayout
 
@@ -41,6 +24,22 @@ Tab {
             portTrunkStatusListModel.addPortTrunkStatus(qsTr("disable"));
             portTrunkStatusList.addPortTrunkStatus("On");
             portTrunkStatusList.addPortTrunkStatus("Off");
+        }
+
+        Item{
+            id: localBackup
+            objectName: "localBackup"
+            property string portTrunkStatus: ""
+
+            function updateField(fieldName, newFieldValue)
+            {
+                switch (fieldName) {
+                case portTrunkStatusStr:
+                    portTrunkStatus = newFieldValue;
+                    break;
+                default:
+                }
+            }
         }
 
         RowLayout{
